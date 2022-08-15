@@ -5,7 +5,6 @@ const registerRoutes =
             path:"/register",
             name:"register",
             component: ViewRegister
-
     }
 
 export default registerRoutes;
