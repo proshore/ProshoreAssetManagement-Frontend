@@ -1,37 +1,42 @@
 <script>
-import useValidate from '@vuelidate/core'
-import {required} from '@vuelidate/validators'
+import validateEmail from '../../../utils/validateEmail'
+import validatePassword from '@/utils/validatePassword.js'
+import BaseInput from '@/components/BaseInput.vue'
 export default{
   data(){
     return{
-      v$:useValidate(),
       email:'',
-      password:{
-        password:'',
-        cpassword:''
-      }
+      password:'',
+      cpassword:'',
+      isValid:false,
+      errorMessage:''
     }
   },
-   validations(){
-      return{
-      email:{required},
-      password:{
-        password:{required},
-        cpassword:{required}
-      }
-    }
-    },
-  methods:{
+  components:{
+    BaseInput
+  },
    
-    validateField(){
-      this.v$.validate()
-      if (!this.v$.$error){
-          alert("Validation")
+  methods:{
+    validateField(field){
+     let response = {isValid:false, errorMessage:''}
+      if (field ==='email'){
+        
+        response = validateEmail(this.email)
       }
-      else{
-        alert('Not Validated')
+       if (field ==='password'){
+        console.log('entered validation method');
+        response = validatePassword(this.password)
       }
-      
+      if (field ==='cpassword'){
+            response.errorMessage= 'Passwords should match'
+      }
+       this.isValid = response.isValid
+       this.errorMessage = response.errorMessage
+    }
+  },
+  handleSubmit(){
+    if (!this.isValid){
+      alert('Please Fill the Form Correctly')
     }
   }
 }
@@ -49,8 +54,8 @@ export default{
             </div>
           
           <div class="container mt-5">
-            <form>
-              <div class="mb-3">
+            <form @submit.prevent="handleSubmit">
+              <div class="mb-4">
                 <label for="email" class="form-label"
                   >Email</label
                 >
@@ -59,34 +64,33 @@ export default{
                   class="form-control"
                   id="email"
                   placeholder="Example input placeholder"
-                  @click="validateField"
+                  v-model="email"
+                  @field-changed="validateField('email')"
                 />
+                
               </div>
-              <div class="mb-3">
-                <label for="password" class="form-label"
-                  >Password</label
-                >
-                <input
+              <BaseInput
+              name="password"
+              type="password"
+              id="password"
+              label="Password"
+              placeholder="Set Your Password"
+              v-model="password"
+              :error="errorMessage" 
+              @field-changed="validateField('password')"
+              />
+                <BaseInput
+                name="cpassword"
                   type="password"
-                  class="form-control"
-                  id="password"
-                  placeholder="Password"
-                  @click="validateField"
-                />
-              </div>
-              <div class="mb-3">
-                <label for="c-password" class="form-label"
-                  >Confirm Password</label
-                >
-                <input
-                  type="password"
-                  class="form-control"
-                  id="c-password"
+                  id="cpassword"
+                  label="Confirm Password"
                   placeholder="Confirm Password"
-                  @click="validateField"
+                  v-model="cpassword"
+                  :error="errorMessage"
+                  @field-changed="validateField('cpassword')"
                 />
-              </div>
-              <button class="btn btn-warning w-100">Register</button>
+                
+              <button class="btn  w-100 button-color" >Register</button>
             </form>
           </div>
         </div>

@@ -114,3 +114,8 @@ line-height: 39px;
   letter-spacing: 0.5px;
   color: #6C757D;
 }
+.button-color{
+background-color: #FA6731 !important;
+border-radius: 4px !important;
+color:white !important;
+}
