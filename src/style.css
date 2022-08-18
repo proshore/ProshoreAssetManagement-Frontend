@@ -131,7 +131,10 @@ color:white !important;
   height:100%;
   width:15%;
   position:absolute;
-  background-image: url('@/assets/eyeicon.png');
-  background-size: 100% 100%;
+  background-image: url('@/assets/eyeicon.svg');
+  background-size: 30% 30%;
+  background-repeat: no-repeat;
+  /* background-attachment: fixed; */
+  background-position: center;
   right:0;
 }

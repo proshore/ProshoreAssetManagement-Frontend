@@ -4,7 +4,13 @@ const registerRoutes =
         {
             path:"/register",
             name:"register",
-            component: ViewRegister
+            component: ViewRegister,
+            beforeEnter: () => {
+                const isInvited = true;
+                if (!isInvited) {
+                  return false;
+                }
+            }
     }
 
 export default registerRoutes;
