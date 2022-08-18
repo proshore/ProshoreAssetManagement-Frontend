@@ -91,22 +91,26 @@ button:focus-visible {
 .main-container{
   min-height:768px;
 }
+.register-form-container{
+  width:60%;
+}
 .register-img{
-  background-image: url('@/assets/sidepic.png');
+  background-image: url('@/assets/sidepic.jpg');
   background-size: 100% 100%;
 }
 .register-head{
   padding-left: 15px;
 }
 .register-head-title{
-  font-family: 'Reader Trial';
+  /* font-family: 'Reader Trial'; */
 font-style: normal;
 font-weight: 900;
 font-size: 28px;
 line-height: 39px;
+color:#343A40;
 }
 .register-head-subtitle{
-  font-family: 'Reader Trial';
+  /* font-family: 'Reader Trial'; */
   font-style: normal;
   font-weight: 400;
   font-size: 16px;
@@ -118,4 +122,16 @@ line-height: 39px;
 background-color: #FA6731 !important;
 border-radius: 4px !important;
 color:white !important;
+}.password-field{
+  position:relative;
+}
+.icon{
+  /* background-color: #FA6731; */
+  /* max-width: 20px; */
+  height:100%;
+  width:15%;
+  position:absolute;
+  background-image: url('@/assets/eyeicon.png');
+  background-size: 100% 100%;
+  right:0;
 }

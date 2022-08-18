@@ -1,96 +1,172 @@
 <script>
-import validateEmail from '../../../utils/validateEmail'
-import validatePassword from '@/utils/validatePassword.js'
-import BaseInput from '@/components/BaseInput.vue'
-export default{
-  data(){
-    return{
-      email:'',
-      password:'',
-      cpassword:'',
-      isValid:false,
-      errorMessage:''
-    }
+import BaseInput from "@/components/BaseInput.vue";
+import validateEmail from "@/utils/validateEmail";
+import validatePassword from "@/utils/validatePassword.js";
+import {registerUser} from '@/modules/register/services'
+export default {
+  data() {
+    return {
+      email: "",
+
+      password: {
+        value: "",
+        error: "",
+        seen:false
+      },
+
+      cpassword: {
+        value: "",
+        error: "",
+        seen:false
+      },
+    };
   },
-  components:{
-    BaseInput
+  components: {
+    BaseInput,
   },
-   
-  methods:{
-    validateField(field){
-     let response = {isValid:false, errorMessage:''}
-      if (field ==='email'){
-        
-        response = validateEmail(this.email)
+
+  methods: {
+    validateField(field) {
+      console.log('activated');
+      if (field === "email") {
+        let response = validateEmail(this.email.value);
+        this.errorMessage = response.errorMessage;
       }
-       if (field ==='password'){
-        console.log('entered validation method');
-        response = validatePassword(this.password)
+      if (field === "password") {
+        let response = validatePassword(this.password.value);
+        this.password.error = response.errorMessage;
       }
-      if (field ==='cpassword'){
-            response.errorMessage= 'Passwords should match'
+      if (field === "cpassword") {
+        if (this.password.value != this.cpassword.value) {
+          this.cpassword.error = "Passwords should match";
+        } else {
+          this.cpassword.error = "";
+        }
       }
-       this.isValid = response.isValid
-       this.errorMessage = response.errorMessage
-    }
+    },
+    toggleSeen(event){
+      if(event.target.id == 'cpassword'){
+        this.cpassword.seen= !this.cpassword.seen
+      }
+      if(event.target.id == 'password'){
+        this.password.seen= !this.password.seen
+      }
+    },
+    async handleSubmit() {
+      if (!this.password.value && !this.cpassword.value) {
+        alert("please fill the form");
+        return;
+      }
+      if (this.password.value != this.cpassword.value) {
+        this.validateField("cpassword");
+        return;
+      }
+      if (!this.password.error && !this.cpassword.error) {
+        try {
+          const response = await registerUser({
+            email: this.email,
+            password: this.password.value,
+            cpassword: this.cpassword.value,
+            
+          });
+          alert('submitted')
+        } catch (error) {
+          alert(error.message);
+        }
+        return;
+      } 
+      else {
+        alert("fill properly");
+      }
+    },
   },
-  handleSubmit(){
-    if (!this.isValid){
-      alert('Please Fill the Form Correctly')
-    }
-  }
-}
+};
 </script>
 
 <template>
   <div class="container-fluid d-flex justify-content-center">
-    <div class="row w-100 border main-container p-3">
-      <section class="col-5 register-img "></section>
-      <section class="col-6 mx-3  d-flex justify-content-center align-items-center">
-        <div class="w-50 ">
-            <div class="register-head">
-                <h3 class="register-head-title">Register</h3>
-          <sub class="register-head-subtitle">Set your password for the asset management account</sub>
-            </div>
-          
-          <div class="container mt-5">
+    <div class="row w-100 main-container p-3">
+      <section class="d-none d-lg-block col-lg-5 register-img"></section>
+      <section
+        class="
+          col-12 col-lg-6
+          mx-xl-5
+          d-flex
+          justify-content-center
+          align-items-center
+        "
+      >
+        <div class="register-form-container">
+          <div class="register-head">
+            <h3 class="register-head-title">Register</h3>
+            <sub class="register-head-subtitle"
+              >Set your password for the asset management account</sub
+            >
+          </div>
+
+          <div class="container-fluid mt-5">
             <form @submit.prevent="handleSubmit">
+            <div class="mb-4">
+                <label for="name" class="form-label">Full Name:</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="name"
+                  placeholder="John Smilga"
+                />
+              </div>
               <div class="mb-4">
-                <label for="email" class="form-label"
-                  >Email</label
-                >
+                <label for="email" class="form-label">Email:</label>
                 <input
                   type="email"
                   class="form-control"
                   id="email"
-                  placeholder="Example input placeholder"
-                  v-model="email"
+                  placeholder="someone@user.com"
+                  v-model="email.value"
                   @field-changed="validateField('email')"
                 />
-                
               </div>
-              <BaseInput
-              name="password"
-              type="password"
-              id="password"
-              label="Password"
-              placeholder="Set Your Password"
-              v-model="password"
-              :error="errorMessage" 
-              @field-changed="validateField('password')"
-              />
-                <BaseInput
-                name="cpassword"
-                  type="password"
+              <div class="mb-4">
+                 <label for="password" class="form-label">Password:</label>
+                <div class="password-field d-flex">
+
+                  <input
+                  class="form-control"
+                    name="password"
+                    :type="[password.seen? 'text':'password']"
+                    id="password"
+                    label="Password"
+                    placeholder="Set Your Password"
+                    v-model="password.value"
+                    @keyup="validateField('password')"
+                  />
+                  <div class="icon" id="password" @click="(event)=>toggleSeen(event)"></div>
+                </div>
+                 <div v-if="password.error" class="form-text text-danger" v-text="password.error"></div>
+              </div>
+
+              <div class="mb-4">
+                 <label for="cpassword" class="form-label">Confirm Password:</label>
+                <div class="password-field d-flex">
+                <input
+                class="form-control"
+                  name="cpassword"
+                  :type="[cpassword.seen ? 'text':'password']"
                   id="cpassword"
                   label="Confirm Password"
                   placeholder="Confirm Password"
-                  v-model="cpassword"
-                  :error="errorMessage"
-                  @field-changed="validateField('cpassword')"
+                  v-model="cpassword.value"
+                  @keyup="validateField('cpassword')"
                 />
+                <div class="icon" id="cpassword" @click="(event)=>toggleSeen(event)"></div>
+                </div>
                 
-              <button class="btn  w-100 button-color" >Register</button>
+                <div v-if="cpassword.error" class="form-text text-danger" v-text="cpassword.error"></div>
+              </div>
+
+              <button class="btn w-100 w-md-50 button-color" type="submit">
+                Register
+              </button>
             </form>
           </div>
         </div>
