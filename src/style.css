@@ -137,4 +137,51 @@ color:white !important;
   /* background-attachment: fixed; */
   background-position: center;
   right:0;
+} */
+@font-face{
+  font-family: "Reader Trial-Regular";
+  font-style: normal;
+  font-weight: 400;
+  src: url("https://fonts.animaapp.com/ReaderTrial-Regular") format("opentype");
+}
+
+@font-face{
+  font-family: "Reader Trial-Bold";
+  font-style: normal;
+  font-weight: 900;
+  src: url("https://fonts.animaapp.com/ReaderTrial-Bold") format("opentype");
+}
+
+@font-face{
+  font-family: "Reader Trial-Medium";
+  font-style: normal;
+  font-weight: 500;
+  src: url("https://fonts.animaapp.com/ReaderTrial-Medium") format("opentype");
+}
+
+.main-container{
+  min-height:768px;
+}
+.login-img{
+  background-image: url('./assets/sidepic.png');
+  background-size: 100% 100%;
+}
+.login-head{
+  padding-left: 15px;
+}
+.login-head-title{
+font-family: 'Reader Trial-Bold';
+font-style: normal;
+font-weight: 900;
+font-size: 28px;
+line-height: 39px;
+}
+.login-head-subtitle{
+  font-family: 'Reader Trial-Regular';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0.5px;
+  color: #6C757D;
 }
