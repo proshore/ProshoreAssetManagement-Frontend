@@ -137,7 +137,8 @@ color:white !important;
   /* background-attachment: fixed; */
   background-position: center;
   right:0;
-} */
+}
+ /*login part  */
 @font-face{
   font-family: "Reader Trial-Regular";
   font-style: normal;
@@ -159,9 +160,6 @@ color:white !important;
   src: url("https://fonts.animaapp.com/ReaderTrial-Medium") format("opentype");
 }
 
-.main-container{
-  min-height:768px;
-}
 .login-img{
   background-image: url('./assets/sidepic.png');
   background-size: 100% 100%;
