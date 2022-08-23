@@ -49,6 +49,7 @@ export default {
       :value="modelValue"
       @keyup="this.$emit('field-changed')"
       @input="(event) => $emit('update:modelValue', event.target.value)"
+      data-cy
     />
     <div v-if="error" class="form-text text-danger" v-text="error"></div>
   </div>

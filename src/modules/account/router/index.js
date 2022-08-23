@@ -3,7 +3,7 @@ const accountsRoutes = [
 {
     path: "/logout",
     name: "logout",
-    beforeEnter: [logout],
+    beforeEnter:[logout],
   },
 ];
 

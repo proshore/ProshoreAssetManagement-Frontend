@@ -24,7 +24,6 @@ export default{
         response = validateEmail(this.email)
       }
        if (field ==='password'){
-        console.log('entered validation method');
         response = validatePassword(this.password)
       }
       if (field ==='cpassword'){
@@ -78,16 +77,6 @@ export default{
                 v-model="password"
                 :error="errorMessage" 
                 @field-changed="validateField('password')"
-              />
-              <BaseInput
-                name="cpassword"
-                type="password"
-                id="cpassword"
-                label="Confirm Password"
-                placeholder="Confirm Password"
-                v-model="cpassword"
-                :error="errorMessage"
-                @field-changed="validateField('cpassword')"
               />
               <a class="forgot-password" href="#">Forgot Password</a>
                 
