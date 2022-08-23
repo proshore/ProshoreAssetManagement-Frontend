@@ -15,11 +15,19 @@
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title text-primary" id="exampleModalLabel">Invite new member<br><p class="h6">Add a new member to proshore</p></h4>
+     <div class="title">
+      <div class="title-left">
+         <div class="modal-header">
+            <img class="plus-stroke" src="../../../assets/plus-stroke.png" alt=""/>
+            <div class="invite-new-member">Invite new member</div>
+            <!-- <p class="add-new-member">Add a new member to Proshore</p> -->
+          </div> 
         
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            
+          
       </div>
+      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+     </div>
       
       <div class="modal-body">
         <form>
@@ -51,6 +59,98 @@
 </template>
 
 <style>
+@font-face{
+  font-family: "Reader Trial-Bold";
+  font-style: normal;
+  font-weight: 900;
+  src: url("https://fonts.animaapp.com/ReaderTrial-Bold") format("opentype");
+}
 
+@font-face{
+  font-family: "Reader Trial-Medium";
+  font-style: normal;
+  font-weight: 500;
+  src: url("https://fonts.animaapp.com/ReaderTrial-Medium") format("opentype");
+}
+@font-face{
+  font-family: "Reader Trial-Regular";
+  font-style: normal;
+  font-weight: 400;
+  src: url("https://fonts.animaapp.com/ReaderTrial-Regular") format("opentype");
+}
+
+.container{
+  align-items: flex-start;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  height: 100vh;
+  min-height: 500px;
+  min-width: 564px;
+  padding:0px 16px;
+  width:100%;
+}
+.title{
+  align-items: flex-start;
+  align-self: stretch;
+  display: flex;
+  justify-content: space-between;
+  padding: 16px 0px;  
+}
+
+.title-left{
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  height: min-content;
+  width: min-content;
+  
+}
+
+.modal-header{
+  align-items: flex-start;
+  display: flex;
+  gap: 8px;
+  height: min-content;
+  width: min-content;
+}
+.plus-stroke{
+  height: 24px;
+  min-width: 24px;
+}
+.invite-new-member{
+  margin-left: 10px;
+  color: #3852DA;
+  font-family: "Reader Trial-Medium";
+  font-weight: 500;
+  font-size: 24px;
+  letter-spacing: 0.15px;
+  line-height: 24px;
+  margin-top: -1px;
+  min-width: 152px;
+  white-space: nowrap;
+}
+.add-new-member{
+  color: red;
+  font-family: "Reader Trial-Regular";
+  font-size: 12;
+  font-weight: 400;
+  letter-spacing: 0.15px;
+  line-height: 24px;
+  margin-top: -1px;
+  min-width: 152px;
+  white-space: nowrap;
+}
+
+.btn-close{
+ align-items: flex-start;
+ background-color: white;
+ border-radius: 4px;
+ display: flex;
+ gap: 8px;
+ width: min-content;
+}
 
 </style>
