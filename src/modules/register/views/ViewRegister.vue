@@ -3,6 +3,7 @@ import BaseInput from "@/components/BaseInput.vue";
 import validateEmail from "@/utils/validateEmail";
 import validatePassword from "@/utils/validatePassword.js";
 import {registerUser} from '@/modules/register/services'
+import BaseAlert from "../../../components/BaseAlert.vue";
 export default {
   data() {
     return {
@@ -19,15 +20,21 @@ export default {
         error: "",
         seen:false
       },
+      submission:{
+        message:'',
+        isVerified:false
+      }
+      
     };
   },
   components: {
     BaseInput,
-  },
+    BaseAlert
+},
 
   methods: {
     validateField(field) {
-      console.log('activated');
+    
       if (field === "email") {
         let response = validateEmail(this.email.value);
         this.errorMessage = response.errorMessage;
@@ -54,22 +61,24 @@ export default {
     },
     async handleSubmit() {
       if (!this.password.value && !this.cpassword.value) {
-        alert("please fill the form");
+        this.submission.message="Password must be provided";
         return;
       }
       if (this.password.value != this.cpassword.value) {
         this.validateField("cpassword");
+        this.submission.message ="Passwords are not same"
         return;
       }
       if (!this.password.error && !this.cpassword.error) {
         try {
-          const response = await registerUser({
-            email: this.email,
-            password: this.password.value,
-            cpassword: this.cpassword.value,
-            
-          });
-          alert('submitted')
+          // const response = await registerUser({
+          //   email: this.email,
+          //   password: this.password.value,
+          //   cpassword: this.cpassword.value,
+          // });
+          this.submission = {message:"Registered Successfully", isVerified:true}
+          setTimeout(()=>this.$router.push({name:'login'}),2000)
+          console.log('router',this.$router);
         } catch (error) {
           alert(error.message);
         }
@@ -105,6 +114,7 @@ export default {
           </div>
 
           <div class="container-fluid mt-5">
+            <BaseAlert :submission="submission"/>
             <form @submit.prevent="handleSubmit">
             <div class="mb-4">
                 <label for="name" class="form-label">Full Name:</label>
