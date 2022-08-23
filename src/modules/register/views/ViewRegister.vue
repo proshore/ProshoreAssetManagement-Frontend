@@ -8,6 +8,7 @@ export default {
   data() {
     return {
       email: "",
+      name:"",
 
       password: {
         value: "",
@@ -31,14 +32,14 @@ export default {
     BaseInput,
     BaseAlert
 },
+ mounted(){
+      this.email = this.$route.query.email
+      this.name = this.$route.query.name
+    },
 
   methods: {
+
     validateField(field) {
-    
-      if (field === "email") {
-        let response = validateEmail(this.email.value);
-        this.errorMessage = response.errorMessage;
-      }
       if (field === "password") {
         let response = validatePassword(this.password.value);
         this.password.error = response.errorMessage;
@@ -60,6 +61,7 @@ export default {
       }
     },
     async handleSubmit() {
+      this.validateField("cpassword")
       if (!this.password.value && !this.cpassword.value) {
         this.submission.message="Password must be provided";
         return;
@@ -72,22 +74,28 @@ export default {
       if (!this.password.error && !this.cpassword.error) {
         try {
           // const response = await registerUser({
-          //   email: this.email,
-          //   password: this.password.value,
-          //   cpassword: this.cpassword.value,
+            // this.formData()
           // });
           this.submission = {message:"Registered Successfully", isVerified:true}
           setTimeout(()=>this.$router.push({name:'login'}),2000)
-          console.log('router',this.$router);
         } catch (error) {
-          alert(error.message);
+          this.submission.message =error 
         }
         return;
       } 
       else {
-        alert("fill properly");
+        this.submission.message = "The form is not filled properly"
       }
     },
+    formData(){
+      return{
+        name:this.name,
+        email:this.email,
+        password:this.password.value,
+        roleId:this.$route.query.roleId,
+        token:this.$route.params
+      }
+    }
   },
 };
 </script>
@@ -122,7 +130,8 @@ export default {
                   type="text"
                   class="form-control"
                   id="name"
-                  placeholder="John Smilga"
+                  v-model="name"
+                  readonly
                 />
               </div>
               <div class="mb-4">
@@ -131,9 +140,8 @@ export default {
                   type="email"
                   class="form-control"
                   id="email"
-                  placeholder="someone@user.com"
-                  v-model="email.value"
-                  @field-changed="validateField('email')"
+                  v-model="email"
+                  readonly
                 />
               </div>
               <div class="mb-4">
