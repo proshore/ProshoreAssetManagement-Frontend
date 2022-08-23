@@ -132,6 +132,7 @@ export default {
                   id="name"
                   v-model="name"
                   readonly
+                  data-cy
                 />
               </div>
               <div class="mb-4">
@@ -141,6 +142,7 @@ export default {
                   class="form-control"
                   id="email"
                   v-model="email"
+                  data-cy
                   readonly
                 />
               </div>
@@ -157,6 +159,7 @@ export default {
                     placeholder="Set Your Password"
                     v-model="password.value"
                     @keyup="validateField('password')"
+                    data-cy
                   />
                   <div class="icon" id="password" @click="(event)=>toggleSeen(event)"></div>
                 </div>
@@ -175,6 +178,7 @@ export default {
                   placeholder="Confirm Password"
                   v-model="cpassword.value"
                   @keyup="validateField('cpassword')"
+                  data-cy
                 />
                 <div class="icon" id="cpassword" @click="(event)=>toggleSeen(event)"></div>
                 </div>
@@ -182,7 +186,7 @@ export default {
                 <div v-if="cpassword.error" class="form-text text-danger" v-text="cpassword.error"></div>
               </div>
 
-              <button class="btn w-100 w-md-50 button-color" type="submit">
+              <button class="btn w-100 w-md-50 button-color" data-cy="submit" type="submit">
                 Register
               </button>
             </form>
