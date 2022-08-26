@@ -1,13 +1,13 @@
 <script>
-    import reInviteUser from '@/modules/account/components/reInviteUser.vue'
+    import invitationActions from '@/modules/inviteUser/components/invitationActions.vue'
    export default{
     components:{
-        reInviteUser
+        invitationActions
     }
    }
 </script>
 
 <template>
     <h1>Hello World</h1>
-    <reInviteUser/>
+    <invitationActions/>
 </template>
