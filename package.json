@@ -13,6 +13,7 @@
     "@vuelidate/validators": "^2.0.0-alpha.31",
     "axios": "^0.27.2",
     "bootstrap": "^5.2.0",
+    "compass-mixins": "^0.12.12",
     "vue": "^3.2.37",
     "vue-router": "^4.1.3"
   },
