@@ -1,44 +1,66 @@
 <script>
-import validateEmail from '../../../utils/validateEmail'
-import validatePassword from '../../../utils/validatePassword.js'
-import BaseInput from '../../../components/BaseInput.vue'
+import validateEmail from '@/utils/validateEmail'
+import validatePassword from '@/utils/validatePassword.js'
+import BaseInput from '@/components/BaseInput.vue'
+import BaseAlert from "@/components/BaseAlert.vue";
+import {loginUser} from '../services'
 export default{
   data(){
     return{
-      email:'',
+      email:{
+        value:'',
+        error:''
+      },
       password:'',
-      cpassword:'',
-      isValid:false,
-      errorMessage:''
+      password: {
+        value: "",
+        error: "",
+        seen:false
+      },
+      submission:{
+        message:'',
+        isVerified:false
+      }
     }
   },
   components:{
-    BaseInput
+    BaseInput,
+    BaseAlert
   },
    
   methods:{
+    formData(){
+        ({
+          email:this.email.value,
+        password:this.password.value,
+        })
+   },
     validateField(field){
-     let response = {isValid:false, errorMessage:''}
       if (field ==='email'){
-        
-        response = validateEmail(this.email)
+        let response = validateEmail(this.email.value);
+        this.email.error = response.errorMessage
       }
        if (field ==='password'){
-        console.log('entered validation method');
-        response = validatePassword(this.password)
+       let response = validatePassword(this.password.value)
+       this.password.error = response.errorMessage
       }
-      if (field ==='cpassword'){
-            response.errorMessage= 'Passwords should match'
-      }
-       this.isValid = response.isValid
-       this.errorMessage = response.errorMessage
+    },
+  async handleSubmit(){
+    // check if email and password are validated
+    try{
+      await loginUser(
+      this.formData()
+    )
+    }
+    catch(error){
+      this.submission.message = error
+    }
+    
+    },
+    toggleSeen(){
+       this.password.seen= !this.password.seen
     }
   },
-  handleSubmit(){
-    if (!this.isValid){
-      alert('Please Fill the Form Correctly')
-    }
-  }
 }
 </script>
 
@@ -53,7 +75,8 @@ export default{
           <sub class="login-head-subtitle">Sign In to your Asset Management </sub>
             </div>
           
-          <div class="container mt-5">
+          <div class="container-fluid mt-5">
+             <BaseAlert :submission="submission"/>
             <form @submit.prevent="handleSubmit">
               <div class="mb-4">
                 <label for="email" class="form-label"
@@ -64,31 +87,32 @@ export default{
                   class="form-control"
                   id="email"
                   placeholder="Example input placeholder"
-                  v-model="email"
-                  @field-changed="validateField('email')"
+                  v-model="email.value"
+                  @keyup="validateField('email')"
+                  data-cy
                 />
+                <div v-if="email.error" class="form-text text-danger" v-text="email.error"></div>
                 
               </div>
-              <BaseInput
-                name="password"
-                type="password"
-                id="password"
-                label="Password"
-                placeholder="Set Your Password"
-                v-model="password"
-                :error="errorMessage" 
-                @field-changed="validateField('password')"
-              />
-              <BaseInput
-                name="cpassword"
-                type="password"
-                id="cpassword"
-                label="Confirm Password"
-                placeholder="Confirm Password"
-                v-model="cpassword"
-                :error="errorMessage"
-                @field-changed="validateField('cpassword')"
-              />
+              <div class="mb-4">
+                 <label for="password" class="form-label">Password:</label>
+                <div class="password-field d-flex">
+
+                  <input
+                  class="form-control"
+                    name="password"
+                    :type="[password.seen? 'text':'password']"
+                    id="password"
+                    label="Password"
+                    placeholder="Set Your Password"
+                    v-model="password.value"
+                    @keyup="validateField('password')"
+                    data-cy
+                  />
+                  <div class="icon" id="password" @click="toggleSeen"></div>
+                </div>
+                 <div v-if="password.error" class="form-text text-danger" v-text="password.error"></div>
+              </div>
               <a class="forgot-password" href="#">Forgot Password</a>
                 
               <button class="btn  w-100 button-color" >Sign In</button>
