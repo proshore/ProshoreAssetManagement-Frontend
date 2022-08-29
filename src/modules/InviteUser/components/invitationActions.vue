@@ -1,13 +1,33 @@
 <script>
+import {reInviteUser,revokeUser} from '../services'
 export default{
     methods:{
-        reInviteMember(){
-            console.log("reinvitation mail sent successfully");
+        async reInviteMember(){
+            try{
+               const response = await reInviteUser(/*user data*/)
+               //display message coming from response
+                console.log("reinvitation mail sent successfully");
             alert("Reinvitation mail sent successfully")
+            }
+            catch(error){
+                alert("error msg:",error.message)
+                console.log("error:",error.message);
+            }
+           
         },
-        revokeMember(){
-            console.log('revoked member Successfully')
-            alert('Revoked member Successfully')
+        async revokeMember(){
+             try{
+               const response = await revokeUser(/*user data*/)
+               //display message coming from response
+               console.log('revoked member Successfully')
+                alert('Revoked member Successfully')
+            }
+           catch(error){
+               
+                alert("error msg:",error.message)
+                console.log("error:",error);
+            }
+            
         }
     }
 }
