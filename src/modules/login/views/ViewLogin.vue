@@ -46,7 +46,13 @@ export default{
       }
     },
   async handleSubmit(){
-    // check if email and password are validated
+   if (!this.email.value || !this.password.value){
+      return this.submission.message="Fields must not be empty"
+   }
+   if (this.email.error || this.password.error){
+    return this.submission.message="Some fields are not filled properly"
+   }
+
     try{
       await loginUser(
       this.formData()
