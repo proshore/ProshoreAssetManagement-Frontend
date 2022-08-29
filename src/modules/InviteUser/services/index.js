@@ -3,14 +3,20 @@ import apiUrl from '@/constants/routes/invite'
 import API from "@/services/API"
 
 const inviteUser = async(inviteData)=>{
-    return await API.post(apiUrl.INVITE_URL);
+    return await API.post(apiUrl.INVITE_URL,inviteData);
+    // pass authorization token as header on third argument
 }
 //get invitation data from server
- const getInvitationData = async ()=>{
-    return await API.get(apiUrl.RESEND_INVITE_URL);
+ const reInviteUser = async (reInviteData)=>{
+    return await API.post(apiUrl.RESEND_INVITE_URL,reInviteData);
     // pass token in headers
     //server will expire previous token and sends another invitation
     // success response will be provided
  }
 
- export {getInvitationData, inviteUser}
+ const revokeUser = async (revokeData)=>{
+    return await API.post(apiUrl.REVOKE_INVITE_URL,revokeData);
+    // pass token in headers
+ }
+
+ export {inviteUser,reInviteUser,revokeUser}
