@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory} from 'vue-router'
 
+
 import registerRoutes from "@/modules/register/router" 
 import loginRoutes from "@/modules/login/router"
 
