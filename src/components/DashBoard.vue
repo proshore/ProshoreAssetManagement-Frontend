@@ -52,6 +52,8 @@
                     </div>
                     <div id="container">
                         k xa
+                        <!--Nested Router view -->
+                        <!-- responds to the button click of the corresponding section -->
                     </div>
                 </div>
             </div>
