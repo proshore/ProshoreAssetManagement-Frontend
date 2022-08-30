@@ -6,7 +6,7 @@ import loginRoutes from "@/modules/login/router"
 
 const ViewHome = () => import('@/views/ViewHome.vue')
 const ViewDashBoard = () => import('@/components/DashBoard.vue')
-const InvitationsList = () => import('@/modules/InviteUser/components/invitationsList.vue')
+const ViewInvitations = () => import('@/modules/InviteUser/views/ViewInvitations.vue')
 const router = createRouter({
     history: createWebHistory(),
     routes:[
@@ -32,7 +32,7 @@ const router = createRouter({
             {
                 path:'invitations',
                 name:'invitations',
-                component:InvitationsList
+                component:ViewInvitations
             }
         ]
     },
