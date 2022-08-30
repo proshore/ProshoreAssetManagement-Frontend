@@ -1,3 +1,12 @@
+<script>
+import {RouterLink, RouterView} from 'vue-router'
+    export default{
+        name:"DashBoard"
+    }
+    
+    </script>
+    
+
 <template>
      <div class="d-flex" id="wrapper">
             <!-- Sidebar-->
@@ -46,12 +55,12 @@
                 <!-- Page content-->
                 <div class="container-fluid">
                     <div id="btn">
-                        <button type="button" class="btn btn-success">Employees</button>
-                        <button type="button" class="btn btn-success">Vendor</button>
-                        <button type="button" class="btn btn-success">Invitations</button>
+                        <RouterLink :to="{name:'employees'}"><button type="button" class="btn btn-success">Employees</button></RouterLink>
+                        <RouterLink :to="{name:'vendors'}"><button type="button" class="btn btn-success">Vendor</button></RouterLink>
+                        <RouterLink :to="{name:'invitations'}"><button type="button" class="btn btn-success">Invitations</button></RouterLink>
                     </div>
                     <div id="container">
-                        k xa
+                        <RouterView></RouterView>
                         <!--Nested Router view -->
                         <!-- responds to the button click of the corresponding section -->
                     </div>
@@ -60,12 +69,6 @@
         </div>    
 </template>
 
-<script>
-export default{
-    name:"DashBoard"
-}
-
-</script>
 
 <style>
 #wrapper {
