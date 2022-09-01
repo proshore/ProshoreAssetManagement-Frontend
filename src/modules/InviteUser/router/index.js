@@ -1,14 +1,14 @@
-const reInvite =import('../utils/reInvite')
 
-const ViewInvite = ()=> import("../components/InviteUser.vue");
+
+const InviteUser = ()=> import("../components/InviteUser.vue");
 
 const inviteRoutes = [
         {
             path:"/invite",
-            name:"invite",
-            component: ViewInvite
+            name:"InviteUser",
+            component: InviteUser
     }
-    ,
+    
     
 ]
 

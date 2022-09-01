@@ -34,7 +34,7 @@ import {RouterLink, RouterView} from 'vue-router'
             <!-- Page content wrapper-->
             <div id="page-content-wrapper">
                 <!-- Top navigation-->
-                <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <nav class="navbar navbar-expand-lg border-bottom border-3">
                     <div class="container-fluid">
                         <p class="h2">Team</p>
                         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
@@ -95,6 +95,7 @@ import {RouterLink, RouterView} from 'vue-router'
 
 #page-content-wrapper {
     min-width: 100vw;
+    background-color: #E9ECEF;
 }
 
 body.sb-sidenav-toggled #wrapper #sidebar-wrapper {
