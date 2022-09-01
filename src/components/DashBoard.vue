@@ -37,15 +37,15 @@ import {RouterLink, RouterView} from 'vue-router'
                 <nav class="navbar navbar-expand-lg border-bottom border-3">
                     <div class="container-fluid">
                         <p class="h2">Team</p>
-                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                        <button data-cy="navbar-toggle-button" class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
-                                <li class="nav-item active"><a class="nav-link" href="#!">Notifications</a></li>
+                                <li class="nav-item active"><a class="nav-link" data-cy="navbar-notifcations-link" href="#!">Notifications</a></li>
                                 <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Account</a>
+                                    <a data-cy="navbar-account-dropdown" class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Account</a>
                                     <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                        <a class="dropdown-item" href="#!">Profile</a>
-                                        <a class="dropdown-item" href="#!">Logout</a>
+                                        <a data-cy="navbar-account-profile-link" class="dropdown-item" href="#!">Profile</a>
+                                        <a data-cy="navbar-account-logout-link" class="dropdown-item" href="#!">Logout</a>
                                     </div>
                                 </li>
                             </ul>
@@ -55,9 +55,9 @@ import {RouterLink, RouterView} from 'vue-router'
                 <!-- Page content-->
                 <div class="container-fluid">
                     <div id="btn">
-                        <RouterLink :to="{name:'employees'}"><button type="button" class="btn btn-success">Employees</button></RouterLink>
-                        <RouterLink :to="{name:'vendors'}"><button type="button" class="btn btn-success">Vendor</button></RouterLink>
-                        <RouterLink :to="{name:'invitations'}"><button type="button" class="btn btn-success">Invitations</button></RouterLink>
+                        <RouterLink :to="{name:'employees'}"><button type="button" data-cy="employees-tab-btn" class="btn btn-success">Employees</button></RouterLink>
+                        <RouterLink :to="{name:'vendors'}"><button type="button" data-cy="vendors-tab-btn" class="btn btn-success">Vendors</button></RouterLink>
+                        <RouterLink :to="{name:'invitations'}"><button type="button" data-cy="invitations-tab-btn" class="btn btn-success">Invitations</button></RouterLink>
                     </div>
                     <div id="container">
                         <RouterView></RouterView>
