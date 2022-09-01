@@ -95,7 +95,7 @@ export default{
                   placeholder="Example input placeholder"
                   v-model="email.value"
                   @keyup="validateField('email')"
-                  data-cy
+                  data-cy="login-email"
                 />
                 <div v-if="email.error" class="form-text text-danger" v-text="email.error"></div>
                 
@@ -113,15 +113,15 @@ export default{
                     placeholder="Set Your Password"
                     v-model="password.value"
                     @keyup="validateField('password')"
-                    data-cy
+                    data-cy="login-password"
                   />
-                  <div class="icon" id="password" @click="toggleSeen"></div>
+                  <div class="icon" id="password" @click="toggleSeen" data-cy="toggle-seen"></div>
                 </div>
                  <div v-if="password.error" class="form-text text-danger" v-text="password.error"></div>
               </div>
-              <a class="forgot-password" href="#">Forgot Password</a>
+              <a class="forgot-password" href="#" data-cy="login-forgot-password">Forgot Password</a>
                 
-              <button class="btn  w-100 button-color" >Sign In</button>
+              <button class="btn  w-100 button-color" data-cy="login-btn" >Sign In</button>
             </form>
           </div>
         </div>

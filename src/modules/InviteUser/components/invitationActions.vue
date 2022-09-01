@@ -46,11 +46,11 @@ export default{
 <template>
     
      <!-- <li class="dropdown bg-secondary" id="myDropdown"> -->
-           <button class="btn dropdown-img"  data-bs-toggle="dropdown"></button>
+           <button class="btn dropdown-img" data-cy="invitation-action-toggle-btn"  data-bs-toggle="dropdown"></button>
            <ul class="dropdown-menu">
-             <li> <a class="dropdown-item" href="#" @click="reInviteMember(/*data from the corresponding row*/)">Resend Invitation </a></li>
-             <li> <a class="dropdown-item" href="#" @click="revokeMember(/*data from the corresponding row*/)"> Revoke Member </a></li>
-             <li><a class="dropdown-item" href="#"> Delete Entry </a></li>
+             <li> <a class="dropdown-item" href="#" data-cy="resend-invitation-link" @click="reInviteMember(/*data from the corresponding row*/)">Resend Invitation </a></li>
+             <li> <a class="dropdown-item" href="#" data-cy="revoke-invitation-link" @click="revokeMember(/*data from the corresponding row*/)"> Revoke Member </a></li>
+             <li><a class="dropdown-item" href="#" data-cy="delete-invitation-link"> Delete Entry </a></li>
            </ul>
       
 
