@@ -14,7 +14,7 @@ export default{
     methods:{
         async reInviteMember(){
             try{
-               const response = await reInviteUser(/*user data*/)
+               const response = await reInviteUser({name:this.name, email:this.email})
                //display message coming from response
                 console.log("reinvitation mail sent successfully");
             alert("Reinvitation mail sent successfully")
@@ -27,7 +27,7 @@ export default{
         },
         async revokeMember(){
              try{
-               const response = await revokeUser(/*user data*/)
+               const response = await revokeUser({name:this.name, email:this.email})
                //display message coming from response
                console.log('revoked member Successfully')
                 alert('Revoked member Successfully')

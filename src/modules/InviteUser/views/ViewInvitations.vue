@@ -150,9 +150,8 @@ width:fit-content;
  color: #FF4F4F;
 }
 .status-pending{
-  background-color: #FFF4DA;
+  background-color: #FFF4DA !important;
  color: #FFCA48;
-    background-color:#E9ECEF !important;
 }
 tr{
   vertical-align: middle; 
