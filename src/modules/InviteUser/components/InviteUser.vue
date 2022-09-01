@@ -6,9 +6,8 @@
 </script>
 
 <template>
-    <div class="container p-5">
 <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+<button type="button" class="btn invite-button" data-bs-toggle="modal" data-bs-target="#exampleModal">
   Invite member
 </button>
 <!-- Modal -->
@@ -55,7 +54,6 @@
     </div>
   </div>
 </div>
-</div>
 </template>
 
 <style>
@@ -77,6 +75,11 @@
   font-style: normal;
   font-weight: 400;
   src: url("https://fonts.animaapp.com/ReaderTrial-Regular") format("opentype");
+}
+.invite-button{
+  background-color: #FA6731!important;
+  border:none!important;
+  color:white !important;
 }
 
 .container{
