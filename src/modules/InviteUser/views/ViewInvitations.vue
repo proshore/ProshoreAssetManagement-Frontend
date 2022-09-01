@@ -152,5 +152,40 @@ width:fit-content;
 .status-pending{
   background-color: #FFF4DA;
  color: #FFCA48;
+    background-color:#E9ECEF !important;
+}
+tr{
+  vertical-align: middle; 
+}
+.role{
+  font-weight: 600;
+font-size: 15px;
+line-height: 18px;
+text-align: center;
+letter-spacing: 0.25px;
+}
+.role-employee{
+  color:#3852DA;
+}
+.role-vendor{
+  color:#0B102C;
+}
+.status{
+  display: flex;
+flex-direction: row;
+justify-content: flex-end;
+align-items: center;
+padding: 4px 8px;
+border-radius: 12px;
+font-size: 12px;
+width:fit-content;
+}
+.status-expired{
+ background-color: #FFEDED;
+ color: #FF4F4F;
+}
+.status-pending{
+  background-color: #FFF4DA;
+ color: #FFCA48;
 }
 </style>
