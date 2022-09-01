@@ -1,6 +1,16 @@
 <script>
 import {reInviteUser,revokeUser} from '../services'
 export default{
+    props:{
+        name:{
+            type:String,
+            required:true
+        },
+        email:{
+            type:String,
+            required:true
+        }
+    },
     methods:{
         async reInviteMember(){
             try{
@@ -36,15 +46,13 @@ export default{
 <template>
     
      <!-- <li class="dropdown bg-secondary" id="myDropdown"> -->
-       <div class="container  d-flex justify-content-center">
-
-           <button class="btn bg-warning dropdown-img"  data-bs-toggle="dropdown"></button>
+           <button class="btn dropdown-img"  data-bs-toggle="dropdown"></button>
            <ul class="dropdown-menu">
              <li> <a class="dropdown-item" href="#" @click="reInviteMember(/*data from the corresponding row*/)">Resend Invitation </a></li>
              <li> <a class="dropdown-item" href="#" @click="revokeMember(/*data from the corresponding row*/)"> Revoke Member </a></li>
              <li><a class="dropdown-item" href="#"> Delete Entry </a></li>
            </ul>
-       </div>
+      
 
        
     <!-- </li> -->
