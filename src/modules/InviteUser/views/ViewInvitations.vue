@@ -30,6 +30,13 @@
                     contact: "1234567890",
                     role: "Employee",
                     status: "Expired"
+                },
+                {
+                  name: "dummy4 name",
+                  email: "dummy4@email.com",
+                  contact: "1234567890",
+                  role: "Role",
+                  status: "Pending"
                 }
             ]
         };
