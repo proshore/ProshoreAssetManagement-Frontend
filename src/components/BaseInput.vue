@@ -47,7 +47,7 @@ export default {
       :name="name"
       :placeholder="placeholder"
       :value="modelValue"
-      @keyup="this.$emit('field-changed')"
+      @keyup="$emit('field-changed')"
       @input="(event) => $emit('update:modelValue', event.target.value)"
       data-cy
     />
