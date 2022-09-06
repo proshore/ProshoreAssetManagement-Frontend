@@ -53,7 +53,7 @@
 
 <template>
 <!-- Button trigger modal -->
-<button type="button" class="btn invite-button button" data-cy="invite-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
+<button type="button" class="btn invite-button " data-cy="invite-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
   Invite member
 </button>
 <!-- Modal -->
@@ -315,6 +315,12 @@
     min-width: 133px;
     text-align: center;
     white-space: nowrap;
+}
+
+.invite-button{
+    border:1px none;
+    background-color: red;
+    color: white;
 }
 
 </style>
