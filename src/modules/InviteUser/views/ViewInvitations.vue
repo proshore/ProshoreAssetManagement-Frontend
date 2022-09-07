@@ -1,7 +1,7 @@
 <script>
     import InviteUser from '../components/InviteUser.vue'
     import InvitationActions from '../components/invitationActions.vue';
-
+    import axios from 'axios'
     export default{
     components: [
         InviteUser,
@@ -9,39 +9,18 @@
     ],
     data() {
         return {
-            invitations: [
-                {
-                    name: "dummy name",
-                    email: "dummy@email.com",
-                    contact: "1234567890",
-                    role: "Employee",
-                    status: "Pending"
-                },
-                {
-                    name: "dummy1 name",
-                    email: "dummy1@email.com",
-                    contact: "1234567890",
-                    role: "Vendor",
-                    status: "Pending"
-                },
-                {
-                    name: "dummy3 name",
-                    email: "dummy3@email.com",
-                    contact: "1234567890",
-                    role: "Employee",
-                    status: "Expired"
-                },
-                {
-                  name: "dummy4 name",
-                  email: "dummy4@email.com",
-                  contact: "1234567890",
-                  role:"Vendor",
-                  status: "Pending"
-                }
-            ]
+            invitations: []
         };
     },
     components: { InvitationActions,InviteUser },
+    async created(){
+      try{
+        const response = await axios.get(`http://localhost:3000/invited_users`);
+        this.invitations = response.data;
+      }catch(e){
+        console.error(e);
+      }
+    },
     computed:{
         styleRole(){
           return role =>{
