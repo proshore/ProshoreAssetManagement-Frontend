@@ -1,5 +1,6 @@
 <script>
 import {reInviteUser,revokeUser} from '../services'
+import ConformationBox from './conformationBox.vue';
 export default{
     props:{
         name:{
@@ -11,6 +12,9 @@ export default{
             required:true
         }
     },
+    components:{
+    ConformationBox
+},
     methods:{
         async reInviteMember(){
             try{
@@ -26,6 +30,7 @@ export default{
            
         },
         async revokeMember(){
+            
              try{
                const response = await revokeUser({name:this.name, email:this.email})
                //display message coming from response
@@ -48,10 +53,11 @@ export default{
      <!-- <li class="dropdown bg-secondary" id="myDropdown"> -->
            <button class="btn dropdown-img" data-cy="invitation-action-toggle-btn"  data-bs-toggle="dropdown"></button>
            <ul class="dropdown-menu">
-             <li> <a class="dropdown-item" href="#" data-cy="resend-invitation-link" @click="reInviteMember(/*data from the corresponding row*/)">Resend Invitation </a></li>
-             <li> <a class="dropdown-item" href="#" data-cy="revoke-invitation-link" @click="revokeMember(/*data from the corresponding row*/)"> Revoke Member </a></li>
+             <li> <a class="dropdown-item" href="#" data-cy="resend-invitation-link" @click="reInviteMember(/*data from the corresponding row*/)" >Resend Invitation </a></li>
+             <li> <a class="dropdown-item" href="#" data-cy="revoke-invitation-link" @click="revokeMember(/*data from the corresponding row*/)" data-toggle="modal" data-target="#exampleModalCenter"> Revoke Member </a></li>
              <li><a class="dropdown-item" href="#" data-cy="delete-invitation-link"> Delete Entry </a></li>
            </ul>
+           <ConformationBox/>
       
 
        
