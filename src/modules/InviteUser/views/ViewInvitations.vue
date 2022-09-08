@@ -1,39 +1,42 @@
 <script>
-import InviteUser from "../components/InviteUser.vue";
-import InvitationActions from "../components/invitationActions.vue";
-import axios from "axios";
-export default {
-  components: [InviteUser, InvitationActions],
-  data() {
-    return {
-      invitations: [],
-    };
-  },
-  components: { InvitationActions, InviteUser },
-  async created() {
-    try {
-      const response = await axios.get(`http://localhost:3000/invited_users`);
-      this.invitations = response.data;
-    } catch (e) {
-      console.error(e);
-    }
-  },
-  computed: {
-    styleRole() {
-      return (role) => {
-        console.log("role:", role);
-        if (role.toLowerCase() == "employee") {
-          return "role-employee";
-        }
-        if (role.toLowerCase() == "vendor") {
-          return "role-vendor";
-        }
-      };
+    import InviteUser from '../components/InviteUser.vue'
+    import InvitationActions from '../components/invitationActions.vue';
+    import axios from 'axios'
+    export default{
+    components: [
+        InviteUser,
+        InvitationActions
+    ],
+    data() {
+        return {
+            invitations: []
+        };
     },
-    styleStatus() {
-      return (status) => {
-        if (status.toLowerCase() == "pending") {
-          return "status-pending";
+    components: { InvitationActions,InviteUser },
+    async created(){
+      // try{
+      //   const response = await axios.get(`http://localhost:3000/invited_users`);
+      //   this.invitations = response.data;
+      // }catch(e){
+      //   console.error(e);
+      // }
+    },
+    computed:{
+        styleRole(){
+          return role =>{
+          console.log('role:',role);
+          if (role.toLowerCase() == "employee") {
+            return "role-employee"
+          }
+          if (role.toLowerCase() =="vendor") {
+            return "role-vendor"
+          }
+        }
+        },
+        styleStatus(){
+      return status =>{
+        if (status.toLowerCase() =="pending"){
+          return "status-pending"
         }
         if (status.toLowerCase() == "expired") {
           return "status-expired";
