@@ -1,7 +1,5 @@
 <script>
-
 export default {
-  
   props: {
     name: {
       type: String,
@@ -31,9 +29,7 @@ export default {
       required: true,
     },
   },
-  methods: {
-   
-  },
+  methods: {},
 };
 </script>
 
