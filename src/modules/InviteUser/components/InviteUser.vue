@@ -3,6 +3,7 @@
     import validateUserName from '@/utils/validateUserName'
     import BaseInput from '@/components/BaseInput.vue'
     import BaseAlert from "@/components/BaseAlert.vue"
+import { inviteUser } from '../services'
 
     export default{
         name:"InviteUser",
@@ -15,19 +16,26 @@
                 email:{
                     value:'',
                     error:''
+                },
+                role:{
+                    value:""
+                },
+                submission:{
+                    message:"",
+                    isVerified:false
                 }
             }
         },
-        // components:{
-        //     BaseInput,
-        //     BaseAlert
-        // },
+        components:{
+            BaseAlert
+        },
         methods:{
                 formData(){
-                ({
+                return {
                 email:this.email.value,
-                password:this.password.value,
-                })
+                name:this.name.value,
+                role:this.role.value
+                }
             },
             validateField(field){
             if (field ==='name'){
@@ -38,16 +46,26 @@
             let response = validateEmail(this.email.value)
             this.email.error = response.errorMessage
             }
-            }, 
-        },
-        async handlesubmit(){
-            if(!this.name.value || !this.email.value){
+            },
+            async handleSubmit(){
+            console.log(this.role.value);
+            if(!this.name.value || !this.email.value || !this.role.value){
                 return this.submission.message = "Field must not be empty"
             }
-            if(!this.name.error || !this.email.error){
+            if(this.name.error || this.email.error){
                 return this.submission.message = "Some fields are not filled properly"
             }
-         }
+            try{
+                this.submission.isVerified = true
+                const response = await inviteUser(this.formData())
+                
+            }
+            catch(err){
+                this.submission.message = err
+            }
+         } 
+        },
+         
     }    
 </script>
 
@@ -75,7 +93,10 @@
                 
             </div>
         </div>
-        <BaseAlert :submission="submission" />
+        <div class="row w-100 d-flex justify-content-center">
+
+            <BaseAlert :submission="submission" />
+        </div>
         <!-- <form @submit.prevent="handleSubmit"> -->
             <div class="input-frame">
             <div class="input-with-label">
@@ -90,8 +111,9 @@
             </div>
             <div class="input-with-label">
                 <div class="label">Role</div>
-                <select class="input-text" aria-label="Default select example" >
-                <option selected>Select a Role</option>
+                <select class="input-text" aria-label="Default select example" v-model="role.value" >
+                    <!-- role list is provided from backend for proper implementation -->
+                <option selected disabled>Select a Role</option>
                 <option data-cy="invite-select-employee" value="1">Employee</option>
                 <option data-cy="invite-select-vendor" value="2">Vendor</option>
                 </select>
@@ -103,7 +125,7 @@
                 <button class="primary button" type="button" data-cy="invite-cancel-btn" data-bs-dismiss="modal">Cancel</button>
             </div>
             <div class="invite-button">
-                <button class="primary-1 button-1" data-cy="invite-send-btn" >Send Invitation</button>
+                <button class="primary-1 button-1" data-cy="invite-send-btn" @click="handleSubmit" >Send Invitation</button>
             </div>
         </div>
         <!-- </form> -->
