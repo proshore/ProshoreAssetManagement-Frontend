@@ -195,7 +195,6 @@ export default {
 <style>
 @import url("https://fonts.googleapis.com/css2?family=Cedarville+Cursive&family=Poppins:wght@200;300&family=Roboto+Slab:wght@300&display=swap");
 /* font-family: 'Poppins', sans-serif; */
-
 .add-a-dialog-box {
   align-items: flex-start;
   background-color: white;
@@ -209,7 +208,6 @@ export default {
   padding: 0px 16px;
   width: 100%;
 }
-
 .input-frame {
   align-items: flex-start;
   align-self: stretch;
@@ -218,7 +216,6 @@ export default {
   flex-direction: column;
   gap: 32px;
 }
-
 .input-with-label {
   align-items: flex-start;
   align-self: stretch;
@@ -227,14 +224,12 @@ export default {
   flex-direction: column;
   gap: 16px;
 }
-
 .label {
   letter-spacing: 0.1px;
   line-height: 21px;
   margin-top: -1px;
   white-space: nowrap;
 }
-
 .input-text {
   align-items: center;
   align-self: stretch;
@@ -246,7 +241,6 @@ export default {
   justify-content: space-between;
   padding: 10px 16px;
 }
-
 .title {
   align-items: flex-start;
   align-self: stretch;
@@ -255,7 +249,6 @@ export default {
   justify-content: space-between;
   padding: 16px 0px;
 }
-
 .title-left {
   align-items: flex-start;
   border: 1px none;
@@ -263,19 +256,16 @@ export default {
   flex-direction: column;
   gap: 8px;
 }
-
 .header-frame {
   align-items: flex-start;
   border: 1px none;
   display: flex;
   gap: 8px;
 }
-
 .plus-stroke {
   height: 24px;
   min-width: 24px;
 }
-
 .invite-new-member {
   color: #c852da;
   font-size: 16px;
@@ -284,14 +274,12 @@ export default {
   margin-top: -1px;
   white-space: nowrap;
 }
-
 .add-a-new-member-to-proshore {
   color: gray;
   letter-spacing: 0.15px;
   line-height: 21px;
   white-space: nowrap;
 }
-
 .close-button {
   align-items: flex-start;
   background-color: white;
@@ -301,7 +289,6 @@ export default {
   display: flex;
   gap: 8px;
 }
-
 .close-rectangle {
   background-color: white;
   align-items: flex-start;
@@ -311,7 +298,6 @@ export default {
   gap: 8px;
   padding: 13px;
 }
-
 .x-lg {
   height: 11.2px;
   margin-bottom: -0.8px;
@@ -320,7 +306,6 @@ export default {
   margin-top: -0.8px;
   min-width: 11.2px;
 }
-
 .button-frame {
   align-items: center;
   align-self: stretch;
@@ -330,13 +315,11 @@ export default {
   justify-content: flex-end;
   padding: 16px 0px;
 }
-
 .outline-button {
   align-items: flex-start;
   border: 1px none;
   display: flex;
 }
-
 .button {
   align-items: center;
   background-color: white;
@@ -348,7 +331,6 @@ export default {
   justify-content: center;
   padding: 12px 16px;
 }
-
 .primary {
   color: #fa6731;
   font-size: 16px;
@@ -360,7 +342,6 @@ export default {
   text-align: center;
   white-space: nowrap;
 }
-
 .invite-button {
   align-items: center;
   border: 1px none;
@@ -368,7 +349,6 @@ export default {
   display: flex;
   justify-content: center;
 }
-
 .button-1 {
   align-items: center;
   background-color: #fa6731;
@@ -380,7 +360,6 @@ export default {
   justify-content: center;
   padding: 10px 16px;
 }
-
 .primary-1 {
   color: white;
   font-size: 16px;
@@ -392,7 +371,6 @@ export default {
   text-align: center;
   white-space: nowrap;
 }
-
 .invite-button {
   border: 1px none;
   background-color: red;
