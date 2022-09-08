@@ -14,12 +14,12 @@
     },
     components: { InvitationActions,InviteUser },
     async created(){
-      try{
-        const response = await axios.get(`http://localhost:3000/invited_users`);
-        this.invitations = response.data;
-      }catch(e){
-        console.error(e);
-      }
+      // try{
+      //   const response = await axios.get(`http://localhost:3000/invited_users`);
+      //   this.invitations = response.data;
+      // }catch(e){
+      //   console.error(e);
+      // }
     },
     computed:{
         styleRole(){
