@@ -1,46 +1,49 @@
 <script>
 import { reInviteUser, revokeUser } from "../services";
 export default {
-  props: {
-    name: {
-      type: String,
-      required: true,
+    props: {
+        name: {
+            type: String,
+            required: true,
+        },
+        email: {
+            type: String,
+            required: true,
+        },
     },
-    email: {
-      type: String,
-      required: true,
+    methods: {
+        async reInviteMember() {
+            try {
+                const response = await reInviteUser({
+                    name: this.name,
+                    email: this.email,
+                });
+                //display message coming from response
+                console.log("reinvitation mail sent successfully");
+                alert("Reinvitation mail sent successfully");
+            }
+            catch (error) {
+                alert("error msg:", error.message);
+                console.log("error:", error.message);
+            }
+        },
+        async revokeMember() {
+            try {
+                const response = await revokeUser({
+                    name: this.name,
+                    email: this.email,
+                });
+                //display message coming from response
+                console.log("revoked member Successfully");
+                console.log("revoked user", this.name);
+
+            }
+            catch (error) {
+              console.log("revoked user", this.name);
+                console.log("error:", error);
+            }
+        },
     },
-  },
-  methods: {
-    async reInviteMember() {
-      try {
-        const response = await reInviteUser({
-          name: this.name,
-          email: this.email,
-        });
-        //display message coming from response
-        console.log("reinvitation mail sent successfully");
-        alert("Reinvitation mail sent successfully");
-      } catch (error) {
-        alert("error msg:", error.message);
-        console.log("error:", error.message);
-      }
-    },
-    async revokeMember() {
-      try {
-        const response = await revokeUser({
-          name: this.name,
-          email: this.email,
-        });
-        //display message coming from response
-        console.log("revoked member Successfully");
-        alert("Revoked member Successfully");
-      } catch (error) {
-        alert("error msg:", error.message);
-        console.log("error:", error);
-      }
-    },
-  },
 };
 </script>
 
@@ -66,7 +69,8 @@ export default {
         class="dropdown-item"
         href="#"
         data-cy="revoke-invitation-link"
-        @click="revokeMember(/*data from the corresponding row*/)"
+        data-bs-toggle="modal"
+        :data-bs-target="'#'+email"
       >
         Revoke Member
       </a>
@@ -78,7 +82,27 @@ export default {
     </li>
   </ul>
 
-  <!-- </li> -->
+  <!-- Conformation box -->
+  <div class="modal fade" :id="email" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title  m-auto ps-5" id="exampleModalLongTitle">Are you sure?</h5>
+        <button type="button" class="btn close conformation-box-close-btn" data-bs-dismiss="modal" data-cy="conformation-box-close-btn" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body d-flex justify-content-center">
+        <p class="w-75 text-center">Do you want to revoke the invitation of {{name}} ? Once revoked it cannot be undone.</p>
+      </div>
+      <div class="modal-footer d-flex justify-content-center">
+        <button type="button" class="btn conformation-box-no-btn" data-cy="conformation-box-no-btn" data-bs-dismiss="modal">No</button>
+        <button type="button" class="btn conformation-box-yes-btn text-white" data-cy="conformation-box-yes-btn" @click="revokeMember" >Yes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 </template>
 
 <style scoped>
@@ -96,5 +120,33 @@ export default {
   /* position: relative !important; */
   /* display: inline; */
   float: right;
+}
+.modal-header, .modal-footer{
+  border:none !important;
+}
+.modal-title{
+  color:#FA6731;
+  font-size: 30px;
+}
+.btn{
+  padding: 10px 16px !important;
+}
+.conformation-box-no-btn{
+  background: #FFFFFF;
+border: 1px solid #FA6731;
+border-radius: 4px;
+}
+
+.conformation-box-yes-btn{
+  display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+  background: #FA6731;
+border-radius: 4px;
+}
+.conformation-box-close-btn{
+  border: 1px solid #CED4DA;
+border-radius: 4px;
 }
 </style>
