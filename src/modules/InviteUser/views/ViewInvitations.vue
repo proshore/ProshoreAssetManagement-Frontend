@@ -14,17 +14,16 @@
     },
     components: { InvitationActions,InviteUser },
     async created(){
-      // try{
-      //   const response = await axios.get(`http://localhost:3000/invited_users`);
-      //   this.invitations = response.data;
-      // }catch(e){
-      //   console.error(e);
-      // }
+      try{
+        const response = await axios.get(`https://6319958e8e51a64d2be7568b.mockapi.io/invitedUsers`);
+        this.invitations = response.data;
+      }catch(e){
+        console.error(e);
+      }
     },
     computed:{
         styleRole(){
           return role =>{
-          console.log('role:',role);
           if (role.toLowerCase() == "employee") {
             return "role-employee"
           }
