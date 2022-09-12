@@ -28,17 +28,17 @@ export default {
     BaseInput,
     BaseAlert,
   },
-  async created() {
-    try {
-      const response = await axios.get(`http://localhost:3000/login_users`);
-      this.email = response.data.email;
-      console.log(this.email);
-      this.password = response.data.password;
-      console.log(this.password);
-    } catch (e) {
-      console.error(e);
-    }
-  },
+  // async created() {
+  //   try {
+  //     const response = await axios.get(`http://localhost:3000/login_users`);
+  //     this.email = response.data.email;
+  //     console.log(this.email);
+  //     this.password = response.data.password;
+  //     console.log(this.password);
+  //   } catch (e) {
+  //     console.error(e);
+  //   }
+  // },
 
   methods: {
     formData() {
@@ -141,12 +141,18 @@ export default {
                   v-text="password.error"
                 ></div>
               </div>
-              <a
+              <div>
+                <div class="row my-3">
+                  <RouterLink
                 class="forgot-password"
-                href="#"
+                :to="{name:'forgotpassword'}"
                 data-cy="login-forgot-password"
-                >Forgot Password</a
+                >Forgot Password</RouterLink
               >
+                </div>
+               
+              </div>
+              
 
               <button class="btn w-100 button-color" data-cy="login-btn" href="/dashboard" @click="handleSubmit">
                 Sign In
@@ -158,3 +164,21 @@ export default {
     </div>
   </div>
 </template>
+<style scoped>
+.forgot-password{
+  color:#fdc2ad;
+  text-decoration: none;
+  
+}
+.forgot-password::after {
+  display:block;
+  content: '';
+  border-bottom: solid 1px #fdc2ad;  
+  transform: scaleX(0);  
+  transition: transform 250ms ease-in-out;
+}
+.forgot-password:hover::after{
+  transform: scaleX(0.35);
+}
+.forgot-password::after{  transform-origin:  0% 50%; }
+</style>

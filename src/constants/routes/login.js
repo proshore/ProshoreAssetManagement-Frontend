@@ -1,5 +1,6 @@
-const LOGIN_URL ='http://localhost:3000/login_users';
-
+const LOGIN_URL ='';
+const FORGOT_URL ='/forgot';
 export default{
-    LOGIN_URL
+    LOGIN_URL,
+    FORGOT_URL
 }
