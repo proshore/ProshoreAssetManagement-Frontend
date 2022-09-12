@@ -7,4 +7,6 @@ import API from "@/services/API"
     return await API.post(apiUrl.REGISTER_URL,registerData);
  }
 
+ 
+
  export {registerUser}
