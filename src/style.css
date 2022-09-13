@@ -122,7 +122,13 @@ color:#343A40;
 background-color: #FA6731 !important;
 border-radius: 4px !important;
 color:white !important;
-}.password-field{
+transition: 0.8s !important;
+}
+.button-color:hover{
+  background-color: #862112 !important;
+}
+
+.password-field{
   position:relative;
 }
 .icon{

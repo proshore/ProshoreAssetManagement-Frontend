@@ -46,6 +46,9 @@
         } catch (error) {
           this.submission.message = error;
         }
+      },
+      backPage(){
+        this.$router.go(-2)
       }
     },
       }
@@ -56,8 +59,9 @@
       <div class="row w-100 border main-container p-3">
         <section class="col-5 login-img"></section>
         <section
-          class="col-6 mx-3 d-flex justify-content-center align-items-center"
+          class="col-6 mx-3 d-flex justify-content-center align-items-center form-container"
         >
+        <button class="btn back-btn" @click="backPage" data-cy="back-btn-forgot-done">&#8592;</button>
           <div class="w-50">
             <div class="login-head">
               <h3 class="login-head-title">Check Your Email</h3>
@@ -71,7 +75,7 @@
             <div class="container-fluid mt-5">
               
   
-                <button class="btn w-100 button-color" data-cy="forgot-password-btn" @click="this.$router.push({name:'login'})" >
+                <button class="btn w-100 button-color" data-cy="forgot-password-done-btn" @click="this.$router.push({name:'login'})" >
                   Done
                 </button>
             </div>
@@ -80,3 +84,15 @@
       </div>
     </div>
   </template>
+  <style scoped>
+    .form-container{
+      position:relative;
+    }
+    .back-btn{
+      position:absolute;
+      top:0;
+      left:0;
+      border-radius:50%;
+      background-color: #F8F8F8 !important;
+    }
+    </style>
