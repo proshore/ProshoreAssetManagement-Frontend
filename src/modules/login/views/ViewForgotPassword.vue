@@ -46,6 +46,9 @@ import router from '../../../router';
       } catch (error) {
         this.submission.message = error;
       }
+    },
+    backPage(){
+      this.$router.go(-1)
     }
   },
     }
@@ -55,9 +58,11 @@ import router from '../../../router';
      <div class="container-fluid d-flex justify-content-center">
     <div class="row w-100 border main-container p-3">
       <section class="col-5 login-img"></section>
+      <!-- the following section and viewSendMail could be divided into two components and displayed here conditionally to reduce redundency and extra coding   -->
       <section
-        class="col-6 mx-3 d-flex justify-content-center align-items-center"
+        class="col-6 mx-3 d-flex justify-content-center align-items-center form-container"
       >
+      <button class="btn back-btn" @click="backPage" data-cy="back-btn-forgot">&#8592;</button>
         <div class="w-50">
           <div class="login-head">
             <h3 class="login-head-title">Forgot Password</h3>
@@ -92,13 +97,26 @@ import router from '../../../router';
               </div>
               
 
-              <button class="btn w-100 button-color" data-cy="forgot-password-btn" :v-text="buttonText">
+              <button class="btn w-100 button-color" data-cy="forgot-password-btn" >
                 {{buttonText}}
               </button>
             </form>
           </div>
         </div>
+       
       </section>
     </div>
   </div>
 </template>
+<style scoped>
+.form-container{
+  position:relative;
+}
+.back-btn{
+  position:absolute;
+  top:0;
+  left:0;
+  border-radius:50%;
+  background-color: #F8F8F8 !important;
+}
+</style>
