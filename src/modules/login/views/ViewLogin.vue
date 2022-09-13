@@ -43,8 +43,12 @@ export default {
   methods: {
     formData() {
       ({
+        token:"1bxXVTgMmdgiClqXZ8Rdmg",
+        data:{
         email: this.email.value,
         password: this.password.value,
+        }
+        
       });
     },
     validateField(field) {
@@ -67,7 +71,15 @@ export default {
       }
 
       try {
-        await loginUser(this.formData());
+        const response = await loginUser(this.formData());
+        if(response.data.success = true){
+          console.log(response);
+          this.submission.message="Login Successful"
+          this.submission.isVerified = true
+          setTimeout(()=>{
+            this.$router.push({name:"dashboard"})
+          },2000)
+        }
       } catch (error) {
         this.submission.message = error;
       }
@@ -154,7 +166,7 @@ export default {
               </div>
               
 
-              <button class="btn w-100 button-color" data-cy="login-btn" href="/dashboard" @click="handleSubmit">
+              <button class="btn w-100 button-color" data-cy="login-btn" href="/dashboard">
                 Sign In
               </button>
             </form>
@@ -179,6 +191,7 @@ export default {
 }
 .forgot-password:hover::after{
   transform: scaleX(0.35);
+  transition: transform 250ms ease-in;
 }
 .forgot-password::after{  transform-origin:  0% 50%; }
 </style>
