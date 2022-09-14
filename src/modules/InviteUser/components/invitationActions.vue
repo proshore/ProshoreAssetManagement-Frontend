@@ -10,14 +10,25 @@ export default {
             type: String,
             required: true,
         },
+        contact:{
+          type:String,
+          required:true
+        }
+        
     },
     methods: {
-        async reInviteMember() {
-            try {
-                const response = await reInviteUser({
+      bodyData(){
+        return   {
+                  token:"1bxXVTgMmdgiClqXZ8Rdmg",
+                  data:{
                     name: this.name,
                     email: this.email,
-                });
+                }}
+              
+      },
+        async reInviteMember() {
+            try {
+                const response = await reInviteUser(this.bodyData());
                 //display message coming from response
                 console.log("reinvitation mail sent successfully");
                 alert("Reinvitation mail sent successfully");
@@ -29,13 +40,11 @@ export default {
         },
         async revokeMember() {
             try {
-                const response = await revokeUser({
-                    name: this.name,
-                    email: this.email,
-                });
+                const response = await revokeUser(this.bodyData());
                 //display message coming from response
                 console.log("revoked member Successfully");
                 console.log("revoked user", this.name);
+                console.log(response.data);
 
             }
             catch (error) {
@@ -70,7 +79,7 @@ export default {
         href="#"
         data-cy="revoke-invitation-link"
         data-bs-toggle="modal"
-        :data-bs-target="'#'+email"
+        :data-bs-target="'#_'+contact"
       >
         Revoke Member
       </a>
@@ -83,7 +92,7 @@ export default {
   </ul>
 
   <!-- Conformation box -->
-  <div class="modal fade" :id="email" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal fade" :id="'_'+contact" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -97,7 +106,7 @@ export default {
       </div>
       <div class="modal-footer d-flex justify-content-center">
         <button type="button" class="btn conformation-box-no-btn" data-cy="conformation-box-no-btn" data-bs-dismiss="modal">No</button>
-        <button type="button" class="btn conformation-box-yes-btn text-white" data-cy="conformation-box-yes-btn" @click="revokeMember" >Yes</button>
+        <button type="button" class="btn conformation-box-yes-btn text-white" data-cy="conformation-box-yes-btn" @click="revokeMember"  data-bs-dismiss="modal" >Yes</button>
       </div>
     </div>
   </div>
@@ -109,7 +118,7 @@ export default {
 .dropdown-img {
   height: 30px !important;
   width: 20px !important;
-  background-image: url("@/assets/actionIcon.svg");
+  background-image: url("@/assets/images/actionIcon.svg");
   background-size: 100% 100%;
   background-repeat: no-repeat;
   /* background-attachment: fixed; */

@@ -73,7 +73,7 @@ import { inviteUser } from '../services'
   <!-- Button trigger modal -->
   <button
     type="button"
-    class="btn invite-button"
+    class="btn invite-button button-color"
     data-cy="invite-btn"
     data-bs-toggle="modal"
     data-bs-target="#exampleModal"
@@ -95,7 +95,7 @@ import { inviteUser } from '../services'
             <div class="title-left">
               <div class="header-frame">
                 <img
-                  src="../../../assets/plus-stroke.png"
+                  src="@/assets/images/plus-stroke.png"
                   alt=""
                   class="plus-stroke"
                 />
@@ -112,7 +112,7 @@ import { inviteUser } from '../services'
                 data-cy="close-invite-btn"
                 data-bs-dismiss="modal"
               >
-                <img src="../../../assets/x-lg.png" alt="" class="x-lg" />
+                <img src="@/assets/images/x-lg.png" alt="" class="x-lg" />
               </button>
             </div>
         </div>
@@ -176,7 +176,7 @@ import { inviteUser } from '../services'
               </button>
             </div>
             <div class="invite-button">
-                <button class="primary-1 button-1" data-cy="invite-send-btn" @click="handleSubmit" >Send Invitation</button>
+                <button class="primary-1 button-1 button-color" data-cy="invite-send-btn" @click="handleSubmit" >Send Invitation</button>
             </div>
           </div>
           <!-- </form> -->

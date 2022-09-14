@@ -28,18 +28,7 @@ export default {
     BaseInput,
     BaseAlert,
   },
-  // async created() {
-  //   try {
-  //     const response = await axios.get(`http://localhost:3000/login_users`);
-  //     this.email = response.data.email;
-  //     console.log(this.email);
-  //     this.password = response.data.password;
-  //     console.log(this.password);
-  //   } catch (e) {
-  //     console.error(e);
-  //   }
-  // },
-
+ 
   methods: {
     formData() {
       ({

@@ -10,7 +10,7 @@ export default {
     <!-- Sidebar-->
     <div class="border-end bg-white" id="sidebar-wrapper">
       <div class="sidebar-frame">
-        <img class="logo-frame" src="@/assets/proshorelogoo.png" alt="" />
+        <img class="logo-frame" src="@/assets/images/proshorelogoo.png" alt="" />
         <div class="panel">
           <div class="upper-panel">
             <div class="manage-panels">
@@ -92,31 +92,29 @@ export default {
       <div class="container-fluid">
         <div id="btn">
           <RouterLink :to="{ name: 'employees' }"
-            ><button
-              type="button"
-              data-cy="employees-tab-btn"
-              class="btn btn-success"
+            
+              
+              data-cy="employees-tab-link"
+              class=" dashboard-menu"
             >
               Employees
-            </button></RouterLink
+            </RouterLink
           >
           <RouterLink :to="{ name: 'vendors' }"
-            ><button
-              type="button"
-              data-cy="vendors-tab-btn"
-              class="btn btn-success"
+            
+              
+              data-cy="vendors-tab-link"
+              class=" dashboard-menu"
             >
               Vendors
-            </button></RouterLink
+            </RouterLink
           >
           <RouterLink :to="{ name: 'invitations' }"
-            ><button
-              type="button"
-              data-cy="invitations-tab-btn"
-              class="btn btn-success"
+              data-cy="invitations-tab-link"
+              class=" dashboard-menu"
             >
               Invitations
-            </button></RouterLink
+            </RouterLink
           >
         </div>
         <div id="container">
@@ -224,6 +222,21 @@ body.sb-sidenav-toggled #wrapper #sidebar-wrapper {
   margin-top: -1px;
   min-width: 42px;
   white-space: nowrap;
+}
+.dashboard-menu{
+  border:none !important;
+  padding:10px;
+  text-decoration:none;
+  color:black;
+}
+
+/* .dashboard-menu:hover {
+ color: #FA6731 ; 
+} */
+.router-link-exact-active{
+  border-radius:5px !important;
+  color:white !important;
+  background-color: #FA6731 ;
 }
 
 .panels-icons {

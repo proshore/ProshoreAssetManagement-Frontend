@@ -1,7 +1,6 @@
 <script>
     import BaseAlert from '@/components/BaseAlert.vue';
     import validateEmail from '@/utils/validateEmail';
-  import router from '../../../router';
     import {forgotPassword} from "../services"
       export default{
           data(){
