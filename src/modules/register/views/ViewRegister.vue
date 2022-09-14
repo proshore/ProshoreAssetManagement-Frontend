@@ -73,10 +73,11 @@ export default {
       }
       if (!this.password.error && !this.cpassword.error) {
         try {
-          // const response = await registerUser({
-            // this.formData()
-          // });
+          const response = await registerUser(
+            this.formData()
+          );
           this.submission = {message:"Registered Successfully", isVerified:true}
+          console.log("response:",response);
           setTimeout(()=>this.$router.push({name:'login'}),2000)
         } catch (error) {
           this.submission.message =error 
@@ -89,11 +90,12 @@ export default {
     },
     formData(){
       return{
+        data:{
         name:this.name,
         email:this.email,
         password:this.password.value,
-        roleId:this.$route.query.roleId,
-        token:this.$route.params
+        },
+        token:"1bxXVTgMmdgiClqXZ8Rdmg"
       }
     }
   },
