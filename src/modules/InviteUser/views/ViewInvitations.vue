@@ -56,7 +56,7 @@
             placeholder="Search"
             aria-label="Search"
           />
-          <button class="btn search-btn my-2 my-sm-0 mx-2" type="submit">
+          <button class="btn my-2 my-sm-0 mx-2 button-color" type="submit">
             Search
           </button>
         </form>
@@ -99,6 +99,7 @@
               <InvitationActions
                 :name="invitation.name"
                 :email="invitation.email"
+                :contact="invitation.contact"
               />
             </td>
           </tr>
@@ -113,10 +114,7 @@
   background-color: white;
   border-radius: 5px;
 }
-.search-btn {
-  background-color: #fa6731 !important;
-  color: #e9ecef;
-}
+
 .thead-light {
   height: 50px !important;
   vertical-align: middle;
