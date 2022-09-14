@@ -130,6 +130,7 @@ import { inviteUser } from '../services'
                 class="input-text"
                 v-model="name.value"
                 @keyup="validateField('name')"
+                data-cy ="invite-name"
               />
               <div
                 v-if="name.error"
@@ -145,6 +146,7 @@ import { inviteUser } from '../services'
                 class="input-text"
                 v-model="email.value"
                 @keyup="validateField('email')"
+                data-cy ="invite-email"
               />
               <div
                 v-if="email.error"
