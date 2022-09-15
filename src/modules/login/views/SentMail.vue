@@ -60,7 +60,7 @@
         <section
           class="col-6 mx-3 d-flex justify-content-center align-items-center form-container"
         >
-        <button class="btn back-btn" @click="backPage" data-cy="back-btn-forgot-done">&#8592;</button>
+        <button class="back-btn" @click="backPage" data-cy="back-btn-forgot-done"> <i class=" bi bi-arrow-left-short" style="font-size:2rem;"></i></button>
           <div class="w-50">
             <div class="login-head">
               <h3 class="login-head-title">Check Your Email</h3>
@@ -91,7 +91,9 @@
       position:absolute;
       top:0;
       left:0;
+      border:none;
       border-radius:50%;
       background-color: #F8F8F8 !important;
+      padding:0 8px;
     }
     </style>

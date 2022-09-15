@@ -73,11 +73,12 @@ import { inviteUser } from '../services'
   <!-- Button trigger modal -->
   <button
     type="button"
-    class="btn invite-button button-color"
+    class="btn invite-button button-color px-4 py-2 "
     data-cy="invite-btn"
     data-bs-toggle="modal"
     data-bs-target="#exampleModal"
   >
+  <i class="bi bi-plus-lg me-2" style="font-size:1.5rem;"></i>
     Invite member
   </button>
   <!-- Modal -->

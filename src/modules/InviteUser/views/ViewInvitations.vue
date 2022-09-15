@@ -42,6 +42,16 @@
         }
       };
     },
+    styleDotIcon(){
+      return status =>{
+        if (status.toLowerCase() =="pending"){
+          return "status-pending-icon"
+        }
+        if (status.toLowerCase() == "expired") {
+          return "status-expired-icon";
+        }
+      }
+    }
   },
 };
 </script>
@@ -51,13 +61,13 @@
       <div class="col-4">
         <form class="form-inline d-flex">
           <input
-            class="form-control mr-sm-2"
+            class="form-control form-control-lg mr-sm-2 "
             type="search"
             placeholder="Search"
             aria-label="Search"
           />
-          <button class="btn my-2 my-sm-0 mx-2 button-color" type="submit">
-            Search
+          <button class="btn my-2 px-3 my-sm-0 mx-2 button-color" type="submit">
+            <i class="bi bi-search" ></i>
           </button>
         </form>
       </div>
@@ -67,10 +77,10 @@
     </div>
     <div class="row mt-4 px-4">
       <table
-        class="table table-borderless border table-hover table-md bg-white"
+        class="table table-borderless border table-hover table-sm bg-white"
       >
-        <thead class="thead-light">
-          <tr>
+        <thead class="thead-light ">
+          <tr class="text-center">
             <th scope="col">S.N</th>
             <th scope="col">Member Full Name</th>
             <th scope="col">Email Address</th>
@@ -82,7 +92,7 @@
         </thead>
         <tbody v-for="(invitation, index) in invitations" :key="index">
           <!-- The rows will be dynamically generated according to invitationslist data -->
-          <tr>
+          <tr class="text-center">
             <th scope="row">{{ index + 1 }}</th>
             <td>{{ invitation.name }}</td>
             <td>{{ invitation.email }}</td>
@@ -90,12 +100,13 @@
             <td :class="`role ${styleRole(invitation.role)}`">
               {{ invitation.role }}
             </td>
-            <td>
+            <td >
+              
               <div :class="`status ${styleStatus(invitation.status)}`">
-                {{ invitation.status }}
+                <div class=" status-icon me-2" :class="` ${styleDotIcon(invitation.status)}`"></div> {{ invitation.status }}
               </div>
             </td>
-            <td>
+            <td >
               <InvitationActions
                 :name="invitation.name"
                 :email="invitation.email"
@@ -137,6 +148,7 @@ tr {
   color: #0b102c;
 }
 .status {
+  margin:auto;
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
@@ -146,13 +158,24 @@ tr {
   font-size: 12px;
   width: fit-content;
 }
+.status-icon{
+  height:8px;
+  width:8px;
+  border-radius:50%;
+}
 .status-expired {
   background-color: #ffeded;
-  color: #ff4f4f;
+  color: black !important;
+}
+.status-expired-icon{
+ background-color:#FF4F4F;
 }
 .status-pending {
   background-color: #fff4da !important;
-  color: #ffca48;
+  color: black !important;
+}
+.status-pending-icon{
+  background-color:#FFCA48;
 }
 tr {
   vertical-align: middle;
@@ -179,10 +202,12 @@ tr {
   border-radius: 12px;
   font-size: 12px;
   width: fit-content;
+  font-weight: 700;
 }
 .status-expired {
   background-color: #ffeded;
   color: #ff4f4f;
+  
 }
 .status-pending {
   background-color: #fff4da;
