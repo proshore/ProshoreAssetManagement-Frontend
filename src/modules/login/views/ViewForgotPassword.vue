@@ -61,7 +61,7 @@
       <section
         class="col-6 mx-3 d-flex justify-content-center align-items-center form-container"
       >
-      <button class="btn back-btn" @click="backPage" data-cy="back-btn-forgot">&#8592;</button>
+      <button class="back-btn" @click="backPage" data-cy="back-btn-forgot"><i class=" bi bi-arrow-left-short" style="font-size:2rem;"></i></button>
         <div class="w-50">
           <div class="login-head">
             <h3 class="login-head-title">Forgot Password</h3>
@@ -97,7 +97,7 @@
               
 
               <button class="btn w-100 button-color" data-cy="forgot-password-btn" >
-                {{buttonText}}
+                <i v-if="buttonText =='Send Link'" class="bi bi-link-45deg me-2"></i><span>{{buttonText}}</span>
               </button>
             </form>
           </div>
@@ -117,5 +117,7 @@
   left:0;
   border-radius:50%;
   background-color: #F8F8F8 !important;
+  padding:0 8px;
+  border:none;
 }
 </style>

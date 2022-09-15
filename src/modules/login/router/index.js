@@ -4,7 +4,7 @@ const SentMail = ()=> import("../views/SentMail.vue")
 
 const loginRoutes = [
         {
-            path:"/login",
+            path:"/",
             name:"login",
             component: ViewLogin
     },

@@ -4,7 +4,7 @@ import validatePassword from "@/utils/validatePassword.js";
 import BaseInput from "@/components/BaseInput.vue";
 import BaseAlert from "@/components/BaseAlert.vue";
 import { loginUser } from "../services";
-import axios from "axios";
+import TogglePassword from "@/components/TogglePassword.vue";
 export default {
   data() {
     return {
@@ -27,17 +27,17 @@ export default {
   components: {
     BaseInput,
     BaseAlert,
+    TogglePassword,
   },
- 
+
   methods: {
     formData() {
       ({
-        token:"1bxXVTgMmdgiClqXZ8Rdmg",
-        data:{
-        email: this.email.value,
-        password: this.password.value,
-        }
-        
+        token: "1bxXVTgMmdgiClqXZ8Rdmg",
+        data: {
+          email: this.email.value,
+          password: this.password.value,
+        },
       });
     },
     validateField(field) {
@@ -61,13 +61,13 @@ export default {
 
       try {
         const response = await loginUser(this.formData());
-        if(response.data.success = true){
+        if ((response.data.success = true)) {
           console.log(response);
-          this.submission.message="Login Successful"
-          this.submission.isVerified = true
-          setTimeout(()=>{
-            this.$router.push({name:"dashboard"})
-          },2000)
+          this.submission.message = "Login Successful";
+          this.submission.isVerified = true;
+          setTimeout(() => {
+            this.$router.push({ name: "dashboard" });
+          }, 2000);
         }
       } catch (error) {
         this.submission.message = error;
@@ -129,12 +129,7 @@ export default {
                     @keyup="validateField('password')"
                     data-cy="login-password"
                   />
-                  <div
-                    class="icon"
-                    id="password"
-                    @click="toggleSeen"
-                    data-cy="toggle-seen"
-                  ></div>
+                  <TogglePassword :seen="password.seen" @clicked="toggleSeen('password')" />
                 </div>
                 <div
                   v-if="password.error"
@@ -166,21 +161,22 @@ export default {
   </div>
 </template>
 <style scoped>
-.forgot-password{
-  color:#fdc2ad;
+.forgot-password {
+  color: #fdc2ad;
   text-decoration: none;
-  
 }
 .forgot-password::after {
-  display:block;
-  content: '';
-  border-bottom: solid 1px #fdc2ad;  
-  transform: scaleX(0);  
+  display: block;
+  content: "";
+  border-bottom: solid 1px #fdc2ad;
+  transform: scaleX(0);
   transition: transform 250ms ease-in-out;
 }
-.forgot-password:hover::after{
+.forgot-password:hover::after {
   transform: scaleX(0.35);
   transition: transform 250ms ease-in;
 }
-.forgot-password::after{  transform-origin:  0% 50%; }
+.forgot-password::after {
+  transform-origin: 0% 50%;
+}
 </style>

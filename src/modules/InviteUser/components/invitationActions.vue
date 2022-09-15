@@ -58,38 +58,42 @@ export default {
 
 <template>
   <!-- <li class="dropdown bg-secondary" id="myDropdown"> -->
-  <button
-    class="btn dropdown-img"
+  <div class="btn-group dropstart">
+    <button
+    class="btn three-dot-btn  d-flex justify-content-center align-items-center"
     data-cy="invitation-action-toggle-btn"
     data-bs-toggle="dropdown"
-  ></button>
-  <ul class="dropdown-menu">
-    <li>
+  ><i class="bi bi-three-dots-vertical" style="color:#FA6731; font-size: 1.5rem;"></i></button>
+  <div class="dropdown-menu">
+    <li >
       <a
-        class="dropdown-item"
+        class="dropdown-item  "
         href="#"
         data-cy="resend-invitation-link"
         @click="reInviteMember(/*data from the corresponding row*/)"
-        >Resend Invitation
+        > 
+        <i class="bi bi-send me-4" style="color:#CED4DA"></i>Resend Invitation
       </a>
     </li>
     <li>
       <a
-        class="dropdown-item"
+        class="dropdown-item text-danger "
         href="#"
         data-cy="revoke-invitation-link"
         data-bs-toggle="modal"
         :data-bs-target="'#_'+contact"
       >
-        Revoke Member
+      <i class="bi bi-dash-square-fill me-4" style="color:#FA6731"></i>Revoke Member
       </a>
     </li>
     <li>
-      <a class="dropdown-item" href="#" data-cy="delete-invitation-link">
-        Delete Entry
+      <a class="dropdown-item text-danger  " href="#" data-cy="delete-invitation-link">
+        <i class="bi bi-trash3-fill me-4" style="color:#FA6731"></i>Delete Entry
       </a>
     </li>
-  </ul>
+  </div>
+  </div>
+  
 
   <!-- Conformation box -->
   <div class="modal fade" :id="'_'+contact" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -115,15 +119,8 @@ export default {
 </template>
 
 <style scoped>
-.dropdown-img {
-  height: 30px !important;
-  width: 20px !important;
-  background-image: url("@/assets/images/actionIcon.svg");
-  background-size: 100% 100%;
-  background-repeat: no-repeat;
-  /* background-attachment: fixed; */
-  background-position: center;
-  position: relative;
+.three-dot-btn {
+  border:none !important
 }
 .dropdown-menu {
   /* position: relative !important; */

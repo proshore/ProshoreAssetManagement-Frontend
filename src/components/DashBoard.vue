@@ -2,6 +2,11 @@
 import { RouterLink, RouterView } from "vue-router";
 export default {
   name: "DashBoard",
+  data(){
+    return{
+      notificationCount:2
+    }
+  }
 };
 </script>
 
@@ -15,8 +20,7 @@ export default {
           <div class="upper-panel">
             <div class="manage-panels">
               <div class="panels">
-                <img src="" alt="" />
-                <div class="dashboard">Team</div>
+                <div class="dashboard  d-flex align-items-center"><i class="bi bi-person-fill me-4" style="color:#FA6731; font-size: 1.4rem;"></i>Team</div>
               </div>
             </div>
           </div>
@@ -34,7 +38,7 @@ export default {
       <!-- Top navigation-->
       <nav class="navbar navbar-expand-lg border-bottom border-3">
         <div class="container-fluid">
-          <p class="h2">Team</p>
+          <p class="h4 ">Team</p>
           <button
             data-cy="navbar-toggle-button"
             class="navbar-toggler"
@@ -50,21 +54,17 @@ export default {
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
               <li class="nav-item active">
-                <a class="nav-link" data-cy="navbar-notifcations-link" href="#!"
-                  >Notifications</a
+                <a class="nav-link " data-cy="navbar-notifcations-link" href="#!"
+                  ><div class="notification-count" :v-if="notificationCount">{{notificationCount}}</div><i class="bi bi-bell " style="font-size:1.5rem;"></i></a
                 >
               </li>
-              <li class="nav-item dropdown">
+              <li class="nav-item ">
+                <!-- the following link will redirect to user profile page -->
                 <a
                   data-cy="navbar-account-dropdown"
-                  class="nav-link dropdown-toggle"
-                  id="navbarDropdown"
+                  class="nav-link"
                   href="#"
-                  role="button"
-                  data-bs-toggle="dropdown"
-                  aria-haspopup="true"
-                  aria-expanded="false"
-                  >Account</a
+                  ><div class="navbar-account-img"></div></a
                 >
                 <div
                   class="dropdown-menu dropdown-menu-end"
@@ -206,22 +206,23 @@ body.sb-sidenav-toggled #wrapper #sidebar-wrapper {
 }
 
 .panels {
+  display: flex;
   align-items: center;
+  justify-content: flex-start;
   background-color: #feefea;
   border-radius: 40px;
-  display: flex;
-  flex-direction: column;
   gap: 12px;
   padding: 8px 16px;
 }
 
 .dashboard {
-  color: black;
+  color: #FA6731;
   letter-spacing: 0.15px;
   line-height: 6px;
   margin-top: -1px;
   min-width: 42px;
   white-space: nowrap;
+  
 }
 .dashboard-menu{
   border:none !important;
@@ -229,7 +230,28 @@ body.sb-sidenav-toggled #wrapper #sidebar-wrapper {
   text-decoration:none;
   color:black;
 }
+.navbar-account-img{
+  height:35px;
+  width:35px;
+  border:1px solid grey;
+  border-radius: 50%;
 
+}
+.nav-link{
+  position:relative !important;
+}
+.notification-count{
+  height:15px;
+  width:15px;
+  border-radius:50%;
+  background-color: red;
+  position:absolute;
+  right:0;
+  top:0;
+  color:white;
+  text-align: center;
+  font-size:10px;
+}
 /* .dashboard-menu:hover {
  color: #FA6731 ; 
 } */

@@ -4,6 +4,7 @@ import validateEmail from "@/utils/validateEmail";
 import validatePassword from "@/utils/validatePassword.js";
 import {registerUser} from '@/modules/register/services'
 import BaseAlert from "../../../components/BaseAlert.vue";
+import TogglePassword from "@/components/togglePassword.vue";
 export default {
   data() {
     return {
@@ -30,7 +31,8 @@ export default {
   },
   components: {
     BaseInput,
-    BaseAlert
+    BaseAlert,
+    TogglePassword
 },
  mounted(){
       this.email = this.$route.query.email
@@ -52,13 +54,14 @@ export default {
         }
       }
     },
-    toggleSeen(event){
-      if(event.target.id == 'cpassword'){
+    toggleSeen(field){
+      if(field == 'cpassword'){
         this.cpassword.seen= !this.cpassword.seen
       }
-      if(event.target.id == 'password'){
+      if(field == 'password'){
         this.password.seen= !this.password.seen
       }
+      console.log(this.password.seen);
     },
     async handleSubmit() {
       this.validateField("cpassword")
@@ -97,8 +100,9 @@ export default {
         },
         token:"1bxXVTgMmdgiClqXZ8Rdmg"
       }
-    }
-  },
+    },
+    
+},
 };
 </script>
 
@@ -163,8 +167,8 @@ export default {
                     @keyup="validateField('password')"
                     data-cy="register-password"
                   />
-                  <div class="icon" id="password" @click="(event)=>toggleSeen(event)" data-cy="toggle-seen"></div>
-                </div>
+                  <TogglePassword :seen="password.seen" @clicked="toggleSeen('password')" />
+                  </div>
                  <div v-if="password.error" class="form-text text-danger" v-text="password.error"></div>
               </div>
 
@@ -182,9 +186,8 @@ export default {
                   @keyup="validateField('cpassword')"
                   data-cy="register-cpassword"
                 />
-                <div class="icon" id="cpassword" @click="(event)=>toggleSeen(event)" data-cy="toggle-seen"></div>
+                <TogglePassword :seen="cpassword.seen" @clicked="toggleSeen('cpassword')" />
                 </div>
-                
                 <div v-if="cpassword.error" class="form-text text-danger" v-text="cpassword.error"></div>
               </div>
 
