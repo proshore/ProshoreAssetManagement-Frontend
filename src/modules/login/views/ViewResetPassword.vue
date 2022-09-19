@@ -134,7 +134,7 @@
                         placeholder="Set Your Password"
                         v-model="password.value"
                         @keyup="validateField('password')"
-                        data-cy="register-password"
+                        data-cy="reset-password"
                       />
                       <TogglePassword :seen="password.seen" @clicked="toggleSeen('password')" />
                       </div>
@@ -153,7 +153,7 @@
                       placeholder="Confirm Password"
                       v-model="cpassword.value"
                       @keyup="validateField('cpassword')"
-                      data-cy="register-cpassword"
+                      data-cy="reset-cpassword"
                     />
                     <TogglePassword :seen="cpassword.seen" @clicked="toggleSeen('cpassword')" />
                     </div>
