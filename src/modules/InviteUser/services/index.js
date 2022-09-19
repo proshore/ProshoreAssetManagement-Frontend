@@ -18,5 +18,8 @@ const inviteUser = async(inviteData)=>{
     return await API.post(apiUrl.REVOKE_INVITE_URL,revokeData);
     // pass token in headers
  }
+ const invitationList = async ()=>{
+   return await API.get(apiUrl.INVITATION_LIST_URL)
+ }
 
- export {inviteUser,reInviteUser,revokeUser}
+ export {inviteUser,reInviteUser,revokeUser, invitationList}

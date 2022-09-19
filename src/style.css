@@ -1,27 +1,54 @@
+/* importing local fonts */
+@font-face{
+  font-family: "Reader Trial-Regular";
+  font-style: normal;
+  font-weight: 400;
+  src: url('@/assets/fonts/ReaderTrial-Regular.woff') format("woff");
+}
 
+@font-face{
+  font-family: "Reader Trial-Bold";
+  font-style: normal;
+  font-weight: 900;
+  src: url('@/assets/fonts/ReaderTrial-Bold.woff') format("woff");
+}
+
+@font-face{
+  font-family: "Reader Trial-Medium";
+  font-style: normal;
+  font-weight: 500;
+  src: url('@/assets/fonts/ReaderTrial-Medium.woff') format("woff");
+}
+.bold-font{
+  font-family: 'Reader Trial-Bold';
+}
+.regular-font{
+  font-family: 'Reader Trial-Regular';
+  font-size: medium;
+}
 .main-container{
   min-height:768px;
 }
 .register-form-container{
   width:60%;
 }
-.register-img{
+.register-img, .login-img{
   background-image: url('@/assets/images/sidepic.jpg');
   background-size: 100% 100%;
 }
-.register-head{
+.register-head, .login-head{
   padding-left: 15px;
 }
-.register-head-title{
-  /* font-family: 'Reader Trial'; */
-font-style: normal;
+.register-head-title, .login-head-title{
+  font-family: 'Reader Trial-Bold';
+/* font-style: normal;
 font-weight: 900;
 font-size: 28px;
-line-height: 39px;
+line-height: 39px; */
 color:#343A40;
 }
-.register-head-subtitle{
-  /* font-family: 'Reader Trial'; */
+.register-head-subtitle, .login-head-subtitle{
+  font-family: 'Reader Trial-Regular';
   font-style: normal;
   font-weight: 400;
   font-size: 16px;
@@ -34,9 +61,21 @@ background-color: #FA6731 !important;
 border-radius: 4px !important;
 color:white !important;
 transition: 0.8s !important;
+padding: 10px 15px !important;
+}
+.second-button-color{
+  border-radius: 4px !important;
+  border:1px #FA6731 solid !important;
+  transition: 0.8s !important;
+  color:#FA6731 !important;
+  padding: 10px 15px !important;
 }
 .button-color:hover{
   background-color: #862112 !important;
+}
+.second-button-color:hover{
+  background-color: #FA6731 !important;
+  color:white !important;
 }
 
 .password-field{
@@ -58,48 +97,4 @@ transition: 0.8s !important;
   align-items: center;
   right:0;
 }
- /*login part  */
-@font-face{
-  font-family: "Reader Trial-Regular";
-  font-style: normal;
-  font-weight: 400;
-  src: url("https://fonts.animaapp.com/ReaderTrial-Regular") format("opentype");
-}
 
-@font-face{
-  font-family: "Reader Trial-Bold";
-  font-style: normal;
-  font-weight: 900;
-  src: url("https://fonts.animaapp.com/ReaderTrial-Bold") format("opentype");
-}
-
-@font-face{
-  font-family: "Reader Trial-Medium";
-  font-style: normal;
-  font-weight: 500;
-  src: url("https://fonts.animaapp.com/ReaderTrial-Medium") format("opentype");
-}
-
-.login-img{
-  background-image: url('./assets/images/sidepic.png');
-  background-size: 100% 100%;
-}
-.login-head{
-  padding-left: 15px;
-}
-.login-head-title{
-font-family: 'Reader Trial-Bold';
-font-style: normal;
-font-weight: 900;
-font-size: 28px;
-line-height: 39px;
-}
-.login-head-subtitle{
-  font-family: 'Reader Trial-Regular';
-  font-style: normal;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 24px;
-  letter-spacing: 0.5px;
-  color: #6C757D;
-}

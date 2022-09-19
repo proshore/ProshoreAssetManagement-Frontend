@@ -30,26 +30,21 @@ export default {
             try {
                 const response = await reInviteUser(this.bodyData());
                 //display message coming from response
-                console.log("reinvitation mail sent successfully");
-                alert("Reinvitation mail sent successfully");
+                console.log(response.data)
             }
             catch (error) {
-                alert("error msg:", error.message);
-                console.log("error:", error.message);
+                console.error("error:", error.message);
             }
         },
         async revokeMember() {
             try {
                 const response = await revokeUser(this.bodyData());
                 //display message coming from response
-                console.log("revoked member Successfully");
-                console.log("revoked user", this.name);
                 console.log(response.data);
 
             }
             catch (error) {
-              console.log("revoked user", this.name);
-                console.log("error:", error);
+                console.error("error:", error);
             }
         },
     },
@@ -70,7 +65,7 @@ export default {
         class="dropdown-item  "
         href="#"
         data-cy="resend-invitation-link"
-        @click="reInviteMember(/*data from the corresponding row*/)"
+        @click="reInviteMember({name:name,email:email})"
         > 
         <i class="bi bi-send me-4" style="color:#CED4DA"></i>Resend Invitation
       </a>
@@ -101,16 +96,16 @@ export default {
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title  m-auto ps-5" id="exampleModalLongTitle">Are you sure?</h5>
-        <button type="button" class="btn close conformation-box-close-btn" data-bs-dismiss="modal" data-cy="conformation-box-close-btn" aria-label="Close">
+        <button type="button" class="btn close conformation-box-close-btn second-button-color" data-bs-dismiss="modal" data-cy="conformation-box-close-btn" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body d-flex justify-content-center">
-        <p class="w-75 text-center">Do you want to revoke the invitation of {{name}} ? Once revoked it cannot be undone.</p>
+        <p class="w-75 text-center">Do you want to revoke the invitation of <b>{{name}}</b> ? Once revoked it cannot be undone.</p>
       </div>
       <div class="modal-footer d-flex justify-content-center">
-        <button type="button" class="btn conformation-box-no-btn" data-cy="conformation-box-no-btn" data-bs-dismiss="modal">No</button>
-        <button type="button" class="btn conformation-box-yes-btn text-white" data-cy="conformation-box-yes-btn" @click="revokeMember"  data-bs-dismiss="modal" >Yes</button>
+        <button type="button" class="btn conformation-box-no-btn second-button-color" data-cy="conformation-box-no-btn" data-bs-dismiss="modal">No</button>
+        <button type="button" class="btn conformation-box-yes-btn text-white button-color" data-cy="conformation-box-yes-btn" @click="revokeMember"  data-bs-dismiss="modal" >Yes</button>
       </div>
     </div>
   </div>

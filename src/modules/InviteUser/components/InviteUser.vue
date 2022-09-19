@@ -48,7 +48,6 @@ import { inviteUser } from '../services'
             }
             },
             async handleSubmit(){
-            console.log(this.role.value);
             if(!this.name.value || !this.email.value || !this.role.value){
                 return this.submission.message = "Field must not be empty"
             }
@@ -58,6 +57,7 @@ import { inviteUser } from '../services'
             try{
                 this.submission.isVerified = true
                 const response = await inviteUser(this.formData())
+                return this.submission.message = "Invited Successfully"
                 
             }
             catch(err){
@@ -77,6 +77,7 @@ import { inviteUser } from '../services'
     data-cy="invite-btn"
     data-bs-toggle="modal"
     data-bs-target="#exampleModal"
+    style="font-size:1.2rem;"
   >
   <i class="bi bi-plus-lg me-2" style="font-size:1.5rem;"></i>
     Invite member
@@ -108,7 +109,7 @@ import { inviteUser } from '../services'
             </div>
             <div class="close-button">
               <button
-                class="close-rectangle"
+                class="close-rectangle second-button-color"
                 type="button"
                 data-cy="close-invite-btn"
                 data-bs-dismiss="modal"
@@ -166,9 +167,9 @@ import { inviteUser } from '../services'
             </div>
           </div>
           <div class="button-frame">
-            <div class="outline-button">
+            <div class="">
               <button
-                class="primary button"
+                class="btn second-button-color"
                 type="button"
                 data-cy="invite-cancel-btn"
                 data-bs-dismiss="modal"
@@ -176,8 +177,8 @@ import { inviteUser } from '../services'
                 Cancel
               </button>
             </div>
-            <div class="invite-button">
-                <button class="primary-1 button-1 button-color" data-cy="invite-send-btn" @click="handleSubmit" >Send Invitation</button>
+            <div class="">
+                <button class="btn button-color" data-cy="invite-send-btn" @click="handleSubmit" >Send Invitation</button>
             </div>
           </div>
           <!-- </form> -->
@@ -188,7 +189,6 @@ import { inviteUser } from '../services'
 </template>
 
 <style>
-@import url("https://fonts.googleapis.com/css2?family=Cedarville+Cursive&family=Poppins:wght@200;300&family=Roboto+Slab:wght@300&display=swap");
 /* font-family: 'Poppins', sans-serif; */
 .add-a-dialog-box {
   align-items: flex-start;

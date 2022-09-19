@@ -62,7 +62,6 @@ export default {
       try {
         const response = await loginUser(this.formData());
         if ((response.data.success = true)) {
-          console.log(response);
           this.submission.message = "Login Successful";
           this.submission.isVerified = true;
           setTimeout(() => {

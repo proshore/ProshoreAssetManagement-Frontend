@@ -1,6 +1,8 @@
 <script>
     import InviteUser from '../components/InviteUser.vue'
     import InvitationActions from '../components/invitationActions.vue';
+    import {invitationList} from '../services'
+    //used for testing
     import axios from 'axios'
     export default{
     components: [
@@ -14,12 +16,22 @@
     },
     components: { InvitationActions,InviteUser },
     async created(){
+      //this block is used for testing
       try{
         const response = await axios.get(`https://6319958e8e51a64d2be7568b.mockapi.io/invitedUsers`);
         this.invitations = response.data;
       }catch(e){
         console.error(e);
       }
+      //this is the actual block to be used after connection with backend
+
+      // try{
+      //   const response = await invitationList()
+      //   this.invitations = response.data
+      // }
+      // catch(error){
+      //   console.error("error: ", error)
+      // }
     },
     computed:{
         styleRole(){
@@ -65,8 +77,9 @@
             type="search"
             placeholder="Search"
             aria-label="Search"
+            data-cy ="invitations-search-field" 
           />
-          <button class="btn my-2 px-3 my-sm-0 mx-2 button-color" type="submit">
+          <button class="btn my-2 px-3 my-sm-0 mx-2 button-color" type="submit" data-cy="invitation-search-btn">
             <i class="bi bi-search" ></i>
           </button>
         </form>
@@ -77,7 +90,7 @@
     </div>
     <div class="row mt-4 px-4">
       <table
-        class="table table-borderless border table-hover table-sm bg-white"
+        class="table table-borderless border table-hover table-sm bg-white regular-font"
       >
         <thead class="thead-light ">
           <tr class="text-center">
