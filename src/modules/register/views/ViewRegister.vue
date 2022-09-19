@@ -3,7 +3,7 @@ import BaseInput from "@/components/BaseInput.vue";
 import validateEmail from "@/utils/validateEmail";
 import validatePassword from "@/utils/validatePassword.js";
 import {registerUser} from '@/modules/register/services'
-import BaseAlert from "../../../components/BaseAlert.vue";
+import BaseAlert from "@/components/BaseAlert.vue";
 import TogglePassword from "@/components/togglePassword.vue";
 export default {
   data() {

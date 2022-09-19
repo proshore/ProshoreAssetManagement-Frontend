@@ -20,7 +20,7 @@ export default {
           <div class="upper-panel">
             <div class="manage-panels">
               <div class="panels">
-                <div class="dashboard  d-flex align-items-center"><i class="bi bi-person-fill me-4" style="color:#FA6731; font-size: 1.4rem;"></i>Team</div>
+                <div class="dashboard  d-flex align-items-center bold-font"><i class="bi bi-person-fill me-4" style="color:#FA6731; font-size: 1.4rem;"></i>Team</div>
               </div>
             </div>
           </div>
@@ -38,7 +38,7 @@ export default {
       <!-- Top navigation-->
       <nav class="navbar navbar-expand-lg border-bottom border-3">
         <div class="container-fluid">
-          <p class="h4 ">Team</p>
+          <p class="h4 bold-font ">Team</p>
           <button
             data-cy="navbar-toggle-button"
             class="navbar-toggler"
@@ -89,8 +89,8 @@ export default {
         </div>
       </nav>
       <!-- Page content-->
-      <div class="container-fluid">
-        <div id="btn">
+      <div class="container-fluid mt-5" style="font-size:1.2rem;">
+        <div id="btn regular-font">
           <RouterLink :to="{ name: 'employees' }"
             
               
@@ -224,9 +224,10 @@ body.sb-sidenav-toggled #wrapper #sidebar-wrapper {
   white-space: nowrap;
   
 }
+
 .dashboard-menu{
   border:none !important;
-  padding:10px;
+  padding:15px !important;
   text-decoration:none;
   color:black;
 }

@@ -67,8 +67,7 @@
               <sub class="login-head-subtitle"
                 >A link has been sent to your email address to reset your password
               </sub>
-              <br/>
-              <sub class="login-head-subtitle">Resend in: 00:00</sub>
+              
             </div>
   
             <div class="container-fluid mt-5">

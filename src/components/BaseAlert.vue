@@ -10,9 +10,6 @@ export default {
     styleData() {
       return {
         color: `${!this.submission.isVerified ? "#ff4d4d" : "#00e600"}`,
-        // borderWidth: "2px",
-        // borderStyle: "solid",
-        // borderColor: `${!this.submission.isVerified ? '#ff4d4d' : '#00e600'}`,
         backgroundColor: `${
           !this.submission.isVerified ? "#ffcccc" : "#ccffcc"
         }`,

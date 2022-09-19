@@ -37,7 +37,6 @@
         this.buttonText = "Sending ..."
         
         const response = await forgotPassword(this.formData());
-        console.log("response",response);
         this.$router.push({name:'sentmail'})
         
         
