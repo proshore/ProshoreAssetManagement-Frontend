@@ -160,7 +160,7 @@
                     <div v-if="cpassword.error" class="form-text text-danger" v-text="cpassword.error"></div>
                   </div>
     
-                  <button class="btn w-100 w-md-50 button-color" data-cy="register-btn" type="submit">
+                  <button class="btn w-100 w-md-50 button-color" data-cy="reset-btn" type="submit">
                     Submit
                   </button>
                 </form>
