@@ -30,22 +30,21 @@ export default {
             try {
                 const response = await reInviteUser(this.bodyData());
                 //display message coming from response
-                console.log(response.data)
+                
             }
             catch (error) {
-                console.error("error:", error.message);
+                //error message in a dialog box
             }
         },
         async revokeMember() {
             try {
                 const response = await revokeUser(this.bodyData());
                 //display message coming from response
-                console.log(response.data);
+                
 
             }
             catch (error) {
-              //error message
-                console.error("error:", error);
+              //error message in a dialog box
             }
         },
     },
