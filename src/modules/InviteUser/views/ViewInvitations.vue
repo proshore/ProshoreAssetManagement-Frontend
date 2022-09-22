@@ -36,30 +36,30 @@
     computed:{
         styleRole(){
           return role =>{
-          if (role.toLowerCase() == "employee") {
+          if (role.toLowerCase() === "employee") {
             return "role-employee"
           }
-          if (role.toLowerCase() =="vendor") {
+          if (role.toLowerCase() ==="vendor") {
             return "role-vendor"
           }
         }
         },
         styleStatus(){
       return status =>{
-        if (status.toLowerCase() =="pending"){
+        if (status.toLowerCase() ==="pending"){
           return "status-pending"
         }
-        if (status.toLowerCase() == "expired") {
+        if (status.toLowerCase() === "expired") {
           return "status-expired";
         }
       };
     },
     styleDotIcon(){
       return status =>{
-        if (status.toLowerCase() =="pending"){
+        if (status.toLowerCase() ==="pending"){
           return "status-pending-icon"
         }
-        if (status.toLowerCase() == "expired") {
+        if (status.toLowerCase() === "expired") {
           return "status-expired-icon";
         }
       }

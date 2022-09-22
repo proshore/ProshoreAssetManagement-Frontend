@@ -4,7 +4,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" data-cy="confirm-model-cross-btn">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -12,8 +12,8 @@
         <p>Modal body text goes here.</p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary">Save changes</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" data-cy="confirm-model-save-btn">Save changes</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" data-cy="confirm-model-close-btn">Close</button>
       </div>
     </div>
   </div>

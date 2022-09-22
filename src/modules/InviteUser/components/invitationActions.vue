@@ -44,6 +44,7 @@ export default {
 
             }
             catch (error) {
+              //error message
                 console.error("error:", error);
             }
         },

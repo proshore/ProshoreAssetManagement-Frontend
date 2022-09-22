@@ -36,7 +36,7 @@ const router = createRouter({
             }
         ]
     },
-    registerRoutes,
+    ...registerRoutes,
     ...loginRoutes
         
     ]
