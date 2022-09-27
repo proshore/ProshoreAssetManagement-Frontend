@@ -68,6 +68,7 @@ export default {
     },
   },
 };
+
 </script>
 
 <template>
@@ -80,6 +81,7 @@ export default {
     data-bs-target="#exampleModal"
   >
     <i class="bi bi-plus-lg me-2" style="font-size: 1.5rem"></i>
+
     Invite member
   </button>
   <!-- Modal -->
@@ -109,7 +111,9 @@ export default {
             </div>
             <div class="close-button">
               <button
+
                 class="close-rectangle"
+
                 type="button"
                 data-cy="close-invite-btn"
                 data-bs-dismiss="modal"
@@ -117,6 +121,7 @@ export default {
                 <img src="@/assets/images/x-lg.png" alt="" class="x-lg" />
               </button>
             </div>
+
           </div>
           <div class="row w-100 d-flex justify-content-center">
             <BaseAlert :submission="submission" />
@@ -124,6 +129,7 @@ export default {
           <!-- <form @submit.prevent="handleSubmit"> -->
             
           <div class="input-frame">
+
             <div class="input-with-label">
               <div class="label">Full Name</div>
               <input
@@ -133,6 +139,7 @@ export default {
                 v-model="name.value"
                 @keyup="validateField('name')"
                 data-cy="invite-name"
+
               />
               <div
                 v-if="name.error"
@@ -148,7 +155,9 @@ export default {
                 class="input-text"
                 v-model="email.value"
                 @keyup="validateField('email')"
+
                 data-cy="invite-email"
+
               />
               <div
                 v-if="email.error"
@@ -157,6 +166,7 @@ export default {
               ></div>
             </div>
             <div class="input-with-label">
+
               <div class="label">Role</div>
               <select
                 class="input-text"
@@ -169,6 +179,7 @@ export default {
                   Employee
                 </option>
                 <option data-cy="invite-select-vendor" value="vendor">Vendor</option>
+
               </select>
             </div>
           </div>
@@ -191,6 +202,7 @@ export default {
               >
                 Send Invitation
               </button>
+
             </div>
           </div>
           <!-- </form> -->
@@ -202,6 +214,7 @@ export default {
 
 <style>
 @import url("https://fonts.googleapis.com/css2?family=Cedarville+Cursive&family=Poppins:wght@200;300&family=Roboto+Slab:wght@300&display=swap");
+
 /* font-family: 'Poppins', sans-serif; */
 .add-a-dialog-box {
   align-items: flex-start;
@@ -385,3 +398,4 @@ export default {
   color: white;
 }
 </style>
+
