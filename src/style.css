@@ -1,116 +1,54 @@
-/* :root {
-  font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
-  font-size: 16px;
-  line-height: 24px;
+/* importing local fonts */
+@font-face{
+  font-family: "Reader Trial-Regular";
+  font-style: normal;
   font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-text-size-adjust: 100%;
+  src: url('@/assets/fonts/ReaderTrial-Regular.woff') format("woff");
 }
 
-a {
+@font-face{
+  font-family: "Reader Trial-Bold";
+  font-style: normal;
+  font-weight: 900;
+  src: url('@/assets/fonts/ReaderTrial-Bold.woff') format("woff");
+}
+
+@font-face{
+  font-family: "Reader Trial-Medium";
+  font-style: normal;
   font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
+  src: url('@/assets/fonts/ReaderTrial-Medium.woff') format("woff");
 }
-a:hover {
-  color: #535bf2;
+.bold-font{
+  font-family: 'Reader Trial-Bold';
 }
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
+.regular-font{
+  font-family: 'Reader Trial-Regular';
+  font-size: medium;
 }
-a:hover {
-  color: #535bf2;
-}
-
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
-}
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
-
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
-
-.card {
-  padding: 2em;
-}
-
-#app {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
-} */
 .main-container{
   min-height:768px;
 }
 .register-form-container{
   width:60%;
 }
-.register-img{
-  background-image: url('@/assets/sidepic.jpg');
+.register-img, .login-img{
+  background-image: url('@/assets/images/sidepic.jpg');
   background-size: 100% 100%;
 }
-.register-head{
+.register-head, .login-head{
   padding-left: 15px;
 }
-.register-head-title{
-  /* font-family: 'Reader Trial'; */
-font-style: normal;
+.register-head-title, .login-head-title{
+  font-family: 'Reader Trial-Bold';
+/* font-style: normal;
 font-weight: 900;
 font-size: 28px;
-line-height: 39px;
+line-height: 39px; */
 color:#343A40;
 }
-.register-head-subtitle{
-  /* font-family: 'Reader Trial'; */
+.register-head-subtitle, .login-head-subtitle{
+  font-family: 'Reader Trial-Regular';
   font-style: normal;
   font-weight: 400;
   font-size: 16px;
@@ -122,7 +60,25 @@ color:#343A40;
 background-color: #FA6731 !important;
 border-radius: 4px !important;
 color:white !important;
-}.password-field{
+transition: 0.8s !important;
+padding: 10px 15px !important;
+}
+.second-button-color{
+  border-radius: 4px !important;
+  border:1px #FA6731 solid !important;
+  transition: 0.8s !important;
+  color:#FA6731 !important;
+  padding: 10px 15px !important;
+}
+.button-color:hover{
+  background-color: #862112 !important;
+}
+.second-button-color:hover{
+  background-color: #FA6731 !important;
+  color:white !important;
+}
+
+.password-field{
   position:relative;
 }
 .icon{
@@ -131,10 +87,14 @@ color:white !important;
   height:100%;
   width:15%;
   position:absolute;
-  background-image: url('@/assets/eyeicon.svg');
-  background-size: 30% 30%;
-  background-repeat: no-repeat;
+  /* background-image: url('@/assets/images/eyeicon.svg'); */
+  /* background-size: 30% 30%; */
+  /* background-repeat: no-repeat; */
   /* background-attachment: fixed; */
-  background-position: center;
+  /* background-position: center; */
+  display:flex;
+  justify-content:center;
+  align-items: center;
   right:0;
 }
+
