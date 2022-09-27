@@ -1,85 +1,87 @@
 <script>
-    import validateEmail from '@/utils/validateEmail'
-    import validateUserName from '@/utils/validateUserName'
-    import BaseInput from '@/components/BaseInput.vue'
-    import BaseAlert from "@/components/BaseAlert.vue"
-import { inviteUser } from '../services'
+import validateEmail from "@/utils/validateEmail";
+import validateUserName from "@/utils/validateUserName";
+import BaseInput from "@/components/BaseInput.vue";
+import BaseAlert from "@/components/BaseAlert.vue";
+import axios from "axios";
+import { inviteUser } from "../services";
 
-    export default{
-        name:"InviteUser",
-        data(){
-            return{
-                name:{
-                    value:'',
-                    error:'',
-                },
-                email:{
-                    value:'',
-                    error:''
-                },
-                role:{
-                    value:""
-                },
-                submission:{
-                    message:"",
-                    isVerified:false
-                }
-            }
-        },
-        components:{
-            BaseAlert
-        },
-        methods:{
-                formData(){
-                return {
-                email:this.email.value,
-                name:this.name.value,
-                role:this.role.value
-                }
-            },
-            validateField(field){
-            if (field ==='name'){
-                let response = validateUserName(this.name.value);
-                this.name.error = response.errorMessage
-            }
-            if (field ==='email'){
-            let response = validateEmail(this.email.value)
-            this.email.error = response.errorMessage
-            }
-            },
-            async handleSubmit(){
-            if(!this.name.value || !this.email.value || !this.role.value){
-                return this.submission.message = "Field must not be empty"
-            }
-            if(this.name.error || this.email.error){
-                return this.submission.message = "Some fields are not filled properly"
-            }
-            try{
-                this.submission.isVerified = true
-                const response = await inviteUser(this.formData())
-                return this.submission.message = "Invited Successfully"
-                
-            }
-            catch(err){
-                this.submission.message = err
-            }
-         } 
-        },
-         
-    }    
+export default {
+  name: "InviteUser",
+  data() {
+    return {
+      name: {
+        value: "",
+        error: "",
+      },
+      email: {
+        value: "",
+        error: "",
+      },
+      role: {
+        value: "",
+      },
+      submission: {
+        message: "",
+        isVerified: false,
+      },
+    };
+  },
+  components: {
+    BaseAlert,
+  },
+  methods: {
+    formData() {
+      return {
+        email: this.email.value,
+        name: this.name.value,
+        role: this.role.value,
+      };
+    },
+    
+    validateField(field) {
+      if (field === "name") {
+        let response = validateUserName(this.name.value);
+        this.name.error = response.errorMessage;
+      }
+      if (field === "email") {
+        let response = validateEmail(this.email.value);
+        this.email.error = response.errorMessage;
+      }
+    },
+    async handleSubmit() {
+      console.log(this.role.value);
+      if (!this.name.value || !this.email.value || !this.role.value) {
+        return (this.submission.message = "Field must not be empty");
+      }
+      if (this.name.error || this.email.error) {
+        return (this.submission.message =
+          "Some fields are not filled properly");
+      }
+      try {
+        this.submission.isVerified = true;
+        const response = await axios
+        .post("https://ptt-backend-dev.proshore.eu/api/users/invite", this.formData())
+      } catch (err) {
+        this.submission.message = err;
+      }
+    },
+  },
+};
+
 </script>
 
 <template>
   <!-- Button trigger modal -->
   <button
     type="button"
-    class="btn invite-button button-color px-4 py-2 "
+    class="btn invite-button button-color px-4 py-2"
     data-cy="invite-btn"
     data-bs-toggle="modal"
     data-bs-target="#exampleModal"
-    style="font-size:1.2rem;"
   >
-  <i class="bi bi-plus-lg me-2" style="font-size:1.5rem;"></i>
+    <i class="bi bi-plus-lg me-2" style="font-size: 1.5rem"></i>
+
     Invite member
   </button>
   <!-- Modal -->
@@ -109,7 +111,9 @@ import { inviteUser } from '../services'
             </div>
             <div class="close-button">
               <button
-                class="close-rectangle second-button-color"
+
+                class="close-rectangle"
+
                 type="button"
                 data-cy="close-invite-btn"
                 data-bs-dismiss="modal"
@@ -117,13 +121,15 @@ import { inviteUser } from '../services'
                 <img src="@/assets/images/x-lg.png" alt="" class="x-lg" />
               </button>
             </div>
-        </div>
-        <div class="row w-100 d-flex justify-content-center">
 
+          </div>
+          <div class="row w-100 d-flex justify-content-center">
             <BaseAlert :submission="submission" />
-        </div>
-        <!-- <form @submit.prevent="handleSubmit"> -->
-            <div class="input-frame">
+          </div>
+          <!-- <form @submit.prevent="handleSubmit"> -->
+            
+          <div class="input-frame">
+
             <div class="input-with-label">
               <div class="label">Full Name</div>
               <input
@@ -132,7 +138,8 @@ import { inviteUser } from '../services'
                 class="input-text"
                 v-model="name.value"
                 @keyup="validateField('name')"
-                data-cy ="invite-name"
+                data-cy="invite-name"
+
               />
               <div
                 v-if="name.error"
@@ -148,7 +155,9 @@ import { inviteUser } from '../services'
                 class="input-text"
                 v-model="email.value"
                 @keyup="validateField('email')"
-                data-cy ="invite-email"
+
+                data-cy="invite-email"
+
               />
               <div
                 v-if="email.error"
@@ -157,19 +166,27 @@ import { inviteUser } from '../services'
               ></div>
             </div>
             <div class="input-with-label">
-                <div class="label">Role</div>
-                <select class="input-text" aria-label="Default select example" v-model="role.value" >
-                    <!-- role list is provided from backend for proper implementation -->
+
+              <div class="label">Role</div>
+              <select
+                class="input-text"
+                aria-label="Default select example"
+                v-model="role.value"
+              >
+                <!-- role list is provided from backend for proper implementation -->
                 <option selected disabled>Select a Role</option>
-                <option data-cy="invite-select-employee" value="1">Employee</option>
-                <option data-cy="invite-select-vendor" value="2">Vendor</option>
+                <option data-cy="invite-select-employee" value="employee">
+                  Employee
+                </option>
+                <option data-cy="invite-select-vendor" value="vendor">Vendor</option>
+
               </select>
             </div>
           </div>
           <div class="button-frame">
-            <div class="">
+            <div class="outline-button">
               <button
-                class="btn second-button-color"
+                class="primary button"
                 type="button"
                 data-cy="invite-cancel-btn"
                 data-bs-dismiss="modal"
@@ -177,8 +194,15 @@ import { inviteUser } from '../services'
                 Cancel
               </button>
             </div>
-            <div class="">
-                <button class="btn button-color" data-cy="invite-send-btn" @click="handleSubmit" >Send Invitation</button>
+            <div class="invite-button">
+              <button
+                class="primary-1 button-1 button-color"
+                data-cy="invite-send-btn"
+                @click="handleSubmit"
+              >
+                Send Invitation
+              </button>
+
             </div>
           </div>
           <!-- </form> -->
@@ -189,6 +213,8 @@ import { inviteUser } from '../services'
 </template>
 
 <style>
+@import url("https://fonts.googleapis.com/css2?family=Cedarville+Cursive&family=Poppins:wght@200;300&family=Roboto+Slab:wght@300&display=swap");
+
 /* font-family: 'Poppins', sans-serif; */
 .add-a-dialog-box {
   align-items: flex-start;
@@ -372,3 +398,4 @@ import { inviteUser } from '../services'
   color: white;
 }
 </style>
+
