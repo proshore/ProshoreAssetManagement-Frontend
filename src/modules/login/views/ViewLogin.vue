@@ -32,13 +32,10 @@ export default {
 
   methods: {
     formData() {
-      ({
-        token: "1bxXVTgMmdgiClqXZ8Rdmg",
-        data: {
+      return {
           email: this.email.value,
           password: this.password.value,
-        },
-      });
+        }
     },
     validateField(field) {
       if (field === "email") {

@@ -1,5 +1,4 @@
 <script>
-import { RouterLink, RouterView } from "vue-router";
 export default {
   name: "DashBoard",
   data(){
@@ -26,7 +25,7 @@ export default {
           </div>
           <div class="upper-panels">
             <div class="panels-1">
-              <img src="0" alt="" />
+              
               <div class="dashboard-1">Settings</div>
             </div>
           </div>
