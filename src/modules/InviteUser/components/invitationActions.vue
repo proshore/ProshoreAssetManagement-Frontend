@@ -29,6 +29,7 @@ export default {
         }
         
     },
+    emits: ['deleteInvite'],
     methods: {
       bodyData(){
         return   {
@@ -63,7 +64,9 @@ export default {
         async deleteMember(){
           try{
             const response = await deleteUser(this.bodyData());
-            //refresh the list of invitations in the parent component
+            if (response.data.status === true){
+              this.$emit('deleteInvite')
+            }
             //show success message
           }
           catch(error){

@@ -1,26 +1,61 @@
 <script>
-    import InviteUser from '../components/InviteUser.vue'
-    import InvitationActions from '../components/invitationActions.vue';
-    import {invitationList} from '../services'
-    //used for testing
-    import axios from 'axios'
-    export default{
-    components: [
-        InviteUser,
-        InvitationActions
-    ],
-    data() {
-        return {
-            invitations: []
-        };
+import InviteUser from "../components/InviteUser.vue";
+import InvitationActions from "../components/invitationActions.vue";
+import { invitationList } from "../services";
+//used for testing
+import axios from "axios";
+export default {
+  components: [InviteUser, InvitationActions],
+  data() {
+    return {
+      invitations: [],
+    };
+  },
+  components: { InvitationActions, InviteUser },
+   created() {
+    this.getInvitationList();
+  },
+  computed: {
+    styleRole() {
+      return (role) => {
+        if (role.toLowerCase() === "employee") {
+          return "role-employee";
+        }
+        if (role.toLowerCase() === "vendor") {
+          return "role-vendor";
+        }
+      };
     },
-    components: { InvitationActions,InviteUser },
-    async created(){
+    styleStatus() {
+      return (status) => {
+        if (status.toLowerCase() === "pending") {
+          return "status-pending";
+        }
+        if (status.toLowerCase() === "expired") {
+          return "status-expired";
+        }
+      };
+    },
+    styleDotIcon() {
+      return (status) => {
+        if (status.toLowerCase() === "pending") {
+          return "status-pending-icon";
+        }
+        if (status.toLowerCase() === "expired") {
+          return "status-expired-icon";
+        }
+      };
+    },
+  },
+  methods: {
+    async getInvitationList() {
       //this block is used for testing
-      try{
-        const response = await axios.get(`https://6319958e8e51a64d2be7568b.mockapi.io/invitedUsers`);
+      try {
+        const response = await axios.get(
+          `https://6319958e8e51a64d2be7568b.mockapi.io/invitedUsers`
+        );
         this.invitations = response.data;
-      }catch(e){
+      } catch (e) {
         console.error(e);
       }
       //this is the actual block to be used after connection with backend
@@ -32,38 +67,12 @@
       // catch(error){
       //   console.error("error: ", error)
       // }
+      return;
     },
-    computed:{
-        styleRole(){
-          return role =>{
-          if (role.toLowerCase() === "employee") {
-            return "role-employee"
-          }
-          if (role.toLowerCase() ==="vendor") {
-            return "role-vendor"
-          }
-        }
-        },
-        styleStatus(){
-      return status =>{
-        if (status.toLowerCase() ==="pending"){
-          return "status-pending"
-        }
-        if (status.toLowerCase() === "expired") {
-          return "status-expired";
-        }
-      };
+    refreshInvitationList() {
+      console.log('reload');
+      this.getInvitationList()
     },
-    styleDotIcon(){
-      return status =>{
-        if (status.toLowerCase() ==="pending"){
-          return "status-pending-icon"
-        }
-        if (status.toLowerCase() === "expired") {
-          return "status-expired-icon";
-        }
-      }
-    }
   },
 };
 </script>
@@ -73,14 +82,18 @@
       <div class="col-4">
         <form class="form-inline d-flex">
           <input
-            class="form-control form-control-lg mr-sm-2 "
+            class="form-control form-control-lg mr-sm-2"
             type="search"
             placeholder="Search"
             aria-label="Search"
-            data-cy ="invitations-search-field" 
+            data-cy="invitations-search-field"
           />
-          <button class="btn my-2 px-3 my-sm-0 mx-2 button-color" type="submit" data-cy="invitation-search-btn">
-            <i class="bi bi-search" ></i>
+          <button
+            class="btn my-2 px-3 my-sm-0 mx-2 button-color"
+            type="submit"
+            data-cy="invitation-search-btn"
+          >
+            <i class="bi bi-search"></i>
           </button>
         </form>
       </div>
@@ -90,9 +103,15 @@
     </div>
     <div class="row mt-4 px-4">
       <table
-        class="table table-borderless border table-hover table-sm bg-white regular-font"
+        class="
+          table table-borderless
+          border
+          table-hover table-sm
+          bg-white
+          regular-font
+        "
       >
-        <thead class="thead-light ">
+        <thead class="thead-light">
           <tr class="text-center">
             <th scope="col">S.N</th>
             <th scope="col">Member Full Name</th>
@@ -113,17 +132,21 @@
             <td :class="`role ${styleRole(invitation.role)}`">
               {{ invitation.role }}
             </td>
-            <td >
-              
+            <td>
               <div :class="`status ${styleStatus(invitation.status)}`">
-                <div class=" status-icon me-2" :class="` ${styleDotIcon(invitation.status)}`"></div> {{ invitation.status }}
+                <div
+                  class="status-icon me-2"
+                  :class="` ${styleDotIcon(invitation.status)}`"
+                ></div>
+                {{ invitation.status }}
               </div>
             </td>
-            <td >
+            <td>
               <InvitationActions
                 :name="invitation.name"
                 :email="invitation.email"
                 :contact="invitation.contact"
+                @deleteInvite="()=>refreshInvitationList"
               />
             </td>
           </tr>
@@ -161,7 +184,7 @@ tr {
   color: #0b102c;
 }
 .status {
-  margin:auto;
+  margin: auto;
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
@@ -171,24 +194,24 @@ tr {
   font-size: 12px;
   width: fit-content;
 }
-.status-icon{
-  height:8px;
-  width:8px;
-  border-radius:50%;
+.status-icon {
+  height: 8px;
+  width: 8px;
+  border-radius: 50%;
 }
 .status-expired {
   background-color: #ffeded;
   color: black !important;
 }
-.status-expired-icon{
- background-color:#FF4F4F;
+.status-expired-icon {
+  background-color: #ff4f4f;
 }
 .status-pending {
   background-color: #fff4da !important;
   color: black !important;
 }
-.status-pending-icon{
-  background-color:#FFCA48;
+.status-pending-icon {
+  background-color: #ffca48;
 }
 tr {
   vertical-align: middle;
@@ -220,7 +243,6 @@ tr {
 .status-expired {
   background-color: #ffeded;
   color: #ff4f4f;
-  
 }
 .status-pending {
   background-color: #fff4da;
