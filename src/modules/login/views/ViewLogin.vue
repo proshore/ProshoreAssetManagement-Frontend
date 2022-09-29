@@ -5,6 +5,7 @@ import BaseInput from "@/components/BaseInput.vue";
 import BaseAlert from "@/components/BaseAlert.vue";
 import { loginUser } from "../services";
 import TogglePassword from "@/components/TogglePassword.vue";
+
 export default {
   data() {
     return {
@@ -61,6 +62,7 @@ export default {
         if ((response.data.success = true)) {
           this.submission.message = "Login Successful";
           this.submission.isVerified = true;
+          localStorage.setItem('data', response.data.data);
           setTimeout(() => {
             this.$router.push({ name: "dashboard" });
           }, 2000);

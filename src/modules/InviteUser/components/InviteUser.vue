@@ -3,8 +3,8 @@ import validateEmail from "@/utils/validateEmail";
 import validateUserName from "@/utils/validateUserName";
 import BaseInput from "@/components/BaseInput.vue";
 import BaseAlert from "@/components/BaseAlert.vue";
-import axios from "axios";
 import { inviteUser } from "../services";
+import axios from "axios";
 
 export default {
   name: "InviteUser",
@@ -18,7 +18,7 @@ export default {
         value: "",
         error: "",
       },
-      role: {
+      role_id: {
         value: "",
       },
       submission: {
@@ -27,15 +27,17 @@ export default {
       },
     };
   },
+  
   components: {
     BaseAlert,
   },
   methods: {
+    
     formData() {
       return {
         email: this.email.value,
         name: this.name.value,
-        role: this.role.value,
+        role_id: parseInt(this.role_id.value),
       };
     },
     
@@ -50,18 +52,22 @@ export default {
       }
     },
     async handleSubmit() {
-      console.log(this.role.value);
-      if (!this.name.value || !this.email.value || !this.role.value) {
+      
+      if (!this.name.value || !this.email.value || !parseInt(this.role_id.value)) {
         return (this.submission.message = "Field must not be empty");
       }
       if (this.name.error || this.email.error) {
         return (this.submission.message =
           "Some fields are not filled properly");
       }
+      
       try {
         this.submission.isVerified = true;
-        const response = await axios
-        .post("https://ptt-backend-dev.proshore.eu/api/users/invite", this.formData())
+        const response = await inviteUser(this.formData());
+        if ((response.data.success = true)) {
+          this.submission.message = "Sent Successful";
+          this.submission.isVerified = true;
+        }
       } catch (err) {
         this.submission.message = err;
       }
@@ -171,14 +177,14 @@ export default {
               <select
                 class="input-text"
                 aria-label="Default select example"
-                v-model="role.value"
+                v-model="role_id.value"
               >
                 <!-- role list is provided from backend for proper implementation -->
                 <option selected disabled>Select a Role</option>
-                <option data-cy="invite-select-employee" value="employee">
+                <option data-cy="invite-select-employee" value=1>
                   Employee
                 </option>
-                <option data-cy="invite-select-vendor" value="vendor">Vendor</option>
+                <option data-cy="invite-select-vendor" value=2>Vendor</option>
 
               </select>
             </div>

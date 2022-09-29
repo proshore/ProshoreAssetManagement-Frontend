@@ -8,6 +8,9 @@ const loginUser = async (data) => {
 const forgotPassword = async (forgotData)=>{
   return await API.post(apiUrl.FORGOT_URL,forgotData);
 };
-export { loginUser, forgotPassword };
+const inviteUser = async (data) => {
+  return await API.post(apiUrl.INVITE_URL,data);
+}
+export { loginUser, forgotPassword,inviteUser };
 
 
