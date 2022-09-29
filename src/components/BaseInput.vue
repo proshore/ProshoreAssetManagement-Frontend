@@ -1,7 +1,5 @@
 <script>
-
 export default {
-  
   props: {
     name: {
       type: String,
@@ -31,9 +29,7 @@ export default {
       required: true,
     },
   },
-  methods: {
-   
-  },
+  methods: {},
 };
 </script>
 
@@ -47,9 +43,9 @@ export default {
       :name="name"
       :placeholder="placeholder"
       :value="modelValue"
-      @keyup="this.$emit('field-changed')"
+      @keyup="$emit('field-changed')"
       @input="(event) => $emit('update:modelValue', event.target.value)"
-      data-cy
+      data-cy ="{{name}}"
     />
     <div v-if="error" class="form-text text-danger" v-text="error"></div>
   </div>

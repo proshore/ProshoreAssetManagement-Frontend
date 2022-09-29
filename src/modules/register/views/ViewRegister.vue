@@ -3,7 +3,8 @@ import BaseInput from "@/components/BaseInput.vue";
 import validateEmail from "@/utils/validateEmail";
 import validatePassword from "@/utils/validatePassword.js";
 import {registerUser} from '@/modules/register/services'
-import BaseAlert from "../../../components/BaseAlert.vue";
+import BaseAlert from "@/components/BaseAlert.vue";
+import TogglePassword from "@/components/togglePassword.vue";
 export default {
   data() {
     return {
@@ -30,7 +31,8 @@ export default {
   },
   components: {
     BaseInput,
-    BaseAlert
+    BaseAlert,
+    TogglePassword
 },
  mounted(){
       this.email = this.$route.query.email
@@ -52,13 +54,14 @@ export default {
         }
       }
     },
-    toggleSeen(event){
-      if(event.target.id == 'cpassword'){
+    toggleSeen(field){
+      if(field == 'cpassword'){
         this.cpassword.seen= !this.cpassword.seen
       }
-      if(event.target.id == 'password'){
+      if(field == 'password'){
         this.password.seen= !this.password.seen
       }
+      console.log(this.password.seen);
     },
     async handleSubmit() {
       this.validateField("cpassword")
@@ -73,10 +76,11 @@ export default {
       }
       if (!this.password.error && !this.cpassword.error) {
         try {
-          // const response = await registerUser({
-            // this.formData()
-          // });
+          const response = await registerUser(
+            this.formData()
+          );
           this.submission = {message:"Registered Successfully", isVerified:true}
+          console.log("response:",response);
           setTimeout(()=>this.$router.push({name:'login'}),2000)
         } catch (error) {
           this.submission.message =error 
@@ -89,14 +93,16 @@ export default {
     },
     formData(){
       return{
+        data:{
         name:this.name,
         email:this.email,
         password:this.password.value,
-        roleId:this.$route.query.roleId,
-        token:this.$route.params
+        },
+        token:"1bxXVTgMmdgiClqXZ8Rdmg"
       }
-    }
-  },
+    },
+    
+},
 };
 </script>
 
@@ -132,7 +138,7 @@ export default {
                   id="name"
                   v-model="name"
                   readonly
-                  data-cy
+                  data-cy="register-name"
                 />
               </div>
               <div class="mb-4">
@@ -142,7 +148,7 @@ export default {
                   class="form-control"
                   id="email"
                   v-model="email"
-                  data-cy
+                  data-cy="register-email"
                   readonly
                 />
               </div>
@@ -159,10 +165,10 @@ export default {
                     placeholder="Set Your Password"
                     v-model="password.value"
                     @keyup="validateField('password')"
-                    data-cy
+                    data-cy="register-password"
                   />
-                  <div class="icon" id="password" @click="(event)=>toggleSeen(event)"></div>
-                </div>
+                  <TogglePassword :seen="password.seen" @clicked="toggleSeen('password')" />
+                  </div>
                  <div v-if="password.error" class="form-text text-danger" v-text="password.error"></div>
               </div>
 
@@ -178,15 +184,14 @@ export default {
                   placeholder="Confirm Password"
                   v-model="cpassword.value"
                   @keyup="validateField('cpassword')"
-                  data-cy
+                  data-cy="register-cpassword"
                 />
-                <div class="icon" id="cpassword" @click="(event)=>toggleSeen(event)"></div>
+                <TogglePassword :seen="cpassword.seen" @clicked="toggleSeen('cpassword')" />
                 </div>
-                
                 <div v-if="cpassword.error" class="form-text text-danger" v-text="cpassword.error"></div>
               </div>
 
-              <button class="btn w-100 w-md-50 button-color" data-cy="submit" type="submit">
+              <button class="btn w-100 w-md-50 button-color" data-cy="register-btn" type="submit">
                 Register
               </button>
             </form>
