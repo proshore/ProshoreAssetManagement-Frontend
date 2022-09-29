@@ -61,6 +61,7 @@ export default {
         if ((response.data.success = true)) {
           this.submission.message = "Login Successful";
           this.submission.isVerified = true;
+          
           setTimeout(() => {
             this.$router.push({ name: "dashboard" });
           }, 2000);
