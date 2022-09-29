@@ -5,7 +5,8 @@ export default {
     return{
       notificationCount:2
     }
-  }
+  },
+  
 };
 </script>
 

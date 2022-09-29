@@ -2,8 +2,15 @@ import apiUrl from '@/constants/routes/invite'
 
 import API from "@/services/API"
 
+
 const inviteUser = async(inviteData)=>{
-    return await API.post(apiUrl.INVITE_URL,inviteData);
+   const config = {
+      headers: {
+          'Content-Type': 'application/json',
+          Authorization: "Bearer " + localStorage.getItem('data'),
+      },
+      }
+    return await API.post(apiUrl.INVITE_URL,inviteData,config);
     // pass authorization token as header on third argument
 }
 //get invitation data from server
