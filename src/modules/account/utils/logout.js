@@ -4,7 +4,6 @@ export default async function logout(){
     const token = getToken()
     if (!token){
         //show error message in a dialog box or a toast
-        console.log('no token found');
         return false
 
     }

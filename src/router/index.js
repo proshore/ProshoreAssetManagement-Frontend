@@ -21,7 +21,14 @@ const router = createRouter({
         path:"/dashboard",
         name:"dashboard",
         component: ViewDashBoard,
+        redirect: 'dashboard/invitations',
         children:[
+            {
+                path:'invitations',
+                name:'invitations',
+                component:ViewInvitations,
+                
+            },
             {
                 path:'employees',
                 name:'employees',
@@ -30,12 +37,8 @@ const router = createRouter({
             {
                 path:'vendors',
                 name:'vendors',
-            },
-            {
-                path:'invitations',
-                name:'invitations',
-                component:ViewInvitations
             }
+            
         ]
     },
     ...registerRoutes,

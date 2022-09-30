@@ -70,27 +70,6 @@ export default {
                 ></a>
               </li>
               <li class="nav-item d-flex mx-2 align-items-center">
-                <!-- the following link will redirect to user profile page -->
-                <!-- <a
-                  </a
-                >
-                <div
-                  class="dropdown-menu dropdown-menu-end"
-                  aria-labelledby="navbarDropdown"
-                >
-                  <a
-                    data-cy="navbar-account-profile-link"
-                    class="dropdown-item"
-                    href="#!"
-                    >Profile</a
-                  >
-                  <a
-                    data-cy="navbar-account-logout-link"
-                    class="dropdown-item"
-                    href="#!"
-                    >Logout</a
-                  >
-                </div> -->
                 <div class="dropdown dropstart">
                   <button
                     class="navbar-account-img"
@@ -261,10 +240,18 @@ body.sb-sidenav-toggled #wrapper #sidebar-wrapper {
 }
 
 .dashboard-menu {
-  border: none !important;
-  padding: 15px !important;
+  border: none ;
+  padding: 15px ;
   text-decoration: none;
   color: black;
+}
+.dashboard-menu:hover {
+ color: #FA6731 ; 
+}
+.router-link-exact-active {
+  border-radius: 5px ;
+  color: white !important;
+  background-color: #fa6731;
 }
 .navbar-account-img {
   height: 35px;
@@ -273,7 +260,7 @@ body.sb-sidenav-toggled #wrapper #sidebar-wrapper {
   border-radius: 50%;
 }
 .nav-link {
-  position: relative !important;
+  position: relative;
 }
 .notification-count {
   height: 15px;
@@ -287,14 +274,7 @@ body.sb-sidenav-toggled #wrapper #sidebar-wrapper {
   text-align: center;
   font-size: 10px;
 }
-/* .dashboard-menu:hover {
- color: #FA6731 ; 
-} */
-.router-link-exact-active {
-  border-radius: 5px !important;
-  color: white !important;
-  background-color: #fa6731;
-}
+
 
 .panels-icons {
   height: 24px;
