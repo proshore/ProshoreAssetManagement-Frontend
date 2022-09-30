@@ -1,12 +1,11 @@
 <script>
 export default {
   name: "DashBoard",
-  data(){
-    return{
-      notificationCount:2
-    }
+  data() {
+    return {
+      notificationCount: 2,
+    };
   },
-  
 };
 </script>
 
@@ -15,18 +14,27 @@ export default {
     <!-- Sidebar-->
     <div class="border-end bg-white" id="sidebar-wrapper">
       <div class="sidebar-frame">
-        <img class="logo-frame" src="@/assets/images/proshorelogoo.png" alt="" />
+        <img
+          class="logo-frame"
+          src="@/assets/images/proshorelogoo.png"
+          alt=""
+        />
         <div class="panel">
           <div class="upper-panel">
             <div class="manage-panels">
               <div class="panels">
-                <div class="dashboard  d-flex align-items-center bold-font"><i class="bi bi-person-fill me-4" style="color:#FA6731; font-size: 1.4rem;"></i>Team</div>
+                <div class="dashboard d-flex align-items-center bold-font">
+                  <i
+                    class="bi bi-person-fill me-4"
+                    style="color: #fa6731; font-size: 1.4rem"
+                  ></i
+                  >Team
+                </div>
               </div>
             </div>
           </div>
           <div class="upper-panels">
             <div class="panels-1">
-              
               <div class="dashboard-1">Settings</div>
             </div>
           </div>
@@ -38,7 +46,7 @@ export default {
       <!-- Top navigation-->
       <nav class="navbar navbar-expand-lg border-bottom border-3">
         <div class="container-fluid">
-          <p class="h4 bold-font ">Team</p>
+          <p class="h4 bold-font">Team</p>
           <button
             data-cy="navbar-toggle-button"
             class="navbar-toggler"
@@ -54,17 +62,17 @@ export default {
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
               <li class="nav-item active">
-                <a class="nav-link " data-cy="navbar-notifcations-link" href="#!"
-                  ><div class="notification-count" :v-if="notificationCount">{{notificationCount}}</div><i class="bi bi-bell " style="font-size:1.5rem;"></i></a
-                >
+                <a class="nav-link" data-cy="navbar-notifcations-link" href="#!"
+                  ><div class="notification-count" :v-if="notificationCount">
+                    {{ notificationCount }}
+                  </div>
+                  <i class="bi bi-bell" style="font-size: 1.5rem"></i
+                ></a>
               </li>
-              <li class="nav-item ">
+              <li class="nav-item d-flex mx-2 align-items-center">
                 <!-- the following link will redirect to user profile page -->
-                <a
-                  data-cy="navbar-account-dropdown"
-                  class="nav-link"
-                  href="#"
-                  ><div class="navbar-account-img"></div></a
+                <!-- <a
+                  </a
                 >
                 <div
                   class="dropdown-menu dropdown-menu-end"
@@ -82,6 +90,38 @@ export default {
                     href="#!"
                     >Logout</a
                   >
+                </div> -->
+                <div class="dropdown dropstart">
+                  <button
+                    class="navbar-account-img"
+                    type="button"
+                    id="dropdownMenuButton1"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                    data-cy="navbar-account-dropdown"
+                  >
+                  <div class=""></div>
+                  </button>
+                  <ul
+                    class="dropdown-menu"
+                    aria-labelledby="dropdownMenuButton1"
+                  >
+                    <li><a
+                    data-cy="navbar-account-profile-link"
+                    class="dropdown-item  d-flex align-items-center "
+                    href="#!"
+                    ><i class="bi bi-person-circle me-3" style="color: #fa6731; font-size: 1.4rem"></i>Profile</a
+                  ></li>
+                  <div class="dropdown-divider"></div>
+                    <li>
+                      <RouterLink
+                    data-cy="navbar-account-logout-link"
+                    class="dropdown-item d-flex align-items-center"
+                    :to="{name:'logout'}"
+                    ><i class="bi bi-box-arrow-right me-3" style="color: #fa6731; font-size: 1.4rem"></i>Logout</RouterLink
+                  >
+                    </li>
+                  </ul>
                 </div>
               </li>
             </ul>
@@ -89,33 +129,29 @@ export default {
         </div>
       </nav>
       <!-- Page content-->
-      <div class="container-fluid mt-5" style="font-size:1.2rem;">
+      <div class="container-fluid mt-5" style="font-size: 1.2rem">
         <div id="btn regular-font">
-          <RouterLink :to="{ name: 'employees' }"
-            
-              
-              data-cy="employees-tab-link"
-              class=" dashboard-menu"
-            >
-              Employees
-            </RouterLink
+          <RouterLink
+            :to="{ name: 'employees' }"
+            data-cy="employees-tab-link"
+            class="dashboard-menu"
           >
-          <RouterLink :to="{ name: 'vendors' }"
-            
-              
-              data-cy="vendors-tab-link"
-              class=" dashboard-menu"
-            >
-              Vendors
-            </RouterLink
+            Employees
+          </RouterLink>
+          <RouterLink
+            :to="{ name: 'vendors' }"
+            data-cy="vendors-tab-link"
+            class="dashboard-menu"
           >
-          <RouterLink :to="{ name: 'invitations' }"
-              data-cy="invitations-tab-link"
-              class=" dashboard-menu"
-            >
-              Invitations
-            </RouterLink
+            Vendors
+          </RouterLink>
+          <RouterLink
+            :to="{ name: 'invitations' }"
+            data-cy="invitations-tab-link"
+            class="dashboard-menu"
           >
+            Invitations
+          </RouterLink>
         </div>
         <div id="container">
           <RouterView></RouterView>
@@ -216,50 +252,48 @@ body.sb-sidenav-toggled #wrapper #sidebar-wrapper {
 }
 
 .dashboard {
-  color: #FA6731;
+  color: #fa6731;
   letter-spacing: 0.15px;
   line-height: 6px;
   margin-top: -1px;
   min-width: 42px;
   white-space: nowrap;
-  
 }
 
-.dashboard-menu{
-  border:none !important;
-  padding:15px !important;
-  text-decoration:none;
-  color:black;
+.dashboard-menu {
+  border: none !important;
+  padding: 15px !important;
+  text-decoration: none;
+  color: black;
 }
-.navbar-account-img{
-  height:35px;
-  width:35px;
-  border:1px solid grey;
+.navbar-account-img {
+  height: 35px;
+  width: 35px;
+  border: 1px solid grey;
   border-radius: 50%;
-
 }
-.nav-link{
-  position:relative !important;
+.nav-link {
+  position: relative !important;
 }
-.notification-count{
-  height:15px;
-  width:15px;
-  border-radius:50%;
+.notification-count {
+  height: 15px;
+  width: 15px;
+  border-radius: 50%;
   background-color: red;
-  position:absolute;
-  right:0;
-  top:0;
-  color:white;
+  position: absolute;
+  right: 0;
+  top: 0;
+  color: white;
   text-align: center;
-  font-size:10px;
+  font-size: 10px;
 }
 /* .dashboard-menu:hover {
  color: #FA6731 ; 
 } */
-.router-link-exact-active{
-  border-radius:5px !important;
-  color:white !important;
-  background-color: #FA6731 ;
+.router-link-exact-active {
+  border-radius: 5px !important;
+  color: white !important;
+  background-color: #fa6731;
 }
 
 .panels-icons {

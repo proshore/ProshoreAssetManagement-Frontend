@@ -1,5 +1,5 @@
 import logout from "../utils/logout";
-const accountsRoutes = [
+const accountRoutes = [
 {
     path: "/logout",
     name: "logout",
@@ -7,4 +7,4 @@ const accountsRoutes = [
   },
 ];
 
-export default accountsRoutes;
+export default accountRoutes;
