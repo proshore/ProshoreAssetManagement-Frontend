@@ -1,7 +1,7 @@
 const ViewLogin = ()=> import("../views/ViewLogin.vue");
 const ForgotPassword = ()=> import("../views/ViewForgotPassword.vue")
 const SentMail = ()=> import("../views/SentMail.vue")
-const ViewResetPassword = ()=> import("../views/ViewResetPassword.vue")
+
 const loginRoutes = [
         {
             path:"/",
@@ -17,11 +17,6 @@ const loginRoutes = [
         path:"/sentmail",
         name:"sentmail",
         component:SentMail
-    },
-    {
-        path:"/resetpassword",
-        name:"resetpassword",
-        component:ViewResetPassword
     }
    
 

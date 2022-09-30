@@ -6,7 +6,6 @@ import loginRoutes from "@/modules/login/router"
 import inviteRoutes from "@/modules/InviteUser/router"
 import accountRoutes from '../modules/account/router'
 
-
 // const ViewHome = () => import('@/views/ViewHome.vue')
 const ViewDashBoard = () => import('@/components/DashBoard.vue')
 const ViewInvitations = () => import('@/modules/InviteUser/views/ViewInvitations.vue')
