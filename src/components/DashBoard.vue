@@ -250,8 +250,11 @@ body.sb-sidenav-toggled #wrapper #sidebar-wrapper {
 }
 .router-link-exact-active {
   border-radius: 5px ;
-  color: white !important;
+  color: white ;
   background-color: #fa6731;
+}
+.router-link-exact-active:hover{
+  color: white ;
 }
 .navbar-account-img {
   height: 35px;
