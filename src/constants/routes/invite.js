@@ -1,4 +1,4 @@
-const INVITE_URL ="" // /api/admin/invite
+const INVITE_URL ="api/users/invite" // /
 const RESEND_INVITE_URL =""  // /api/invite/resend
 const REVOKE_INVITE_URL=""  // /api/invite/revoke
 

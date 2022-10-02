@@ -3,6 +3,9 @@ import { createRouter, createWebHistory} from 'vue-router'
 
 import registerRoutes from "@/modules/register/router" 
 import loginRoutes from "@/modules/login/router"
+import inviteRoutes from "@/modules/InviteUser/router"
+import accountRoutes from '../modules/account/router'
+
 
 // const ViewHome = () => import('@/views/ViewHome.vue')
 const ViewDashBoard = () => import('@/components/DashBoard.vue')
@@ -19,7 +22,14 @@ const router = createRouter({
         path:"/dashboard",
         name:"dashboard",
         component: ViewDashBoard,
+        redirect: 'dashboard/invitations',
         children:[
+            {
+                path:'invitations',
+                name:'invitations',
+                component:ViewInvitations,
+                
+            },
             {
                 path:'employees',
                 name:'employees',
@@ -28,16 +38,13 @@ const router = createRouter({
             {
                 path:'vendors',
                 name:'vendors',
-            },
-            {
-                path:'invitations',
-                name:'invitations',
-                component:ViewInvitations
             }
+            
         ]
     },
     ...registerRoutes,
-    ...loginRoutes
+    ...loginRoutes,
+    ...accountRoutes
         
     ]
 });
