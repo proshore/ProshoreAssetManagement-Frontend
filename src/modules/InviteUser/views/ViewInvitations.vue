@@ -12,8 +12,9 @@ export default {
     };
   },
   components: { InvitationActions, InviteUser },
-   created() {
-    this.getInvitationList();
+    mounted() {
+    this.getInvitationList()
+    //hello
   },
   computed: {
     styleRole() {
@@ -50,6 +51,7 @@ export default {
   methods: {
     async getInvitationList() {
       //this block is used for testing
+      console.log('fetching list');
       try {
         const response = await axios.get(
           `https://6319958e8e51a64d2be7568b.mockapi.io/invitedUsers`
@@ -146,7 +148,8 @@ export default {
                 :name="invitation.name"
                 :email="invitation.email"
                 :contact="invitation.contact"
-                @deleteInvite="()=>refreshInvitationList"
+                :id="invitation.id"
+                @deleteInvite="refreshInvitationList"
               />
             </td>
           </tr>

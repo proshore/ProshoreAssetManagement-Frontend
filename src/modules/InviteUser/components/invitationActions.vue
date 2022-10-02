@@ -1,5 +1,6 @@
 <script>
 import { reInviteUser, revokeUser,deleteUser } from "../services";
+import axios from "axios";  //used only during testing
 export default {
   data(){
     return {
@@ -24,6 +25,10 @@ export default {
             required: true,
         },
         contact:{
+          type:String,
+          required:true
+        },
+        id:{
           type:String,
           required:true
         }
@@ -63,10 +68,13 @@ export default {
         },
         async deleteMember(){
           try{
-            const response = await deleteUser(this.bodyData());
-            if (response.data.status === true){
+            // const response = await deleteUser(this.id);
+            // if (response.data.status === true){
+              const response = await axios.delete(
+          `https://6319958e8e51a64d2be7568b.mockapi.io/invitedUsers/${this.id}`   // used only for testing
+        );
               this.$emit('deleteInvite')
-            }
+            // }
             //show success message
           }
           catch(error){

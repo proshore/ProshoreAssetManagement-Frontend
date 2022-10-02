@@ -25,8 +25,8 @@ const inviteUser = async(inviteData)=>{
     return await API.post(apiUrl.REVOKE_INVITE_URL,revokeData);
     // pass token in headers
  }
- const deleteUser = async (deleteData)=>{
-   return await API.delete(apiUrl.DELETE_INVITE_URL,deleteData)
+ const deleteUser = async (inviteId)=>{
+   return await API.delete(`${apiUrl.DELETE_INVITE_URL}/${inviteId}`)
  }
  const invitationList = async ()=>{
    return await API.get(apiUrl.INVITATION_LIST_URL)
