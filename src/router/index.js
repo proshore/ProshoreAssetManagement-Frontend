@@ -1,52 +1,37 @@
-import { createRouter, createWebHistory} from 'vue-router'
+import { createRouter, createWebHistory } from "vue-router";
 
-
-import registerRoutes from "@/modules/register/router" 
-import loginRoutes from "@/modules/login/router"
-import inviteRoutes from "@/modules/InviteUser/router"
-import accountRoutes from '../modules/account/router'
-
+import registerRoutes from "@/modules/register/router";
+import loginRoutes from "@/modules/login/router";
+import inviteRoutes from "@/modules/InviteUser/router";
+import accountRoutes from "@/modules/account/router";
+import teamRoutes from "@/modules/team/router"
+import assetsRoutes from "@/modules/assets/router"
 
 // const ViewHome = () => import('@/views/ViewHome.vue')
-const ViewDashBoard = () => import('@/components/DashBoard.vue')
-const ViewInvitations = () => import('@/modules/InviteUser/views/ViewInvitations.vue')
+const ViewDashBoard = () => import("@/components/DashBoard.vue");
+
 const router = createRouter({
-    history: createWebHistory(),
-    routes:[
+  history: createWebHistory(),
+  routes: [
     //     {
     //         path:"/",
     //         name:"home",
     //         component: ViewHome
     // },
     {
-        path:"/dashboard",
-        name:"dashboard",
-        component: ViewDashBoard,
-        redirect: 'dashboard/invitations',
-        children:[
-            {
-                path:'invitations',
-                name:'invitations',
-                component:ViewInvitations,
-                
-            },
-            {
-                path:'employees',
-                name:'employees',
-
-            },
-            {
-                path:'vendors',
-                name:'vendors',
-            }
-            
-        ]
+      path: "/dashboard",
+      name: "dashboard",
+      component: ViewDashBoard,
+      redirect: "dashboard/team/invitations",
+      children: [
+        ...teamRoutes,
+      ...assetsRoutes
+      ],
     },
     ...registerRoutes,
     ...loginRoutes,
-    ...accountRoutes
-        
-    ]
+    ...accountRoutes,
+  ],
 });
 
 export default router;

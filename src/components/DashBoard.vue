@@ -22,15 +22,33 @@ export default {
         <div class="panel">
           <div class="upper-panel">
             <div class="manage-panels">
+              <RouterLink :to="{name:'team'}">
               <div class="panels">
-                <div class="dashboard d-flex align-items-center bold-font">
+                
+                  <div class="dashboard d-flex align-items-center bold-font">
                   <i
                     class="bi bi-person-fill me-4"
                     style="color: #fa6731; font-size: 1.4rem"
-                  ></i
-                  >Team
+                  ></i>
+                  Team
                 </div>
+              
               </div>
+            </RouterLink>
+            </div>
+          </div>
+          <div class="upper-panel">
+            <div class="manage-panels">
+              <RouterLink :to="{name:'assets'}">
+              <div class="panels">
+               
+                  <div class="dashboard  d-flex align-items-center bold-font">
+                    <i class="bi bi-bank me-4" style="color:#FA6731; font-size: 1.4rem;"></i>
+                    Assets
+                  </div>
+                
+              </div>
+            </RouterLink>
             </div>
           </div>
           <div class="upper-panels">
@@ -108,36 +126,7 @@ export default {
         </div>
       </nav>
       <!-- Page content-->
-      <div class="container-fluid mt-5" style="font-size: 1.2rem">
-        <div id="btn regular-font">
-          <RouterLink
-            :to="{ name: 'employees' }"
-            data-cy="employees-tab-link"
-            class="dashboard-menu"
-          >
-            Employees
-          </RouterLink>
-          <RouterLink
-            :to="{ name: 'vendors' }"
-            data-cy="vendors-tab-link"
-            class="dashboard-menu"
-          >
-            Vendors
-          </RouterLink>
-          <RouterLink
-            :to="{ name: 'invitations' }"
-            data-cy="invitations-tab-link"
-            class="dashboard-menu"
-          >
-            Invitations
-          </RouterLink>
-        </div>
-        <div id="container">
-          <RouterView></RouterView>
-          <!--Nested Router view -->
-          <!-- responds to the button click of the corresponding section -->
-        </div>
-      </div>
+     <RouterView></RouterView>
     </div>
   </div>
 </template>
