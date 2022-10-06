@@ -1,5 +1,5 @@
 const ViewRegister = ()=> import("../views/ViewRegister.vue");
-
+const ViewResetPassword = ()=> import("../views/ViewResetPassword.vue");
 const registerRoutes =[
   {
     path:"/register",
@@ -12,6 +12,11 @@ const registerRoutes =[
     //       return false;
     //     }
     // }
+},
+{
+  path:"/reset-password",
+  name:"reset-password",
+  component:ViewResetPassword
 }
 ]
         
