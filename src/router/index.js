@@ -31,6 +31,11 @@ const router = createRouter({
     ...registerRoutes,
     ...loginRoutes,
     ...accountRoutes,
+  //   {
+  //     path: '/:catchAll(.*)',
+  //     name: 'ErrorPage',
+  //     component: ErrorPage
+  //  }
   ],
 });
 

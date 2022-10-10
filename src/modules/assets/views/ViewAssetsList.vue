@@ -90,12 +90,12 @@
         <thead class="thead-light ">
           <tr class="text-center">
             <th scope="col">S.N</th>
-            <th scope="col">Member Full Name</th>
-            <th scope="col">Email Address</th>
-            <th scope="col">Contact Number</th>
-            <th scope="col">Role</th>
+            <th scope="col">Asset</th>
+            <th scope="col">Type</th>
+            <th scope="col">Stock Quantity</th>
+            <th scope="col">Condition</th>
             <th scope="col">Status</th>
-            <th scope="col">Action</th>
+            <th scope="col">Bought Date</th>
           </tr>
         </thead>
         <tbody v-for="(invitation, index) in invitations" :key="index">
