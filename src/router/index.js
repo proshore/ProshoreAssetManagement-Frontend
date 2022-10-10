@@ -6,7 +6,7 @@ import inviteRoutes from "@/modules/InviteUser/router";
 import accountRoutes from "@/modules/account/router";
 import teamRoutes from "@/modules/team/router"
 import assetsRoutes from "@/modules/assets/router"
-
+import requestedAssetRoutes from "@/modules/assets/requestedAssets/router"
 // const ViewHome = () => import('@/views/ViewHome.vue')
 const ViewDashBoard = () => import("@/components/DashBoard.vue");
 
@@ -22,10 +22,11 @@ const router = createRouter({
       path: "/dashboard",
       name: "dashboard",
       component: ViewDashBoard,
-      redirect: "dashboard/team/invitations",
+      //redirect: "dashboard/team/invitations",
       children: [
         ...teamRoutes,
-      ...assetsRoutes
+      ...assetsRoutes,
+      ...requestedAssetRoutes
       ],
     },
     ...registerRoutes,
