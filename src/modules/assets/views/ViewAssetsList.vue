@@ -1,6 +1,7 @@
 <script>
     //used for testing
     import axios from 'axios'
+import RequestAsset from '../components/RequestAsset.vue';
     export default{
     components: [
     ],
@@ -9,7 +10,7 @@
             assets: []
         };
     },
-    components: {  },
+    components: { RequestAsset },
     async created(){
       //this block is used for testing
       try{
@@ -79,8 +80,8 @@
           </button>
         </form>
       </div>
-      <div class="col-8 d-flex justify-content-end">
-        <InviteUser />
+      <div class="col-4 d-flex justify-content-end">
+        <RequestAsset />
       </div>
     </div>
     <div class="row mt-4 px-4">
@@ -98,8 +99,8 @@
             <th scope="col">Bought Date</th>
           </tr>
         </thead>
-        <tbody v-for="(invitation, index) in invitations" :key="index">
-          <!-- The rows will be dynamically generated according to invitationslist data -->
+        <!-- <tbody v-for="(invitation, index) in invitations" :key="index">
+          The rows will be dynamically generated according to invitationslist data
           <tr class="text-center">
             <th scope="row">{{ index + 1 }}</th>
             <td>{{ invitation.name }}</td>
@@ -122,7 +123,7 @@
               />
             </td>
           </tr>
-        </tbody>
+        </tbody> -->
       </table>
     </div>
   </div>

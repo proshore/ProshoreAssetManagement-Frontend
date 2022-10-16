@@ -1,85 +1,86 @@
 <script>
-    import validateEmail from '@/utils/validateEmail'
-    import validateUserName from '@/utils/validateUserName'
-    import BaseInput from '@/components/BaseInput.vue'
-    import BaseAlert from "@/components/BaseAlert.vue"
-import { requestAsset } from '../services'
+import BaseAlert from "@/components/BaseAlert.vue";
+import { requestAsset } from "../services";
 
-    export default{
-        name:"RequestAsset",
-        data(){
-            return{
-                name:{
-                    value:'',
-                    error:'',
-                },
-                email:{
-                    value:'',
-                    error:''
-                },
-                role:{
-                    value:""
-                },
-                submission:{
-                    message:"",
-                    isVerified:false
-                }
-            }
-        },
-        components:{
-            BaseAlert
-        },
-        methods:{
-                formData(){
-                return {
-                email:this.email.value,
-                name:this.name.value,
-                role:this.role.value
-                }
-            },
-            validateField(field){
-            if (field ==='name'){
-                let response = validateUserName(this.name.value);
-                this.name.error = response.errorMessage
-            }
-            if (field ==='email'){
-            let response = validateEmail(this.email.value)
-            this.email.error = response.errorMessage
-            }
-            },
-            async handleSubmit(){
-            if(!this.name.value || !this.email.value || !this.role.value){
-                return this.submission.message = "Field must not be empty"
-            }
-            if(this.name.error || this.email.error){
-                return this.submission.message = "Some fields are not filled properly"
-            }
-            try{
-                this.submission.isVerified = true
-                const response = await requestAsset(this.formData())
-                return this.submission.message = "Requested Successfully"
-                
-            }
-            catch(err){
-                this.submission.message = err
-            }
-         } 
-        },
-         
-    }    
+export default {
+  name: "RequestAsset",
+  data() {
+    return {
+      name: {
+        value: "",
+        error: "",
+      },
+      category: {
+        value: "select a category",
+      },
+      isNewProduct: {
+        value:false,
+      },
+      submission: {
+        message: "",
+        isVerified: false,
+      },
+    };
+  },
+  components: {
+    BaseAlert,
+  },
+  methods: {
+    formData() {
+      return {
+        name: this.name.value,
+        category: this.category.value,
+        isNewProduct: this.isNewProduct.value,
+      };
+    },
+    validateField(field) {
+      console.log('entered func');
+      if (field === "name") {
+        if (this.name.value.length <  3){
+          this.name.error = "asset name should be more than three letters long";
+          console.log(this.name.value.length);
+        }
+        else{
+        this.name.error = ""
+      }
+      }
+      
+    },
+    async handleSubmit() {
+      if (!this.name.value ) {
+        return (this.submission.message = "Field must not be empty");
+      }
+      if (this.name.error ) {
+        return (this.submission.message =
+          "Some fields are not filled properly");
+      }
+      if(this.category.value === "select a category"){
+        return (this.submission.message =
+          "Please select a category");
+      }
+      try {
+        const response = await requestAsset(this.formData());
+        this.submission.isVerified = true;
+        return (this.submission.message = "Requested Successfully");
+      } catch (err) {
+        this.submission.message = err;
+      }
+    },
+  },
+};
 </script>
 
 <template>
   <!-- Button trigger modal -->
   <button
     type="button"
-    class="btn invite-button button-color px-4 py-2 "
-    data-cy="invite-btn"
+    class="btn request-asset-button button-color px-4 py-2"
+    data-cy="request-asset-btn"
     data-bs-toggle="modal"
     data-bs-target="#exampleModal"
-    style="font-size:1.2rem;"
+    style="font-size: 1.2rem"
   >
-  <i class="bi bi-plus-lg me-2" style="font-size:1.5rem;"></i>
+    <i class="bi bi-plus-lg me-2" style="font-size: 1.5rem"></i>
     Request Asset
   </button>
   <!-- Modal -->
@@ -101,9 +102,9 @@ import { requestAsset } from '../services'
                   alt=""
                   class="plus-stroke"
                 />
-                <div class="invite-new-member">Request Asset</div>
+                <div class="request-asset">Request Asset</div>
               </div>
-              <p class="add-a-new-member-to-proshore">
+              <p class="request-an-asset">
                 Fill the form to request an asset
               </p>
             </div>
@@ -111,28 +112,27 @@ import { requestAsset } from '../services'
               <button
                 class="close-rectangle second-button-color"
                 type="button"
-                data-cy="close-invite-btn"
+                data-cy="close-request-asset-btn"
                 data-bs-dismiss="modal"
               >
                 <img src="@/assets/images/x-lg.png" alt="" class="x-lg" />
               </button>
             </div>
-        </div>
-        <div class="row w-100 d-flex justify-content-center">
-
+          </div>
+          <div class="row w-100 d-flex justify-content-center">
             <BaseAlert :submission="submission" />
-        </div>
-        <!-- <form @submit.prevent="handleSubmit"> -->
-            <div class="input-frame">
+          </div>
+          <!-- <form @submit.prevent="handleSubmit"> -->
+          <div class="input-frame">
             <div class="input-with-label">
-              <div class="label">Full Name</div>
+              <div class="label">Asset Name</div>
               <input
                 type="text"
-                placeholder="Username"
+                placeholder="Asset Name"
                 class="input-text"
                 v-model="name.value"
                 @keyup="validateField('name')"
-                data-cy ="invite-name"
+                data-cy="request-asset-name"
               />
               <div
                 v-if="name.error"
@@ -140,30 +140,44 @@ import { requestAsset } from '../services'
                 v-text="name.error"
               ></div>
             </div>
+            
             <div class="input-with-label">
-              <div class="label">Email</div>
-              <input
-                type="email"
-                placeholder="ex: myworkmail@gmail.com"
+              <div class="label">Category</div>
+              <select
                 class="input-text"
-                v-model="email.value"
-                @keyup="validateField('email')"
-                data-cy ="invite-email"
-              />
-              <div
-                v-if="email.error"
-                class="form-text text-danger"
-                v-text="email.error"
-              ></div>
+                aria-label="Default select example"
+                v-model="category.value"
+                data-cy="request-asset-select-box"
+              >
+                <!-- role list is provided from backend for proper implementation -->
+                <option value="select a category" selected>Select a Category</option>
+                <option data-cy="request-asset-category-electronics" value="electronics">
+                  Electronics
+                </option>
+                <option data-cy="request-asset-category-axxessories" value="accessories">
+                  Accessories
+                </option>
+                <option data-cy="request-asset-category-parts-and-individual-components" value="Parts & individual components">
+                  Parts & individual components
+                </option>
+                <option data-cy="request-asset-category-daily-necessities" value="daily necessities">
+                  Daily Necessities
+                </option>
+              </select>
             </div>
             <div class="input-with-label">
-                <div class="label">Role</div>
-                <select class="input-text" aria-label="Default select example" v-model="role.value" >
-                    <!-- role list is provided from backend for proper implementation -->
-                <option selected disabled>Select a Role</option>
-                <option data-cy="invite-select-employee" value="1">Employee</option>
-                <option data-cy="invite-select-vendor" value="2">Vendor</option>
-              </select>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  id="gridCheck1"
+                  data-cy="request-asset-checkbox"
+                  @change="isNewProduct.value = !isNewProduct.value"
+                />
+                <label class="form-check-label ckeck-box" for="gridCheck1">
+                  <small>Brand New</small>
+                </label>
+              </div>
             </div>
           </div>
           <div class="button-frame">
@@ -171,14 +185,20 @@ import { requestAsset } from '../services'
               <button
                 class="btn second-button-color"
                 type="button"
-                data-cy="invite-cancel-btn"
+                data-cy="request-asset-cancel-btn"
                 data-bs-dismiss="modal"
               >
                 Cancel
               </button>
             </div>
             <div class="">
-                <button class="btn button-color" data-cy="invite-send-btn" @click="handleSubmit" >Send Invitation</button>
+              <button
+                class="btn button-color"
+                data-cy="request-asset-send-btn"
+                @click="handleSubmit"
+              >
+                Request
+              </button>
             </div>
           </div>
           <!-- </form> -->
@@ -197,7 +217,7 @@ import { requestAsset } from '../services'
   display: flex;
   flex-direction: column;
   gap: 16px;
-  height: 650px;
+  height: fit-content;
   min-height: 500px;
   min-width: 564px;
   padding: 0px 16px;
@@ -261,7 +281,7 @@ import { requestAsset } from '../services'
   height: 24px;
   min-width: 24px;
 }
-.invite-new-member {
+.request-asset {
   color: #c852da;
   font-size: 16px;
   letter-spacing: 0.15px;
@@ -269,7 +289,7 @@ import { requestAsset } from '../services'
   margin-top: -1px;
   white-space: nowrap;
 }
-.add-a-new-member-to-proshore {
+.request-an-asset {
   color: gray;
   letter-spacing: 0.15px;
   line-height: 21px;
@@ -337,7 +357,7 @@ import { requestAsset } from '../services'
   text-align: center;
   white-space: nowrap;
 }
-.invite-button {
+.request-asset-button {
   align-items: center;
   border: 1px none;
   box-shadow: 0px 6px 20px #fa673180;
@@ -366,7 +386,7 @@ import { requestAsset } from '../services'
   text-align: center;
   white-space: nowrap;
 }
-.invite-button {
+.request-asset-button {
   border: 1px none;
   background-color: red;
   color: white;

@@ -50,13 +50,6 @@ export default {
               </RouterLink>
             </div>
           </div>
-          <div class="upper-panel">
-            <div class="manage-panels">
-              <div class="panels">
-                <div class="dashboard  d-flex align-items-center bold-font"><i class="bi bi-bank me-4" style="color:#FA6731; font-size: 1.4rem;"></i>Assets</div>
-              </div>
-            </div>
-          </div>
           <div class="upper-panels">
             <div class="panels-1">
               <div class="dashboard-1">Settings</div>
