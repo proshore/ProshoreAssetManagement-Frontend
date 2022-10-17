@@ -1,51 +1,52 @@
 <script>
-    //used for testing
-    import axios from 'axios'
-    export default{
-    components: [
-    ],
-    data() {
-        return {
-            assets: []
-        };
-    },
-    components: {  },
-    async created(){
-      //this block is used for testing
-      try{
-        const response = await axios.get(`https://6319958e8e51a64d2be7568b.mockapi.io/assetslist`);
-        this.assets = response.data;
-      }catch(e){
-        console.error(e);
-      }
-      //this is the actual block to be used after connection with backend
+//used for testing
+import axios from "axios";
+export default {
+  components: [],
+  data() {
+    return {
+      assets: [],
+    };
+  },
+  components: {},
+  async created() {
+    //this block is used for testing
+    try {
+      const response = await axios.get(
+        `https://6319958e8e51a64d2be7568b.mockapi.io/assetslist`
+      );
+      this.assets = response.data;
+    } catch (e) {
+      //toast notification
+    }
+    //this is the actual block to be used after connection with backend
 
-      // try{
-      //   const response = await assetList()
-      //   this.assets = response.data
-      // }
-      // catch(error){
-      //   console.error("error: ", error)
-      // }
-    },
-    computed:{
-        styleCondition(){
-          return condition =>{
-          if (condition.toLowerCase() === "brand new") {
-            return "condition-new"
-          }
-          if (condition.toLowerCase() ==="refurbished") {
-            return "condition-refurbished"
-          }
-          if (condition.toLowerCase() ==="used") {
-            return "condition-used"
-          }
+    // try{
+    //   const response = await assetList()
+    //   this.assets = response.data
+    // }
+    // catch(error){
+    //   console.error("error: ", error)
+    // }
+  },
+  computed: {
+    styleCondition() {
+      return (condition) => {
+        if (condition.toLowerCase() === "brand new") {
+          return "condition-new";
         }
-        },
-        styleStatus(){
-      return status =>{
-        if (status.toLowerCase() ==="available"){
-          return "status-available"
+        if (condition.toLowerCase() === "refurbished") {
+          return "condition-refurbished";
+        }
+        if (condition.toLowerCase() === "used") {
+          return "condition-used";
+        }
+      };
+    },
+    styleStatus() {
+      return (status) => {
+        if (status.toLowerCase() === "available") {
+          return "status-available";
         }
         if (status.toLowerCase() === "requested") {
           return "status-requested";
@@ -55,10 +56,10 @@
         }
       };
     },
-    styleDotIcon(){
-      return status =>{
-        if (status.toLowerCase() ==="available"){
-          return "status-available-icon"
+    styleDotIcon() {
+      return (status) => {
+        if (status.toLowerCase() === "available") {
+          return "status-available-icon";
         }
         if (status.toLowerCase() === "requested") {
           return "status-requested-icon";
@@ -66,8 +67,8 @@
         if (status.toLowerCase() === "active") {
           return "status-active-icon";
         }
-      }
-    }
+      };
+    },
   },
 };
 </script>
@@ -77,21 +78,33 @@
       <div class="col-4">
         <form class="form-inline d-flex">
           <input
-            class="form-control form-control-lg mr-sm-2 "
+            class="form-control form-control-lg mr-sm-2"
             type="search"
             placeholder="Search"
             aria-label="Search"
-            data-cy ="assets-search-field" 
+            data-cy="assets-search-field"
           />
-          <button class="btn my-2 px-3 my-sm-0 mx-2 button-color" type="submit" data-cy="assets-search-btn">
-            <i class="bi bi-search" ></i>
+          <button
+            class="btn my-2 px-3 my-sm-0 mx-2 button-color"
+            type="submit"
+            data-cy="assets-search-btn"
+          >
+            <i class="bi bi-search"></i>
           </button>
         </form>
       </div>
     </div>
     <div class="row mt-4 px-4">
       <table
-        class="table w-100 bg-white table-borderless border table-hover regular-font"
+        class="
+          table
+          w-100
+          bg-white
+          table-borderless
+          border
+          table-hover
+          regular-font
+        "
       >
         <thead class="thead-light">
           <tr class="text-center">
@@ -104,7 +117,7 @@
             <th scope="col">Bought Date</th>
           </tr>
         </thead>
-        <tbody v-for="(asset, index) in assets" :key="index">
+        <tbody v-for="(asset, index) in assets" :key="asset.id">
           <!-- The rows will be dynamically generated according to assetslist data -->
           <tr class="text-center">
             <th scope="row">{{ index + 1 }}</th>
@@ -114,14 +127,16 @@
             <td :class="`condition ${styleCondition(asset.condition)}`">
               {{ asset.condition }}
             </td>
-            <td > 
+            <td>
               <div :class="`status ${styleStatus(asset.status)}`">
-                <div class=" status-icon me-2" :class="` ${styleDotIcon(asset.status)}`"></div> {{ asset.status }}
+                <div
+                  class="status-icon me-2"
+                  :class="` ${styleDotIcon(asset.status)}`"
+                ></div>
+                {{ asset.status }}
               </div>
             </td>
             <td>{{ asset.boughtDate }}</td>
-            
-            
           </tr>
         </tbody>
       </table>
@@ -136,10 +151,10 @@
 }
 
 .thead-light {
-  height: 50px !important;
+  height: 50px ;
   vertical-align: middle;
-  background-color: #e9ecef !important;
-  width:100%;
+  background-color: #e9ecef;
+  width: 100%;
 }
 tr {
   vertical-align: middle;
@@ -155,13 +170,13 @@ tr {
   color: #097969;
 }
 .condition-refurbished {
-  color: #FFBF00;
+  color: #ffbf00;
 }
 .condition-used {
-  color: #E97451;
+  color: #e97451;
 }
 .status {
-  margin:auto;
+  margin: auto;
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
@@ -171,31 +186,31 @@ tr {
   font-size: 12px;
   width: fit-content;
 }
-.status-icon{
-  height:8px;
-  width:8px;
-  border-radius:50%;
+.status-icon {
+  height: 8px;
+  width: 8px;
+  border-radius: 50%;
 }
-.status-available{
-  background-color: #98FB98;
+.status-available {
+  background-color: #98fb98;
   color: #008000;
 }
-.status-available-icon{
- background-color:#008000;
+.status-available-icon {
+  background-color: #008000;
 }
 .status-active {
-  background-color: #fff4da ;
-  color: #FF4F4F ;
+  background-color: #fff4da;
+  color: #ff4f4f;
 }
-.status-active-icon{
-  background-color:#FF4F4F;
+.status-active-icon {
+  background-color: #ff4f4f;
 }
-.status-requested{
-  background-color: #FFEA00;
-  color: #8B8000;
+.status-requested {
+  background-color: #ffea00;
+  color: #8b8000;
 }
-.status-requested-icon{
- background-color:#8B8000;
+.status-requested-icon {
+  background-color: #8b8000;
 }
 tr {
   vertical-align: middle;
@@ -227,7 +242,6 @@ tr {
 .status-expired {
   background-color: #ffeded;
   color: #ff4f4f;
-  
 }
 .status-pending {
   background-color: #fff4da;
