@@ -5,7 +5,7 @@ import BaseInput from "@/components/BaseInput.vue";
 import BaseAlert from "@/components/BaseAlert.vue";
 import { loginUser } from "../services";
 import TogglePassword from "@/components/TogglePassword.vue";
-
+import { useToast } from "vue-toastification"
 export default {
   data() {
     return {
@@ -56,11 +56,14 @@ export default {
         return (this.submission.message =
           "Some fields are not filled properly");
       }
-
+      const toast = useToast();
       try {
         const response = await loginUser(this.formData());
         if ((response.data.success = true)) {
           this.submission.message = "Login Successful";
+          //toast message
+          toast.success("Logged into Proshore Asset Management");
+
           this.submission.isVerified = true;
           localStorage.setItem('data', response.data.data);
           setTimeout(() => {
@@ -69,6 +72,7 @@ export default {
         }
       } catch (error) {
         this.submission.message = error;
+        toast.error("Something went wrong")
       }
     },
     toggleSeen() {

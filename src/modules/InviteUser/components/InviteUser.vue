@@ -4,6 +4,7 @@ import validateUserName from "@/utils/validateUserName";
 import BaseInput from "@/components/BaseInput.vue";
 import BaseAlert from "@/components/BaseAlert.vue";
 import { inviteUser } from "../services";
+import { useToast } from "vue-toastification"
 import axios from "axios";
 
 export default {
@@ -60,16 +61,18 @@ export default {
         return (this.submission.message =
           "Some fields are not filled properly");
       }
-      
+      const toast = useToast();
       try {
-        this.submission.isVerified = true;
         const response = await inviteUser(this.formData());
         if ((response.data.success = true)) {
+          this.submission.isVerified = true;
           this.submission.message = "Sent Successful";
+          toast.success(`invited ${this.email.value} successfully`);
           this.submission.isVerified = true;
         }
       } catch (err) {
         this.submission.message = err;
+        toast.error("Something went wrong");
       }
     },
   },

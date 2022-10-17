@@ -1,5 +1,6 @@
 <script>
 import { reInviteUser, revokeUser } from "../services";
+import { useToast } from "vue-toastification"
 export default {
     props: {
         name: {
@@ -27,24 +28,24 @@ export default {
               
       },
         async reInviteMember() {
+          const toast = useToast();
             try {
                 const response = await reInviteUser(this.bodyData());
-                //display message coming from response
+                toast.success(`reinvited ${this.name} successfully`);
                 
             }
             catch (error) {
-                //error message in a dialog box
+              toast.error(`Something went wrong`);
             }
         },
         async revokeMember() {
+          const toast = useToast();
             try {
                 const response = await revokeUser(this.bodyData());
-                //display message coming from response
-                
-
+                toast.success(`revoked ${this.name} successfully`);
             }
             catch (error) {
-              //error message in a dialog box
+              toast.error(`Something went wrong`);
             }
         },
     },
