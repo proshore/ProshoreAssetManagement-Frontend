@@ -3,6 +3,8 @@ import validateEmail from "@/utils/validateEmail";
 import validateUserName from "@/utils/validateUserName";
 import BaseInput from "@/components/BaseInput.vue";
 import BaseAlert from "@/components/BaseAlert.vue";
+import {getRegisteredEmailsList} from "../services"
+
 import { inviteUser } from "../services";
 import axios from "axios";
 
@@ -19,7 +21,7 @@ export default {
         error: "",
       },
       role_id: {
-        value: "",
+        value: 0,
       },
       submission: {
         message: "",
@@ -49,6 +51,9 @@ export default {
       if (field === "email") {
         let response = validateEmail(this.email.value);
         this.email.error = response.errorMessage;
+        if(!this.email.error){
+          this.checkDuplicateEmail()
+        }
       }
     },
     async handleSubmit() {
@@ -62,9 +67,8 @@ export default {
       }
       
       try {
-        this.submission.isVerified = true;
         const response = await inviteUser(this.formData());
-        if ((response.data.success = true)) {
+        if ((response.data.success === true)) {
           this.submission.message = "Sent Successful";
           this.submission.isVerified = true;
         }
@@ -72,6 +76,18 @@ export default {
         this.submission.message = err;
       }
     },
+    async checkDuplicateEmail(email){
+      try{
+        const response = await getRegisteredEmailsList(email);
+        if ((response.data.success =! true)) {
+          this.email.error = "email already registered ";
+          return
+        }
+      }
+        catch(err){
+          //use toast message
+        } 
+    }
   },
 };
 
@@ -180,7 +196,7 @@ export default {
                 v-model="role_id.value"
               >
                 <!-- role list is provided from backend for proper implementation -->
-                <option selected disabled>Select a Role</option>
+                <option selected value=0>Select a Role</option>
                 <option data-cy="invite-select-employee" value=1>
                   Employee
                 </option>
@@ -219,7 +235,6 @@ export default {
 </template>
 
 <style>
-@import url("https://fonts.googleapis.com/css2?family=Cedarville+Cursive&family=Poppins:wght@200;300&family=Roboto+Slab:wght@300&display=swap");
 
 /* font-family: 'Poppins', sans-serif; */
 .add-a-dialog-box {

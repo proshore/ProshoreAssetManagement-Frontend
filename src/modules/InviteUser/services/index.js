@@ -29,4 +29,8 @@ const inviteUser = async(inviteData)=>{
    return await API.get(apiUrl.INVITATION_LIST_URL)
  }
 
- export {inviteUser,reInviteUser,revokeUser, invitationList}
+ const getRegisteredEmailsList = async ()=>{
+   return await API.get(apiUrl.DUPLICATE_EMAIL_URL)
+ }
+
+ export {inviteUser,reInviteUser,revokeUser, invitationList,getRegisteredEmailsList}
