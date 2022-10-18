@@ -75,10 +75,10 @@ export default {
         );
               this.$emit('deleteInvite')
             // }
-            //show success message
+            //show success message in toast
           }
           catch(error){
-            //error message
+            //toast message
           }
         },
         setInvoker(event){

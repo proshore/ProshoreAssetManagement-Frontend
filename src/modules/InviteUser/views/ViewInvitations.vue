@@ -19,30 +19,33 @@ export default {
   computed: {
     styleRole() {
       return (role) => {
-        if (role.toLowerCase() === "employee") {
+        const lowerCaseRole = role.toLowerCase()
+        if ( lowerCaseRole === "employee") {
           return "role-employee";
         }
-        if (role.toLowerCase() === "vendor") {
+        if (lowerCaseRole === "vendor") {
           return "role-vendor";
         }
       };
     },
     styleStatus() {
       return (status) => {
-        if (status.toLowerCase() === "pending") {
+        const lowerCaseStatus = status.toLowerCase()
+        if (lowerCaseStatus === "pending") {
           return "status-pending";
         }
-        if (status.toLowerCase() === "expired") {
+        if (lowerCaseStatus === "expired") {
           return "status-expired";
         }
       };
     },
     styleDotIcon() {
       return (status) => {
-        if (status.toLowerCase() === "pending") {
+        const lowerCaseStatus = status.toLowerCase()
+        if ( lowerCaseStatus === "pending") {
           return "status-pending-icon";
         }
-        if (status.toLowerCase() === "expired") {
+        if (lowerCaseStatus === "expired") {
           return "status-expired-icon";
         }
       };
@@ -58,7 +61,7 @@ export default {
         );
         this.invitations = response.data;
       } catch (e) {
-        console.error(e);
+        // toast message
       }
       //this is the actual block to be used after connection with backend
 
@@ -72,7 +75,6 @@ export default {
       return;
     },
     refreshInvitationList() {
-      console.log('reload');
       this.getInvitationList()
     },
   },
