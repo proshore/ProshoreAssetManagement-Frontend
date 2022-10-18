@@ -32,39 +32,42 @@ export default {
   computed: {
     styleCondition() {
       return (condition) => {
-        if (condition.toLowerCase() === "brand new") {
+        const lowerCaseCondition = condition.toLowerCase()
+        if (lowerCaseCondition === "brand new") {
           return "condition-new";
         }
-        if (condition.toLowerCase() === "refurbished") {
+        if (lowerCaseCondition === "refurbished") {
           return "condition-refurbished";
         }
-        if (condition.toLowerCase() === "used") {
+        if (lowerCaseCondition === "used") {
           return "condition-used";
         }
       };
     },
     styleStatus() {
       return (status) => {
-        if (status.toLowerCase() === "available") {
+        const lowerCaseStatus =status.toLowerCase()
+        if (lowerCaseStatus === "available") {
           return "status-available";
         }
-        if (status.toLowerCase() === "requested") {
+        if (lowerCaseStatus === "requested") {
           return "status-requested";
         }
-        if (status.toLowerCase() === "active") {
+        if (lowerCaseStatus === "active") {
           return "status-active";
         }
       };
     },
     styleDotIcon() {
       return (status) => {
-        if (status.toLowerCase() === "available") {
+        const lowerCaseStatus =status.toLowerCase()
+        if ( lowerCaseStatus=== "available") {
           return "status-available-icon";
         }
-        if (status.toLowerCase() === "requested") {
+        if (lowerCaseStatus === "requested") {
           return "status-requested-icon";
         }
-        if (status.toLowerCase() === "active") {
+        if (lowerCaseStatus === "active") {
           return "status-active-icon";
         }
       };
