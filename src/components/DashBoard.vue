@@ -22,12 +22,29 @@ export default {
         <div class="panel">
           <div class="upper-panel">
             <div class="manage-panels">
-              <RouterLink class="text-decoration-none " :to="{ name: 'team' }">
+              <RouterLink
+                class="text-decoration-none"
+                data-cy="team-section-link"
+                :to="{ name: 'team' }"
+              >
                 <div class="panels mb-2">
-                  <div class="dashboard d-flex align-items-center bold-font mt-1 ms-2">
+                  <div
+                    class="
+                      dashboard
+                      d-flex
+                      align-items-center
+                      bold-font
+                      mt-1
+                      ms-2
+                    "
+                  >
                     <i
-                      class="bi bi-person-fill me-4 "
-                      style="color: #fa6731; font-size: 1.4rem; margin-bottom:5px;"
+                      class="bi bi-person-fill me-4"
+                      style="
+                        color: #fa6731;
+                        font-size: 1.4rem;
+                        margin-bottom: 5px;
+                      "
                     ></i>
                     Team
                   </div>
@@ -37,12 +54,29 @@ export default {
           </div>
           <div class="upper-panel">
             <div class="manage-panels">
-              <RouterLink class="text-decoration-none" :to="{ name: 'assets' }">
+              <RouterLink
+                class="text-decoration-none"
+                data-cy="assets-section-link"
+                :to="{ name: 'assets' }"
+              >
                 <div class="panels">
-                  <div class="dashboard d-flex align-items-center bold-font mt-1 ms-2 ">
+                  <div
+                    class="
+                      dashboard
+                      d-flex
+                      align-items-center
+                      bold-font
+                      mt-1
+                      ms-2
+                    "
+                  >
                     <i
-                      class="bi bi-bank me-4 "
-                      style="color: #fa6731; font-size: 1.4rem; margin-bottom:5px;"
+                      class="bi bi-bank me-4"
+                      style="
+                        color: #fa6731;
+                        font-size: 1.4rem;
+                        margin-bottom: 5px;
+                      "
                     ></i>
                     Assets
                   </div>
@@ -63,7 +97,7 @@ export default {
       <!-- Top navigation-->
       <nav class="navbar navbar-expand-lg border-bottom border-3">
         <div class="container-fluid">
-          <p class="h4 bold-font ">Team</p>
+          <p class="h4 bold-font">Team</p>
           <button
             data-cy="navbar-toggle-button"
             class="navbar-toggler"
@@ -226,13 +260,13 @@ body.sb-sidenav-toggled #wrapper #sidebar-wrapper {
   border-radius: 40px;
   gap: 12px;
   padding: 8px 16px;
-  transition:0.8s;
+  transition: 0.8s;
 }
-.panels:hover{
+.panels:hover {
   background-color: #862112;
 }
-.panels:hover .dashboard{
-  color:white;
+.panels:hover .dashboard {
+  color: white;
 }
 
 .dashboard {
