@@ -4,6 +4,8 @@ import validateUserName from "@/utils/validateUserName";
 import BaseInput from "@/components/BaseInput.vue";
 import BaseAlert from "@/components/BaseAlert.vue";
 import { inviteUser } from "../services";
+import { Modal} from "bootstrap";
+
 import axios from "axios";
 
 export default {
@@ -63,10 +65,14 @@ export default {
       
       try {
         this.submission.isVerified = true;
+        var modal = new Modal(document.getElementById('exampleModal'));
+        modal.hide();
         const response = await inviteUser(this.formData());
+        
         if ((response.data.success = true)) {
           this.submission.message = "Sent Successful";
           this.submission.isVerified = true;
+          
         }
       } catch (err) {
         this.submission.message = err;
