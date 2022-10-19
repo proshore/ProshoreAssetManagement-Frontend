@@ -5,6 +5,7 @@ import validatePassword from "@/utils/validatePassword.js";
 import {registerUser} from '@/modules/register/services'
 import BaseAlert from "@/components/BaseAlert.vue";
 import TogglePassword from "@/components/togglePassword.vue";
+import { useToast } from "vue-toastification"
 export default {
   data() {
     return {
@@ -77,16 +78,19 @@ export default {
         this.submission.message ="Passwords are not same"
         return;
       }
+      //toast interface
+      const toast = useToast();
       if (!this.password.error && !this.cpassword.error) {
         try {
           const response = await registerUser(
             this.formData()
           );
           this.submission = {message:"Registered Successfully", isVerified:true}
-          console.log("response:",response);
+          toast.success("You have been registered in the Proshore Asset Management System")
           setTimeout(()=>this.$router.push({name:'login'}),2000)
         } catch (error) {
           this.submission.message =error 
+          toast.error("Something went wrong")
         }
         return;
       } 
