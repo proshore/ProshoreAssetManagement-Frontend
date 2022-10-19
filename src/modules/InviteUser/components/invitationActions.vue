@@ -2,6 +2,19 @@
 import { reInviteUser, revokeUser } from "../services";
 import { useToast } from "vue-toastification"
 export default {
+  data(){
+    return {
+      modalInvoker:{
+        text:"",
+        method: null
+    }
+    }
+   
+      // delete:{
+      //   text:'delete',
+      //   method:deleteMember
+      // }
+  },
     props: {
         name: {
             type: String,
@@ -14,9 +27,14 @@ export default {
         contact:{
           type:String,
           required:true
+        },
+        id:{
+          type:String,
+          required:true
         }
         
     },
+    emits: ['deleteInvite'],
     methods: {
       bodyData(){
         return   {
@@ -48,7 +66,35 @@ export default {
               toast.error(`Something went wrong`);
             }
         },
-    },
+        async deleteMember(){
+          try{
+            // const response = await deleteUser(this.id);
+            // if (response.data.status === true){
+              const response = await axios.delete(
+          `https://6319958e8e51a64d2be7568b.mockapi.io/invitedUsers/${this.id}`   // used only for testing
+        );
+              this.$emit('deleteInvite')
+            // }
+            //show success message in toast
+          }
+          catch(error){
+            //toast message
+          }
+        },
+        setInvoker(event){
+          if (event.target.id === "revoke")
+          {
+            this.modalInvoker.text = 'revoke'
+            this.modalInvoker.method = this.revokeMember
+          }
+          if (event.target.id === "delete"){
+            this.modalInvoker.text = 'delete'
+            this.modalInvoker.method = this.deleteMember   
+          }
+            
+        }
+        
+        }
 };
 </script>
 
@@ -78,13 +124,16 @@ export default {
         data-cy="revoke-invitation-link"
         data-bs-toggle="modal"
         :data-bs-target="'#_'+contact"
+        id ='revoke'
+        @click="(event)=>setInvoker(event)"
       >
-      <i class="bi bi-dash-square-fill me-4" style="color:#FA6731"></i>Revoke Member
+      <i class="bi bi-dash-square-fill me-4" style="color:#FA6731" ></i>Revoke Member
       </a>
     </li>
     <li>
-      <a class="dropdown-item text-danger  " href="#" data-cy="delete-invitation-link">
-        <i class="bi bi-trash3-fill me-4" style="color:#FA6731"></i>Delete Entry
+      <a class="dropdown-item text-danger  " href="#" data-cy="delete-invitation-link"  data-bs-toggle="modal"
+        :data-bs-target="'#_'+contact" id="delete" @click="(event)=>setInvoker(event)">
+        <i class="bi bi-trash3-fill me-4" style="color:#FA6731" ></i>Delete Entry
       </a>
     </li>
   </div>
@@ -102,11 +151,11 @@ export default {
         </button>
       </div>
       <div class="modal-body d-flex justify-content-center">
-        <p class="w-75 text-center">Do you want to revoke the invitation of <b>{{name}}</b> ? Once revoked it cannot be undone.</p>
+        <p class="w-75 text-center">Do you want to {{modalInvoker.text}} the invitation of <b>{{name}}</b> ? Once {{`${modalInvoker.text}d`}} it cannot be undone.</p>
       </div>
       <div class="modal-footer d-flex justify-content-center">
         <button type="button" class="btn conformation-box-no-btn second-button-color" data-cy="conformation-box-no-btn" data-bs-dismiss="modal">No</button>
-        <button type="button" class="btn conformation-box-yes-btn text-white button-color" data-cy="conformation-box-yes-btn" @click="revokeMember"  data-bs-dismiss="modal" >Yes</button>
+        <button type="button" class="btn conformation-box-yes-btn text-white button-color" data-cy="conformation-box-yes-btn" @click="modalInvoker.method"  data-bs-dismiss="modal" >Yes</button>
       </div>
     </div>
   </div>
