@@ -12,15 +12,15 @@ export default {
     };
   },
   components: { InvitationActions, InviteUser },
-    mounted() {
-    this.getInvitationList()
+  mounted() {
+    this.getInvitationList();
     //hello
   },
   computed: {
     styleRole() {
       return (role) => {
-        const lowerCaseRole = role.toLowerCase()
-        if ( lowerCaseRole === "employee") {
+        const lowerCaseRole = role.toLowerCase();
+        if (lowerCaseRole === "employee") {
           return "role-employee";
         }
         if (lowerCaseRole === "vendor") {
@@ -30,26 +30,24 @@ export default {
     },
     styleStatus() {
       return (status) => {
-        const lowerCaseStatus = status.toLowerCase()
+        const lowerCaseStatus = status.toLowerCase();
         if (lowerCaseStatus === "active") {
           return "status-pending";
         }
         if (lowerCaseStatus === "inactive") {
           return "status-expired";
         }
-        
       };
     },
     styleDotIcon() {
       return (status) => {
-        const lowerCaseStatus = status.toLowerCase()
-        if ( lowerCaseStatus === "active") {
+        const lowerCaseStatus = status.toLowerCase();
+        if (lowerCaseStatus === "active") {
           return "status-pending-icon";
         }
         if (lowerCaseStatus === "inactive") {
           return "status-expired-icon";
         }
-        
       };
     },
   },
@@ -57,8 +55,8 @@ export default {
     async getInvitationList() {
       //this block is used for testing
       try {
-        const response = await invitationList()
-        console.log('response',response)
+        const response = await invitationList();
+        console.log("response", response);
         this.invitations = response.data.data.invited_users;
       } catch (e) {
         // toast message
@@ -75,7 +73,7 @@ export default {
       return;
     },
     refreshInvitationList() {
-      this.getInvitationList()
+      this.getInvitationList();
     },
   },
 };

@@ -13,13 +13,13 @@ export default {
   <div class="d-flex" id="wrapper">
     <!-- Sidebar-->
     <div class="border-end bg-white" id="sidebar-wrapper">
-      <div class="sidebar-frame">
+      <div class="sidebar-frame ">
         <img
-          class="logo-frame"
+          class="logo-frame position-fixed"
           src="@/assets/images/proshorelogoo.png"
           alt=""
         />
-        <div class="panel">
+        <div class="panel position-fixed mt-5">
           <div class="upper-panel">
             <div class="manage-panels">
               <RouterLink
@@ -124,16 +124,17 @@ export default {
               </li>
               <li class="nav-item d-flex mx-2 align-items-center">
                 <div class="dropdown dropstart">
-                  <button
-                    class="navbar-account-img"
+                  <div
+                  class="navbar-account-icon d-flex align-items-center justify-content-center"
                     type="button"
                     id="dropdownMenuButton1"
                     data-bs-toggle="dropdown"
                     aria-expanded="false"
-                    data-cy="navbar-account-dropdown"
-                  >
-                    <div class=""></div>
-                  </button>
+                    data-cy="navbar-account-dropdown">
+                    <i class="bi bi-person-circle hover-effect" style="font-size: 1.8rem"></i>
+                  </div>
+                 
+                 
                   <ul
                     class="dropdown-menu"
                     aria-labelledby="dropdownMenuButton1"
@@ -213,6 +214,12 @@ body.sb-sidenav-toggled #wrapper #sidebar-wrapper {
 #btn button {
   margin: 0.3rem;
 }
+.hover-effect{
+  transition: 0.8s
+}
+.hover-effect:hover{
+  color: #862112
+}
 @media (min-width: 768px) {
   #sidebar-wrapper {
     margin-left: 0;
@@ -247,6 +254,7 @@ body.sb-sidenav-toggled #wrapper #sidebar-wrapper {
   align-self: stretch;
   display: flex;
   flex-direction: column;
+  width:240px;
 }
 
 .manage-panels {
@@ -296,11 +304,9 @@ body.sb-sidenav-toggled #wrapper #sidebar-wrapper {
 .router-link-exact-active:hover {
   color: white;
 }
-.navbar-account-img {
-  height: 35px;
-  width: 35px;
-  border: 1px solid grey;
+.navbar-account-icon {
   border-radius: 50%;
+  color: #fa6731;
 }
 .nav-link {
   position: relative;
