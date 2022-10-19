@@ -1,6 +1,6 @@
 <script>
-import { reInviteUser, revokeUser,deleteUser } from "../services";
-import axios from "axios";  //used only during testing
+import { reInviteUser, revokeUser } from "../services";
+import { useToast } from "vue-toastification"
 export default {
   data(){
     return {
@@ -46,27 +46,28 @@ export default {
               
       },
         async reInviteMember() {
+          const toast = useToast();
             try {
                 const response = await reInviteUser(this.bodyData());
-                //display message coming from response
+                toast.success(`reinvited ${this.name} successfully`);
                 
             }
             catch (error) {
-                //error message in a dialog box
+              toast.error(`Something went wrong`);
             }
         },
         async revokeMember() {
+          const toast = useToast();
             try {
                 const response = await revokeUser(this.bodyData());
-                //display message coming from response
-                
-
+                toast.success(`revoked ${this.name} successfully`);
             }
             catch (error) {
-              //error message in a dialog box
+              toast.error(`Something went wrong`);
             }
         },
         async deleteMember(){
+          const toast = useToast();
           try{
             // const response = await deleteUser(this.id);
             // if (response.data.status === true){
@@ -76,9 +77,11 @@ export default {
               this.$emit('deleteInvite')
             // }
             //show success message in toast
+            toast.success(`deleted ${this.name} successfully`);
           }
           catch(error){
             //toast message
+            toast.error(`Something went wrong`);
           }
         },
         setInvoker(event){
