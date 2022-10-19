@@ -1,13 +1,13 @@
 import apiUrl from '@/constants/routes/invite'
 
 import API from "@/services/API"
-
+import getToken from '@/utils/getToken'
 
 const inviteUser = async(inviteData)=>{
    const config = {
       headers: {
           'Content-Type': 'application/json',
-          Authorization: "Bearer " + localStorage.getItem('data'),
+          Authorization: "Bearer " + getToken(),
       },
       }
     return await API.post(apiUrl.INVITE_URL,inviteData,config);
@@ -29,8 +29,4 @@ const inviteUser = async(inviteData)=>{
    return await API.get(apiUrl.INVITATION_LIST_URL)
  }
 
- const getRegisteredEmailsList = async ()=>{
-   return await API.get(apiUrl.DUPLICATE_EMAIL_URL)
- }
-
- export {inviteUser,reInviteUser,revokeUser, invitationList,getRegisteredEmailsList}
+ export {inviteUser,reInviteUser,revokeUser, invitationList}
