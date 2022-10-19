@@ -67,6 +67,7 @@ export default {
             }
         },
         async deleteMember(){
+          const toast = useToast();
           try{
             // const response = await deleteUser(this.id);
             // if (response.data.status === true){
@@ -76,9 +77,11 @@ export default {
               this.$emit('deleteInvite')
             // }
             //show success message in toast
+            toast.success(`deleted ${this.name} successfully`);
           }
           catch(error){
             //toast message
+            toast.error(`Something went wrong`);
           }
         },
         setInvoker(event){
