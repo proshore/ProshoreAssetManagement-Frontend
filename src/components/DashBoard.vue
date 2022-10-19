@@ -84,11 +84,13 @@ export default {
               </RouterLink>
             </div>
           </div>
-          <div class="upper-panels">
+          <footer>
+            <div class="upper-panels">
             <div class="panels-1">
-              <div class="dashboard-1">Settings</div>
+              <div class="dashboard  d-flex align-items-center bold-font" style="color:#6C757D"><i class="bi bi-gear-fill me-4" style="color:#6C757D; font-size: 1.4rem;"></i>Settings</div>
             </div>
           </div>
+          </footer>
         </div>
       </div>
     </div>
@@ -340,4 +342,12 @@ body.sb-sidenav-toggled #wrapper #sidebar-wrapper {
   height: 64px;
   min-width: 250px;
 }
+
+footer{
+  position: fixed;
+  bottom: 0;
+  
+}
+
+
 </style>
