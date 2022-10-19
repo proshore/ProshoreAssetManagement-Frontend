@@ -54,7 +54,6 @@ export default {
   methods: {
     async getInvitationList() {
       //this block is used for testing
-      console.log('fetching list');
       try {
         const response = await axios.get(
           `https://6319958e8e51a64d2be7568b.mockapi.io/invitedUsers`

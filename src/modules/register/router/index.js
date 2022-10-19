@@ -2,7 +2,7 @@ const ViewRegister = ()=> import("../views/ViewRegister.vue");
 
 const registerRoutes =[
   {
-    path:"/register",
+    path:"/register/:token",
     name:"register",
     component: ViewRegister,
     //check if the token is valid

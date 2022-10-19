@@ -75,9 +75,7 @@ export default {
       try {
         // making API call
         const response = await inviteUser(this.formData());
-        console.log(response)
         if(response.data.message){
-          console.log(response.data.message);
         }
         if ((response.data.success = true)) {
           this.submission.message = "Sent Successful";
