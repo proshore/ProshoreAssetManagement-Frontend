@@ -100,8 +100,10 @@ export default {
         name:this.name,
         email:this.email,
         password:this.password.value,
+        password_confirmation:this.cpassword.value,
+        token:this.token,
         },
-        token:"1bxXVTgMmdgiClqXZ8Rdmg"
+        
       }
     },
     

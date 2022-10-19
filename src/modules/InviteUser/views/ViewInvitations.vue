@@ -31,23 +31,25 @@ export default {
     styleStatus() {
       return (status) => {
         const lowerCaseStatus = status.toLowerCase()
-        if (lowerCaseStatus === "pending") {
+        if (lowerCaseStatus === "active") {
           return "status-pending";
         }
-        if (lowerCaseStatus === "expired") {
+        if (lowerCaseStatus === "inactive") {
           return "status-expired";
         }
+        
       };
     },
     styleDotIcon() {
       return (status) => {
         const lowerCaseStatus = status.toLowerCase()
-        if ( lowerCaseStatus === "pending") {
+        if ( lowerCaseStatus === "active") {
           return "status-pending-icon";
         }
-        if (lowerCaseStatus === "expired") {
+        if (lowerCaseStatus === "inactive") {
           return "status-expired-icon";
         }
+        
       };
     },
   },
@@ -55,10 +57,9 @@ export default {
     async getInvitationList() {
       //this block is used for testing
       try {
-        const response = await axios.get(
-          `https://6319958e8e51a64d2be7568b.mockapi.io/invitedUsers`
-        );
-        this.invitations = response.data;
+        const response = await invitationList()
+        console.log('response',response)
+        this.invitations = response.data.data.invited_users;
       } catch (e) {
         // toast message
       }
@@ -131,9 +132,9 @@ export default {
             <th scope="row">{{ index + 1 }}</th>
             <td>{{ invitation.name }}</td>
             <td>{{ invitation.email }}</td>
-            <td>{{ invitation.contact }}</td>
-            <td :class="`role ${styleRole(invitation.role)}`">
-              {{ invitation.role }}
+            <td>1234567890</td>
+            <td :class="`role ${styleRole(invitation.role.name)}`">
+              {{ invitation.role.name }}
             </td>
             <td>
               <div :class="`status ${styleStatus(invitation.status)}`">
