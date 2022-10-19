@@ -20,7 +20,7 @@ export default {
         error: "",
       },
       role_id: {
-        value: "",
+        value: 0,
       },
       submission: {
         message: "",
@@ -28,12 +28,11 @@ export default {
       },
     };
   },
-  
+
   components: {
     BaseAlert,
   },
   methods: {
-    
     formData() {
       return {
         email: this.email.value,
@@ -41,7 +40,16 @@ export default {
         role_id: parseInt(this.role_id.value),
       };
     },
-    
+    clearFormData() {
+      this.email.value = "";
+      this.email.error = "";
+      this.name.value = "";
+      this.name.error = "";
+      this.role_id.value = 0;
+      this.submission.message = "";
+      this.submission.isVerified = false;
+    },
+
     validateField(field) {
       if (field === "name") {
         let response = validateUserName(this.name.value);
@@ -53,8 +61,10 @@ export default {
       }
     },
     async handleSubmit() {
-      
-      if (!this.name.value || !this.email.value || !parseInt(this.role_id.value)) {
+      if (this.submission.isVerified){
+        return
+      }
+      if (!this.name.value || !this.email.value || !this.role_id.value) {
         return (this.submission.message = "Field must not be empty");
       }
       if (this.name.error || this.email.error) {
@@ -63,12 +73,24 @@ export default {
       }
       const toast = useToast();
       try {
+        // making API call
         const response = await inviteUser(this.formData());
+        if(response.data.message){
+        }
         if ((response.data.success = true)) {
           this.submission.isVerified = true;
           this.submission.message = "Sent Successful";
           toast.success(`invited ${this.email.value} successfully`);
           this.submission.isVerified = true;
+          // for closing modal
+          setTimeout(() => {
+            document
+              .getElementById("inviteBtn")
+              .setAttribute("data-bs-dismiss", "modal");
+            document.getElementById("inviteBtn").click();
+            this.clearFormData();
+            return;
+          }, 2000);
         }
       } catch (err) {
         this.submission.message = err;
@@ -77,7 +99,6 @@ export default {
     },
   },
 };
-
 </script>
 
 <template>
@@ -100,6 +121,8 @@ export default {
     tabindex="-1"
     aria-labelledby="exampleModalLabel"
     aria-hidden="true"
+    data-bs-backdrop="static"
+    data-bs-keyboard="false"
   >
     <div class="modal-dialog">
       <div class="modal-content">
@@ -120,9 +143,7 @@ export default {
             </div>
             <div class="close-button">
               <button
-
                 class="close-rectangle"
-
                 type="button"
                 data-cy="close-invite-btn"
                 data-bs-dismiss="modal"
@@ -130,15 +151,13 @@ export default {
                 <img src="@/assets/images/x-lg.png" alt="" class="x-lg" />
               </button>
             </div>
-
           </div>
           <div class="row w-100 d-flex justify-content-center">
             <BaseAlert :submission="submission" />
           </div>
           <!-- <form @submit.prevent="handleSubmit"> -->
-            
-          <div class="input-frame">
 
+          <div class="input-frame">
             <div class="input-with-label">
               <div class="label">Full Name</div>
               <input
@@ -148,7 +167,6 @@ export default {
                 v-model="name.value"
                 @keyup="validateField('name')"
                 data-cy="invite-name"
-
               />
               <div
                 v-if="name.error"
@@ -164,9 +182,7 @@ export default {
                 class="input-text"
                 v-model="email.value"
                 @keyup="validateField('email')"
-
                 data-cy="invite-email"
-
               />
               <div
                 v-if="email.error"
@@ -175,7 +191,6 @@ export default {
               ></div>
             </div>
             <div class="input-with-label">
-
               <div class="label">Role</div>
               <select
                 class="input-text"
@@ -183,12 +198,11 @@ export default {
                 v-model="role_id.value"
               >
                 <!-- role list is provided from backend for proper implementation -->
-                <option selected disabled>Select a Role</option>
-                <option data-cy="invite-select-employee" value=1>
+                <option selected value="0">Select a Role</option>
+                <option data-cy="invite-select-employee" value="1">
                   Employee
                 </option>
-                <option data-cy="invite-select-vendor" value=2>Vendor</option>
-
+                <option data-cy="invite-select-vendor" value="2">Vendor</option>
               </select>
             </div>
           </div>
@@ -206,12 +220,12 @@ export default {
             <div class="invite-button">
               <button
                 class="primary-1 button-1 button-color"
+                id="inviteBtn"
                 data-cy="invite-send-btn"
                 @click="handleSubmit"
               >
                 Send Invitation
               </button>
-
             </div>
           </div>
           <!-- </form> -->

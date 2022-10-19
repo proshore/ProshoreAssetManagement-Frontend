@@ -11,6 +11,7 @@ export default {
     return {
       email: "",
       name:"",
+      token:"",
 
       password: {
         value: "",
@@ -38,6 +39,8 @@ export default {
  mounted(){
       this.email = this.$route.query.email
       this.name = this.$route.query.name
+      this.token = this.$route.params.token
+      console.log(this.token);
     },
 
   methods: {
