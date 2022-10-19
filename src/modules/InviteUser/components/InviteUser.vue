@@ -64,7 +64,7 @@ export default {
       try {
         this.submission.isVerified = true;
         const response = await inviteUser(this.formData());
-        if ((response.data.success = true)) {
+        if ((response.data.success === true)) {
           this.submission.message = "Sent Successfully";
           this.submission.isVerified = true;
           
