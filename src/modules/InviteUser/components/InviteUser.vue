@@ -75,6 +75,8 @@ export default {
       try {
         // making API call
         const response = await inviteUser(this.formData());
+        if(response.data.message){
+        }
         if ((response.data.success = true)) {
           this.submission.message = "Sent Successful";
           this.submission.isVerified = true;
@@ -89,7 +91,8 @@ export default {
           }, 2000);
         }
       } catch (err) {
-        this.submission.message = err;
+        
+        this.submission.message =err.response.data.message;
       }
     },
   },
