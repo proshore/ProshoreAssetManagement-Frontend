@@ -1,19 +1,21 @@
 <script>
     //used for testing
     import axios from 'axios'
+    import AddAsset from "./AddAsset.vue";
     export default{
     components: [
+      AddAsset
     ],
     data() {
         return {
             assets: []
         };
     },
-    components: {  },
+    components: { AddAsset },
     async created(){
       //this block is used for testing
       try{
-        const response = await axios.get(`https://6319958e8e51a64d2be7568b.mockapi.io/invitedUsers`);
+        const response = await axios.get(`http://localhost:3000/assets_list`);
         this.invitations = response.data;
       }catch(e){
         console.error(e);
@@ -80,7 +82,7 @@
         </form>
       </div>
       <div class="col-8 d-flex justify-content-end">
-        <InviteUser />
+        <AddAsset />
       </div>
     </div>
     <div class="row mt-4 px-4">
@@ -98,31 +100,31 @@
             <th scope="col">Bought Date</th>
           </tr>
         </thead>
-        <tbody v-for="(invitation, index) in invitations" :key="index">
+        <!-- <tbody v-for="(invitation, index) in invitations" :key="index"> -->
           <!-- The rows will be dynamically generated according to invitationslist data -->
-          <tr class="text-center">
-            <th scope="row">{{ index + 1 }}</th>
-            <td>{{ invitation.name }}</td>
-            <td>{{ invitation.email }}</td>
-            <td>{{ invitation.contact }}</td>
-            <td :class="`role ${styleRole(invitation.role)}`">
-              {{ invitation.role }}
-            </td>
-            <td >
+          <!-- <tr class="text-center"> -->
+            <!-- <th scope="row">{{ index + 1 }}</th> -->
+            <!-- <td>{{ invitation.name }}</td> -->
+            <!-- <td>{{ invitation.email }}</td> -->
+            <!-- <td>{{ invitation.contact }}</td> -->
+            <!-- <td :class="`role ${styleRole(invitation.role)}`"> -->
+              <!-- {{ invitation.role }} -->
+            <!-- </td> -->
+            <!-- <td > -->
               
-              <div :class="`status ${styleStatus(invitation.status)}`">
-                <div class=" status-icon me-2" :class="` ${styleDotIcon(invitation.status)}`"></div> {{ invitation.status }}
-              </div>
-            </td>
-            <td >
-              <InvitationActions
-                :name="invitation.name"
-                :email="invitation.email"
-                :contact="invitation.contact"
-              />
-            </td>
-          </tr>
-        </tbody>
+              <!-- <div :class="`status ${styleStatus(invitation.status)}`"> -->
+                <!-- <div class=" status-icon me-2" :class="` ${styleDotIcon(invitation.status)}`"></div> {{ invitation.status }} -->
+              <!-- </div> -->
+            <!-- </td> -->
+            <!-- <td > -->
+              <!-- <InvitationActions -->
+                <!-- :name="invitation.name" -->
+                <!-- :email="invitation.email" -->
+                <!-- :contact="invitation.contact" -->
+              <!-- /> -->
+            <!-- </td> -->
+          <!-- </tr> -->
+        <!-- </tbody> -->
       </table>
     </div>
   </div>
