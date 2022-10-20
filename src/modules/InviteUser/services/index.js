@@ -18,7 +18,6 @@ const inviteUser = async(inviteData)=>{
 }
 //get invitation data from server
  const reInviteUser = async (reInviteData)=>{
-  
     return await API.post(`${apiUrl.RESEND_INVITE_URL}/${reInviteData.id}`,reInviteData, config);
     // pass token in headers
     //server will expire previous token and sends another invitation
@@ -32,6 +31,7 @@ const inviteUser = async(inviteData)=>{
    return await API.delete(`${apiUrl.DELETE_INVITE_URL}/${inviteId}`)
  }
  const invitationList = async ()=>{
+
    return await API.get(apiUrl.INVITATION_LIST_URL,config)
  }
  export {inviteUser,reInviteUser,revokeUser, deleteUser, invitationList}

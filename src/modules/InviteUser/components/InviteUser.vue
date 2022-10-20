@@ -75,6 +75,9 @@ export default {
       try {
         // making API call
         const response = await inviteUser(this.formData());
+        if ((response.data.success === true)) {
+          this.submission.message = "Sent Successfully";
+          this.submission.isVerified = true;
         if(response.data.message){
         }
         if ((response.data.success = true)) {
@@ -92,13 +95,14 @@ export default {
             return;
           }, 2000);
         }
-      } catch (err) {
+      } 
+      }catch (err) {
         this.submission.message = err;
         toast.error("Something went wrong");
-      }
-    },
+    }
   },
-};
+},
+}
 </script>
 
 <template>
@@ -240,17 +244,20 @@ export default {
 
 /* font-family: 'Poppins', sans-serif; */
 .add-a-dialog-box {
-  align-items: flex-start;
+  align-items: center;
   background-color: white;
   border: 1px none;
   display: flex;
   flex-direction: column;
   gap: 16px;
-  height: 650px;
-  min-height: 500px;
-  min-width: 564px;
+  max-height: 700px;
+  min-height: 550px;
+  max-width: 600px;
+  min-width: 300px;
   padding: 0px 16px;
   width: 100%;
+
+
 }
 .input-frame {
   align-items: flex-start;
@@ -312,7 +319,8 @@ export default {
 }
 .invite-new-member {
   color: #c852da;
-  font-size: 16px;
+  font-size: 24px;
+  font-weight: 600;
   letter-spacing: 0.15px;
   line-height: 24px;
   margin-top: -1px;
@@ -322,6 +330,7 @@ export default {
   color: gray;
   letter-spacing: 0.15px;
   line-height: 21px;
+  font-size: 14px;
   white-space: nowrap;
 }
 .close-button {
@@ -420,5 +429,14 @@ export default {
   background-color: red;
   color: white;
 }
+
+.modal{
+    pointer-events: none;
+}
+
+.modal-dialog{
+    pointer-events: all;
+ }
+
 </style>
 

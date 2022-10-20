@@ -31,23 +31,27 @@ export default {
     styleStatus() {
       return (status) => {
         const lowerCaseStatus = status.toLowerCase();
+
         if (lowerCaseStatus === "active") {
           return "status-pending";
         }
         if (lowerCaseStatus === "inactive") {
           return "status-expired";
         }
+        
       };
     },
     styleDotIcon() {
       return (status) => {
-        const lowerCaseStatus = status.toLowerCase();
-        if (lowerCaseStatus === "active") {
+
+        const lowerCaseStatus = status.toLowerCase()
+        if ( lowerCaseStatus === "active") {
           return "status-pending-icon";
         }
         if (lowerCaseStatus === "inactive") {
           return "status-expired-icon";
         }
+        
       };
     },
   },
@@ -55,6 +59,7 @@ export default {
     async getInvitationList() {
       //this block is used for testing
       try {
+
         const response = await invitationList();
         this.invitations = response.data.data.invited_users;
         

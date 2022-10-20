@@ -1,4 +1,27 @@
 <script>
+
+    //used for testing
+    import axios from 'axios'
+    import AddAsset from "./AddAsset.vue";
+    export default{
+    components: [
+      AddAsset
+    ],
+    data() {
+        return {
+            assets: []
+        };
+    },
+    components: { AddAsset },
+    async created(){
+      //this block is used for testing
+      try{
+        const response = await axios.get(`http://localhost:3000/assets_list`);
+        this.invitations = response.data;
+      }catch(e){
+        console.error(e);
+      }
+      //this is the actual block to be used after connection with backend
 //used for testing
 import axios from "axios";
 export default {
@@ -93,6 +116,10 @@ export default {
           </button>
         </form>
       </div>
+
+      <div class="col-8 d-flex justify-content-end">
+        <AddAsset />
+      </div>
     </div>
     <div class="row mt-4 px-4">
       <table
@@ -117,6 +144,31 @@ export default {
             <th scope="col">Bought Date</th>
           </tr>
         </thead>
+        <!-- <tbody v-for="(invitation, index) in invitations" :key="index"> -->
+          <!-- The rows will be dynamically generated according to invitationslist data -->
+          <!-- <tr class="text-center"> -->
+            <!-- <th scope="row">{{ index + 1 }}</th> -->
+            <!-- <td>{{ invitation.name }}</td> -->
+            <!-- <td>{{ invitation.email }}</td> -->
+            <!-- <td>{{ invitation.contact }}</td> -->
+            <!-- <td :class="`role ${styleRole(invitation.role)}`"> -->
+              <!-- {{ invitation.role }} -->
+            <!-- </td> -->
+            <!-- <td > -->
+              
+              <!-- <div :class="`status ${styleStatus(invitation.status)}`"> -->
+                <!-- <div class=" status-icon me-2" :class="` ${styleDotIcon(invitation.status)}`"></div> {{ invitation.status }} -->
+              <!-- </div> -->
+            <!-- </td> -->
+            <!-- <td > -->
+              <!-- <InvitationActions -->
+                <!-- :name="invitation.name" -->
+                <!-- :email="invitation.email" -->
+                <!-- :contact="invitation.contact" -->
+              <!-- /> -->
+            <!-- </td> -->
+          <!-- </tr> -->
+        <!-- </tbody> -->
         <tbody v-for="(asset, index) in assets" :key="asset.id">
           <!-- The rows will be dynamically generated according to assetslist data -->
           <tr class="text-center">
