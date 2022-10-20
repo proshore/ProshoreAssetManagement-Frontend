@@ -4,6 +4,7 @@ import validateUserName from "@/utils/validateUserName";
 import BaseInput from "@/components/BaseInput.vue";
 import BaseAlert from "@/components/BaseAlert.vue";
 import { inviteUser } from "../services";
+import { useToast } from "vue-toastification"
 import axios from "axios";
 
 export default {
@@ -19,7 +20,7 @@ export default {
         error: "",
       },
       role_id: {
-        value: "",
+        value: 0,
       },
       submission: {
         message: "",
@@ -27,12 +28,11 @@ export default {
       },
     };
   },
-  
+
   components: {
     BaseAlert,
   },
   methods: {
-    
     formData() {
       return {
         email: this.email.value,
@@ -40,7 +40,16 @@ export default {
         role_id: parseInt(this.role_id.value),
       };
     },
-    
+    clearFormData() {
+      this.email.value = "";
+      this.email.error = "";
+      this.name.value = "";
+      this.name.error = "";
+      this.role_id.value = 0;
+      this.submission.message = "";
+      this.submission.isVerified = false;
+    },
+
     validateField(field) {
       if (field === "name") {
         let response = validateUserName(this.name.value);
@@ -52,29 +61,47 @@ export default {
       }
     },
     async handleSubmit() {
-      
-      if (!this.name.value || !this.email.value || !parseInt(this.role_id.value)) {
+      if (this.submission.isVerified){
+        return
+      }
+      if (!this.name.value || !this.email.value || !this.role_id.value) {
         return (this.submission.message = "Field must not be empty");
       }
       if (this.name.error || this.email.error) {
         return (this.submission.message =
           "Some fields are not filled properly");
       }
-      
+      const toast = useToast();
       try {
-        this.submission.isVerified = true;
+        // making API call
         const response = await inviteUser(this.formData());
-        if ((response.data.success = true)) {
-          this.submission.message = "Sent Successful";
+        if ((response.data.success === true)) {
+          this.submission.message = "Sent Successfully";
           this.submission.isVerified = true;
+        if(response.data.message){
+        }
+        if ((response.data.success = true)) {
+          this.submission.isVerified = true;
+          this.submission.message = "Sent Successful";
+          toast.success(`invited ${this.email.value} successfully`);
+          this.submission.isVerified = true;
+          // for closing modal
+          setTimeout(() => {
+            document
+              .getElementById("inviteBtn")
+              .setAttribute("data-bs-dismiss", "modal");
+            document.getElementById("inviteBtn").click();
+            this.clearFormData();
+            return;
+          }, 2000);
         }
       } catch (err) {
         this.submission.message = err;
+        toast.error("Something went wrong");
       }
     },
   },
 };
-
 </script>
 
 <template>
@@ -97,6 +124,8 @@ export default {
     tabindex="-1"
     aria-labelledby="exampleModalLabel"
     aria-hidden="true"
+    data-bs-backdrop="static"
+    data-bs-keyboard="false"
   >
     <div class="modal-dialog">
       <div class="modal-content">
@@ -117,9 +146,7 @@ export default {
             </div>
             <div class="close-button">
               <button
-
                 class="close-rectangle"
-
                 type="button"
                 data-cy="close-invite-btn"
                 data-bs-dismiss="modal"
@@ -127,15 +154,13 @@ export default {
                 <img src="@/assets/images/x-lg.png" alt="" class="x-lg" />
               </button>
             </div>
-
           </div>
           <div class="row w-100 d-flex justify-content-center">
             <BaseAlert :submission="submission" />
           </div>
           <!-- <form @submit.prevent="handleSubmit"> -->
-            
-          <div class="input-frame">
 
+          <div class="input-frame">
             <div class="input-with-label">
               <div class="label">Full Name</div>
               <input
@@ -145,7 +170,6 @@ export default {
                 v-model="name.value"
                 @keyup="validateField('name')"
                 data-cy="invite-name"
-
               />
               <div
                 v-if="name.error"
@@ -161,9 +185,7 @@ export default {
                 class="input-text"
                 v-model="email.value"
                 @keyup="validateField('email')"
-
                 data-cy="invite-email"
-
               />
               <div
                 v-if="email.error"
@@ -172,7 +194,6 @@ export default {
               ></div>
             </div>
             <div class="input-with-label">
-
               <div class="label">Role</div>
               <select
                 class="input-text"
@@ -180,12 +201,11 @@ export default {
                 v-model="role_id.value"
               >
                 <!-- role list is provided from backend for proper implementation -->
-                <option selected disabled>Select a Role</option>
-                <option data-cy="invite-select-employee" value=1>
+                <option selected value="0">Select a Role</option>
+                <option data-cy="invite-select-employee" value="1">
                   Employee
                 </option>
-                <option data-cy="invite-select-vendor" value=2>Vendor</option>
-
+                <option data-cy="invite-select-vendor" value="2">Vendor</option>
               </select>
             </div>
           </div>
@@ -203,12 +223,12 @@ export default {
             <div class="invite-button">
               <button
                 class="primary-1 button-1 button-color"
+                id="inviteBtn"
                 data-cy="invite-send-btn"
                 @click="handleSubmit"
               >
                 Send Invitation
               </button>
-
             </div>
           </div>
           <!-- </form> -->
@@ -223,17 +243,20 @@ export default {
 
 /* font-family: 'Poppins', sans-serif; */
 .add-a-dialog-box {
-  align-items: flex-start;
+  align-items: center;
   background-color: white;
   border: 1px none;
   display: flex;
   flex-direction: column;
   gap: 16px;
-  height: 650px;
-  min-height: 500px;
-  min-width: 564px;
+  max-height: 700px;
+  min-height: 550px;
+  max-width: 600px;
+  min-width: 300px;
   padding: 0px 16px;
   width: 100%;
+
+
 }
 .input-frame {
   align-items: flex-start;
@@ -295,7 +318,8 @@ export default {
 }
 .invite-new-member {
   color: #c852da;
-  font-size: 16px;
+  font-size: 24px;
+  font-weight: 600;
   letter-spacing: 0.15px;
   line-height: 24px;
   margin-top: -1px;
@@ -305,6 +329,7 @@ export default {
   color: gray;
   letter-spacing: 0.15px;
   line-height: 21px;
+  font-size: 14px;
   white-space: nowrap;
 }
 .close-button {
@@ -403,5 +428,14 @@ export default {
   background-color: red;
   color: white;
 }
+
+.modal{
+    pointer-events: none;
+}
+
+.modal-dialog{
+    pointer-events: all;
+ }
+
 </style>
 
