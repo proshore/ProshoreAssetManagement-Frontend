@@ -95,13 +95,14 @@ export default {
             return;
           }, 2000);
         }
-      } catch (err) {
+      } 
+      }catch (err) {
         this.submission.message = err;
         toast.error("Something went wrong");
-      }
-    },
+    }
   },
-};
+},
+}
 </script>
 
 <template>
