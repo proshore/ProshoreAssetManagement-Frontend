@@ -56,8 +56,8 @@ export default {
       //this block is used for testing
       try {
         const response = await invitationList();
-        console.log("response", response);
         this.invitations = response.data.data.invited_users;
+        
       } catch (e) {
         // toast message
       }
