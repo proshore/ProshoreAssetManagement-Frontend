@@ -40,7 +40,6 @@ export default {
       this.email = this.$route.query.email
       this.name = this.$route.query.name
       this.token = this.$route.params.token
-      console.log(this.token);
     },
 
   methods: {
@@ -68,6 +67,7 @@ export default {
       console.log(this.password.seen);
     },
     async handleSubmit() {
+      document.getElementById("registerBtn").disabled = 'true'
       this.validateField("cpassword")
       if (!this.password.value && !this.cpassword.value) {
         this.submission.message="Password must be provided";
@@ -87,9 +87,10 @@ export default {
           );
           this.submission = {message:"Registered Successfully", isVerified:true}
           toast.success("You have been registered in the Proshore Asset Management System")
-          setTimeout(()=>this.$router.push({name:'login'}),2000)
+          this.$router.push({name:'login'})
         } catch (error) {
-          this.submission.message =error 
+          document.getElementById("registerBtn").disabled = false
+          this.submission.message =error.response.data.message
           toast.error("Something went wrong")
         }
         return;
@@ -100,14 +101,11 @@ export default {
     },
     formData(){
       return{
-        data:{
         name:this.name,
         email:this.email,
         password:this.password.value,
         password_confirmation:this.cpassword.value,
-        token:this.token,
-        },
-        
+        token: this.token
       }
     },
     
@@ -200,7 +198,7 @@ export default {
                 <div v-if="cpassword.error" class="form-text text-danger" v-text="cpassword.error"></div>
               </div>
 
-              <button class="btn w-100 w-md-50 button-color" data-cy="register-btn" type="submit">
+              <button class="btn w-100 w-md-50 button-color" id="registerBtn" data-cy="register-btn" type="submit">
                 Register
               </button>
             </form>
