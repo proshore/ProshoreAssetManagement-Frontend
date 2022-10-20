@@ -1,5 +1,6 @@
 import {logoutUser} from '../services'
 import getToken from '@/utils/getToken';
+import { useToast } from "vue-toastification"
 export default async function logout(){
     const token = getToken()
     if (!token){
@@ -7,10 +8,11 @@ export default async function logout(){
         return false
 
     }
+    const toast = useToast();
     const response = await logoutUser(token)
     if (response.data.status.toLowerCase() != 'success'){
-    //use toast to show error
+        toast.error(`Something went wrong`);
     }
-    //use toast to show logout message
+    toast.success(`Logged out successfully`);
     return {name:'login'}
 }

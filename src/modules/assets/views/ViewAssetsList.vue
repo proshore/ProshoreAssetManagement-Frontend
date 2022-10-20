@@ -1,4 +1,5 @@
 <script>
+
     //used for testing
     import axios from 'axios'
     import AddAsset from "./AddAsset.vue";
@@ -21,75 +22,118 @@
         console.error(e);
       }
       //this is the actual block to be used after connection with backend
+//used for testing
+import axios from "axios";
+export default {
+  components: [],
+  data() {
+    return {
+      assets: [],
+    };
+  },
+  components: {},
+  async created() {
+    //this block is used for testing
+    try {
+      const response = await axios.get(
+        `https://6319958e8e51a64d2be7568b.mockapi.io/assetslist`
+      );
+      this.assets = response.data;
+    } catch (e) {
+      //toast notification
+    }
+    //this is the actual block to be used after connection with backend
 
-      // try{
-      //   const response = await invitationList()
-      //   this.invitations = response.data
-      // }
-      // catch(error){
-      //   console.error("error: ", error)
-      // }
+    // try{
+    //   const response = await assetList()
+    //   this.assets = response.data
+    // }
+    // catch(error){
+    //   console.error("error: ", error)
+    // }
+  },
+  computed: {
+    styleCondition() {
+      return (condition) => {
+        if (condition.toLowerCase() === "brand new") {
+          return "condition-new";
+        }
+        if (condition.toLowerCase() === "refurbished") {
+          return "condition-refurbished";
+        }
+        if (condition.toLowerCase() === "used") {
+          return "condition-used";
+        }
+      };
     },
-//     computed:{
-//         styleRole(){
-//           return role =>{
-//           if (role.toLowerCase() === "employee") {
-//             return "role-employee"
-//           }
-//           if (role.toLowerCase() ==="vendor") {
-//             return "role-vendor"
-//           }
-//         }
-//         },
-//         styleStatus(){
-//       return status =>{
-//         if (status.toLowerCase() ==="pending"){
-//           return "status-pending"
-//         }
-//         if (status.toLowerCase() === "expired") {
-//           return "status-expired";
-//         }
-//       };
-//     },
-//     styleDotIcon(){
-//       return status =>{
-//         if (status.toLowerCase() ==="pending"){
-//           return "status-pending-icon"
-//         }
-//         if (status.toLowerCase() === "expired") {
-//           return "status-expired-icon";
-//         }
-//       }
-//     }
-//   },
+    styleStatus() {
+      return (status) => {
+        if (status.toLowerCase() === "available") {
+          return "status-available";
+        }
+        if (status.toLowerCase() === "requested") {
+          return "status-requested";
+        }
+        if (status.toLowerCase() === "active") {
+          return "status-active";
+        }
+      };
+    },
+    styleDotIcon() {
+      return (status) => {
+        if (status.toLowerCase() === "available") {
+          return "status-available-icon";
+        }
+        if (status.toLowerCase() === "requested") {
+          return "status-requested-icon";
+        }
+        if (status.toLowerCase() === "active") {
+          return "status-active-icon";
+        }
+      };
+    },
+  },
 };
 </script>
 <template>
-  <div class="invitation-container p-4 mt-4 mx-4">
+  <div class="view-assets-container p-4 mt-4 mx-4">
     <div class="row px-3">
       <div class="col-4">
         <form class="form-inline d-flex">
           <input
-            class="form-control form-control-lg mr-sm-2 "
+            class="form-control form-control-lg mr-sm-2"
             type="search"
             placeholder="Search"
             aria-label="Search"
-            data-cy ="invitations-search-field" 
+            data-cy="assets-search-field"
           />
-          <button class="btn my-2 px-3 my-sm-0 mx-2 button-color" type="submit" data-cy="invitation-search-btn">
-            <i class="bi bi-search" ></i>
+          <button
+            class="btn my-2 px-3 my-sm-0 mx-2 button-color"
+            type="submit"
+            data-cy="assets-search-btn"
+          >
+            <i class="bi bi-search"></i>
           </button>
         </form>
       </div>
+
       <div class="col-8 d-flex justify-content-end">
         <AddAsset />
       </div>
     </div>
     <div class="row mt-4 px-4">
       <table
-        class="table table-borderless border table-hover table-sm bg-white regular-font"
+        class="
+          table
+          w-100
+          bg-white
+          table-borderless
+          border
+          table-hover
+          regular-font
+        "
       >
-        <thead class="thead-light ">
+        <thead class="thead-light">
           <tr class="text-center">
             <th scope="col">S.N</th>
             <th scope="col">Asset</th>
@@ -125,40 +169,66 @@
             <!-- </td> -->
           <!-- </tr> -->
         <!-- </tbody> -->
+        <tbody v-for="(asset, index) in assets" :key="asset.id">
+          <!-- The rows will be dynamically generated according to assetslist data -->
+          <tr class="text-center">
+            <th scope="row">{{ index + 1 }}</th>
+            <td>{{ asset.name }}</td>
+            <td>{{ asset.type }}</td>
+            <td>{{ asset.stockQuantity }}</td>
+            <td :class="`condition ${styleCondition(asset.condition)}`">
+              {{ asset.condition }}
+            </td>
+            <td>
+              <div :class="`status ${styleStatus(asset.status)}`">
+                <div
+                  class="status-icon me-2"
+                  :class="` ${styleDotIcon(asset.status)}`"
+                ></div>
+                {{ asset.status }}
+              </div>
+            </td>
+            <td>{{ asset.boughtDate }}</td>
+          </tr>
+        </tbody>
       </table>
     </div>
   </div>
 </template>
 
 <style scoped>
-.invitation-container {
+.view-assets-container {
   background-color: white;
   border-radius: 5px;
 }
 
 .thead-light {
-  height: 50px !important;
+  height: 50px ;
   vertical-align: middle;
-  background-color: #e9ecef !important;
+  background-color: #e9ecef;
+  width: 100%;
 }
 tr {
   vertical-align: middle;
 }
-.role {
+.condition {
   font-weight: 600;
   font-size: 15px;
   line-height: 18px;
   text-align: center;
   letter-spacing: 0.25px;
 }
-.role-employee {
-  color: #3852da;
+.condition-new {
+  color: #097969;
 }
-.role-vendor {
-  color: #0b102c;
+.condition-refurbished {
+  color: #ffbf00;
+}
+.condition-used {
+  color: #e97451;
 }
 .status {
-  margin:auto;
+  margin: auto;
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
@@ -168,39 +238,46 @@ tr {
   font-size: 12px;
   width: fit-content;
 }
-.status-icon{
-  height:8px;
-  width:8px;
-  border-radius:50%;
+.status-icon {
+  height: 8px;
+  width: 8px;
+  border-radius: 50%;
 }
-.status-expired {
-  background-color: #ffeded;
-  color: black !important;
+.status-available {
+  background-color: #98fb98;
+  color: #008000;
 }
-.status-expired-icon{
- background-color:#FF4F4F;
+.status-available-icon {
+  background-color: #008000;
 }
-.status-pending {
-  background-color: #fff4da !important;
-  color: black !important;
+.status-active {
+  background-color: #fff4da;
+  color: #ff4f4f;
 }
-.status-pending-icon{
-  background-color:#FFCA48;
+.status-active-icon {
+  background-color: #ff4f4f;
+}
+.status-requested {
+  background-color: #ffea00;
+  color: #8b8000;
+}
+.status-requested-icon {
+  background-color: #8b8000;
 }
 tr {
   vertical-align: middle;
 }
-.role {
+.condition {
   font-weight: 600;
   font-size: 15px;
   line-height: 18px;
   text-align: center;
   letter-spacing: 0.25px;
 }
-.role-employee {
+.condition-employee {
   color: #3852da;
 }
-.role-vendor {
+.condition-vendor {
   color: #0b102c;
 }
 .status {
@@ -217,7 +294,6 @@ tr {
 .status-expired {
   background-color: #ffeded;
   color: #ff4f4f;
-  
 }
 .status-pending {
   background-color: #fff4da;
