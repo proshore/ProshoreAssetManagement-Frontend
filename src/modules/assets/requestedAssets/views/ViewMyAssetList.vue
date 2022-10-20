@@ -17,7 +17,6 @@ export default {
       );
       this.my_assets = response.data;
     } catch (e) {
-      console.error(e);
     }
   },
   computed: {
@@ -84,10 +83,10 @@ export default {
             <th scope="col">Status</th>
           </tr>
         </thead>
-        <tbody v-for="(asset, index) in my_assets" :key="index">
+        <tbody v-for="(asset) in my_assets" :key="asset.id">
           <!-- The rows will be dynamically generated according to invitationslist data -->
           <tr class="text-center">
-            <th scope="row">{{ index + 1 }}</th>
+            <th scope="row">{{ asset.id  }}</th>
             <td>{{ asset.asset }}</td>
             <td>{{ asset.type }}</td>
             <td>{{ asset.requested_date }}</td>
