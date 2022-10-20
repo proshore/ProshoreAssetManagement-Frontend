@@ -49,6 +49,7 @@ export default {
       }
     },
     async handleSubmit() {
+      document.getElementById("loginBtn").disabled = 'true';
       if (!this.email.value || !this.password.value) {
         return (this.submission.message = "Fields must not be empty");
       }
@@ -65,14 +66,15 @@ export default {
           toast.success("Logged into Proshore Asset Management");
 
           this.submission.isVerified = true;
-          localStorage.setItem('data',response.data.data.token.token);
-          setTimeout(() => {
-            this.$router.push({ name: "dashboard" });
-          }, 1000);
+          console.log('disabled');
+          localStorage.setItem('data',response.data.data.token);
+          this.$router.push({ name: "dashboard" });
         }
       } catch (error) {
-        this.submission.message = error;
+        document.getElementById("loginBtn").disabled = false;
+        this.submission.message = error.response.data.message;
         toast.error("Something went wrong")
+        
       }
     },
     toggleSeen() {
@@ -152,7 +154,7 @@ export default {
               </div>
               
 
-              <button class="btn w-100 button-color" data-cy="login-btn" href="/dashboard">
+              <button class="btn w-100 button-color" id="loginBtn" data-cy="login-btn" href="/dashboard">
                 Sign In
               </button>
             </form>

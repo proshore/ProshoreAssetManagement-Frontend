@@ -2,6 +2,7 @@
 import InviteUser from "../components/InviteUser.vue";
 import InvitationActions from "../components/invitationActions.vue";
 import { invitationList } from "../services";
+import { useToast } from "vue-toastification"
 //used for testing
 import axios from "axios";
 export default {
@@ -53,24 +54,20 @@ export default {
   },
   methods: {
     async getInvitationList() {
-      //this block is used for testing
+      const toast = useToast();
       try {
-        const response = await axios.get(
-          `https://6319958e8e51a64d2be7568b.mockapi.io/invitedUsers`
-        );
-        this.invitations = response.data;
+        //spinner implementation
+        window.emitter.emit('changeSpinnerActiveStatus',true)
+        const response = await invitationList();
+        this.invitations = response.data.data.invited_users;
+        window.emitter.emit('changeSpinnerActiveStatus',false)
       } catch (e) {
         // toast message
+        window.emitter.emit('changeSpinnerActiveStatus',false)
+        toast.error("Something went wrong")
+        
       }
-      //this is the actual block to be used after connection with backend
-
-      // try{
-      //   const response = await invitationList()
-      //   this.invitations = response.data
-      // }
-      // catch(error){
-      //   console.error("error: ", error)
-      // }
+ 
       return;
     },
     refreshInvitationList() {
