@@ -1,18 +1,18 @@
 import ViewAssets from '../../views/ViewAssets.vue'
-import ViewRequestedList from '../views/ViewRequestedList.vue'
-const requestedAssetRoutes = [
+import ViewMyAssetList from '../views/ViewMyAssetList.vue'
+const myAssetRoutes = [
     {
-      path: "requested-assets",
-      name: "requested-assets",
+      path: "my-assets",
+      name: "my-assets",
       component: ViewAssets,
       children: [
         {
-          path: "list-requested-assets",
-          name: "list-requested-assets",
-          component: ViewRequestedList,
+          path: "list-my-assets",
+          name: "list-my-assets",
+          component: ViewMyAssetList,
         },
       ],
     },
   ];
 
-  export default requestedAssetRoutes
+  export default myAssetRoutes

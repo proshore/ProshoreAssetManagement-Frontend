@@ -5,7 +5,7 @@ export default {
   components: [],
   data() {
     return {
-      requested_assets: [],
+      my_assets: [],
     };
   },
   components: {},
@@ -13,9 +13,9 @@ export default {
     //this block is used for testing
     try {
       const response = await axios.get(
-        `http://localhost:3000/requested_assets`
+        `http://localhost:3000/my_assets_list`
       );
-      this.requested_assets = response.data;
+      this.my_assets = response.data;
     } catch (e) {
       console.error(e);
     }
@@ -23,20 +23,20 @@ export default {
   computed: {
     styleStatus() {
       return (status) => {
-        if (status.toLowerCase() === "available") {
+        if (status.toLowerCase() === "requested") {
           return "status-available";
         }
-        if (status.toLowerCase() === "unavailable") {
+        if (status.toLowerCase() === "active") {
           return "status-unavailable";
         }
       };
     },
     styleDotIcon() {
       return (status) => {
-        if (status.toLowerCase() === "available") {
+        if (status.toLowerCase() === "requested") {
           return "status-available-icon";
         }
-        if (status.toLowerCase() === "unavailable") {
+        if (status.toLowerCase() === "active") {
           return "status-unavailable-icon";
         }
       };
@@ -76,28 +76,30 @@ export default {
         <thead class="thead-light">
           <tr class="text-center">
             <th scope="col">S.N</th>
-            <th scope="col">Requested Asset</th>
+            <th scope="col">Asset</th>
             <th scope="col">Type</th>
             <th scope="col">Requested Date</th>
+            <th scope="col">Bought Date</th>
             <th scope="col">Requested Amount</th>
             <th scope="col">Status</th>
           </tr>
         </thead>
-        <tbody v-for="(rasset, index) in requested_assets" :key="index">
+        <tbody v-for="(asset, index) in my_assets" :key="index">
           <!-- The rows will be dynamically generated according to invitationslist data -->
           <tr class="text-center">
             <th scope="row">{{ index + 1 }}</th>
-            <td>{{ rasset.requested_asset }}</td>
-            <td>{{ rasset.type }}</td>
-            <td>{{ rasset.requested_date }}</td>
-            <td>{{ rasset.requested_amount }}</td>
+            <td>{{ asset.asset }}</td>
+            <td>{{ asset.type }}</td>
+            <td>{{ asset.requested_date }}</td>
+            <td>{{ asset.bought_date }}</td>
+            <td>{{ asset.requested_amount }}</td>
             <td>
-              <div :class="`status ${styleStatus(rasset.status)}`">
+              <div :class="`status ${styleStatus(asset.status)}`">
                 <div
                   class="status-icon me-2"
-                  :class="` ${styleDotIcon(rasset.status)}`"
+                  :class="` ${styleDotIcon(asset.status)}`"
                 ></div>
-                {{ rasset.status }}
+                {{ asset.status }}
               </div>
             </td>
           </tr>

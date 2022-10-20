@@ -9,19 +9,17 @@
            Assets
          </RouterLink>
          <RouterLink
-           :to="{ name: 'list-requested-assets' }"
-           data-cy="requested-assets-tab-link"
+           :to="{ name: 'list-my-assets' }"
+           data-cy="my-assets-tab-link"
            class="dashboard-menu"
          >
-           Requested Assets
+           My Assets
          </RouterLink>
        </div>
        
 
        <div id="container">
          <RouterView></RouterView>
-         <!--Nested Router view -->
-         <!-- responds to the button click of the corresponding section -->
        </div>
      </div>
 </template>
