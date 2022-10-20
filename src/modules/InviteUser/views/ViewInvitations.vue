@@ -13,15 +13,15 @@ export default {
     };
   },
   components: { InvitationActions, InviteUser },
-    mounted() {
-    this.getInvitationList()
+  mounted() {
+    this.getInvitationList();
     //hello
   },
   computed: {
     styleRole() {
       return (role) => {
-        const lowerCaseRole = role.toLowerCase()
-        if ( lowerCaseRole === "employee") {
+        const lowerCaseRole = role.toLowerCase();
+        if (lowerCaseRole === "employee") {
           return "role-employee";
         }
         if (lowerCaseRole === "vendor") {
@@ -31,22 +31,22 @@ export default {
     },
     styleStatus() {
       return (status) => {
-        const lowerCaseStatus = status.toLowerCase()
-        if (lowerCaseStatus === "pending") {
+        const lowerCaseStatus = status.toLowerCase();
+        if (lowerCaseStatus === "active") {
           return "status-pending";
         }
-        if (lowerCaseStatus === "expired") {
+        if (lowerCaseStatus === "inactive") {
           return "status-expired";
         }
       };
     },
     styleDotIcon() {
       return (status) => {
-        const lowerCaseStatus = status.toLowerCase()
-        if ( lowerCaseStatus === "pending") {
+        const lowerCaseStatus = status.toLowerCase();
+        if (lowerCaseStatus === "active") {
           return "status-pending-icon";
         }
-        if (lowerCaseStatus === "expired") {
+        if (lowerCaseStatus === "inactive") {
           return "status-expired-icon";
         }
       };
@@ -71,7 +71,7 @@ export default {
       return;
     },
     refreshInvitationList() {
-      this.getInvitationList()
+      this.getInvitationList();
     },
   },
 };
@@ -128,9 +128,9 @@ export default {
             <th scope="row">{{ index + 1 }}</th>
             <td>{{ invitation.name }}</td>
             <td>{{ invitation.email }}</td>
-            <td>{{ invitation.contact }}</td>
-            <td :class="`role ${styleRole(invitation.role)}`">
-              {{ invitation.role }}
+            <td>1234567890</td>
+            <td :class="`role ${styleRole(invitation.role.name)}`">
+              {{ invitation.role.name }}
             </td>
             <td>
               <div :class="`status ${styleStatus(invitation.status)}`">
