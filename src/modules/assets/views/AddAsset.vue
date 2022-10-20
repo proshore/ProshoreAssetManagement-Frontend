@@ -7,11 +7,10 @@ export default {
     return {
         asset:'',
         type:'',
-        stock_quantity:null,
-        condition:'',
+        requested_date:null,
+        requested_amount:'',
         status:'',
         bought_date:null,
-        add_asset:[],
     };
   },
   methods: {
@@ -20,17 +19,17 @@ export default {
       return {
         asset:this.asset,
         type:this.type,
-        stock_quantity:this.stock_quantity,
-        condition:this.condition,
+        requested_amount:this.requested_amount,
         status:this.status,
         bought_date:this.bought_date,
+        requested_date:this.requested_date
       };
     },
     async handleSubmit() {
       
       try {
-        const response = await axios.post("http://localhost:3000/add_assets");
-        this.add_asset = response.data;
+        const response = await axios.post("http://localhost:3000/my_assets_list",this.formData());
+        
       } catch (err) {
       }
     },
@@ -118,43 +117,44 @@ export default {
                 />
               </div>
               <div class="input-with-label">
-                <div class="label">Stock Quantity</div>
+                <div class="label">Requested Date</div>
                 <input
-                  type="number"
-                  placeholder="Stock Quantity"
+                  type="date"
+                  placeholder="Requested Date" 
                   class="input-text"
-                  v-model="stock_quantity"
-                  data-cy="stock-quantity"
-                />
-              </div>
-              <div class="input-with-label">
-                <div class="label">Condition</div>
-                <input
-                  type="text"
-                  placeholder="Condition"
-                  class="input-text"
-                  v-model="condition"
-                  data-cy="condition"
-                />
-              </div>
-              <div class="input-with-label">
-                <div class="label">Status</div>
-                <input
-                  type="text"
-                  placeholder="Status"
-                  class="input-text"
-                  v-model="status"
-                  data-cy="status"
+                  v-model="requested_date"
+                  data-cy="requested-date"
                 />
               </div>
               <div class="input-with-label">
                 <div class="label">Bought Date</div>
                 <input
                   type="date"
-                  placeholder="Bought Date"
+                  placeholder="Bought Date" 
                   class="input-text"
                   v-model="bought_date"
                   data-cy="bought-date"
+                />
+              </div>
+              <div class="input-with-label">
+                <div class="label">Requested Amount</div>
+                <input
+                  type="number"
+                  placeholder="Requested Amount" 
+                  class="input-text"
+                  v-model="requested_amount"
+                  data-cy="bought-date"
+                />
+              </div>
+              <div class="input-with-label">
+                <div class="label">Status</div>
+                <input
+                  type="text"
+                  placeholder="Type Active"
+                  class="input-text"
+                  v-model="status"
+                  data-cy="status"
+                  
                 />
               </div>
               
