@@ -9,12 +9,12 @@ const validatePassword = (password)=>{
         
         return response
     }
-    // if (!specialCharacters.test(password)){
-    //     response.errorMessage = "one special character and one number is required"
-    //     response.isValid = false
+    if (!specialCharacters.test(password)){
+        response.errorMessage = "one special character and one number is required"
+        response.isValid = false
        
-    //     return response
-    // }
+        return response
+    }
     
     return response
 }
