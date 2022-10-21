@@ -32,23 +32,27 @@ export default {
     styleStatus() {
       return (status) => {
         const lowerCaseStatus = status.toLowerCase();
+
         if (lowerCaseStatus === "active") {
           return "status-pending";
         }
         if (lowerCaseStatus === "inactive") {
           return "status-expired";
         }
+        
       };
     },
     styleDotIcon() {
       return (status) => {
-        const lowerCaseStatus = status.toLowerCase();
-        if (lowerCaseStatus === "active") {
+
+        const lowerCaseStatus = status.toLowerCase()
+        if ( lowerCaseStatus === "active") {
           return "status-pending-icon";
         }
         if (lowerCaseStatus === "inactive") {
           return "status-expired-icon";
         }
+        
       };
     },
   },
