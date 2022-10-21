@@ -67,6 +67,7 @@ export default {
 
           this.submission.isVerified = true;
           localStorage.setItem('data',response.data.data.token);
+          document.getElementById("loginBtn").disabled = false;
           this.$router.push({ name: "dashboard" });
         }
       } catch (error) {
