@@ -66,7 +66,6 @@ export default {
           toast.success("Logged into Proshore Asset Management");
 
           this.submission.isVerified = true;
-          console.log('disabled');
           localStorage.setItem('data',response.data.data.token);
           this.$router.push({ name: "dashboard" });
         }
