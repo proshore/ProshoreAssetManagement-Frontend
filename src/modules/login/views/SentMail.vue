@@ -2,6 +2,7 @@
     import BaseAlert from '@/components/BaseAlert.vue';
     import validateEmail from '@/utils/validateEmail';
     import {forgotPassword} from "../services"
+    import { useToast } from "vue-toastification"
       export default{
           data(){
               return{
@@ -31,18 +32,19 @@
           return response.isValid
       },
       handleSubmit() {
-        
+        const toast = useToast();
         if (!this.validateField()) return
         try {
           this.buttonText = "Sending ..."
           setTimeout(async ()=>{
           const response = await forgotPassword(this.formData());
-          console.log("response",response);
+          toast.success("Mail Sent Successfully");
           this.$router.push({name:'sentmail'})
           },2000)
           
           
         } catch (error) {
+          toast.error("Could not send mail")
           this.submission.message = error;
         }
       },
