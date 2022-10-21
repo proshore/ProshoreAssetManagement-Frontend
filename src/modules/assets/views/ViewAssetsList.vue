@@ -1,70 +1,69 @@
 <script>
-//used for testing
 import axios from "axios";
+import { useToast } from "vue-toastification"
+import AddAsset from "./AddAsset.vue";
 export default {
-  components: [],
+  components: [
+      AddAsset
+    ],
   data() {
     return {
       assets: [],
     };
   },
-  components: {},
   async created() {
-    //this block is used for testing
+    const toast = useToast();
     try {
+       //spinner implementation
+       window.emitter.emit('changeSpinnerActiveStatus',true)
       const response = await axios.get(
         `https://6319958e8e51a64d2be7568b.mockapi.io/assetslist`
       );
       this.assets = response.data;
+       window.emitter.emit('changeSpinnerActiveStatus',false)
     } catch (e) {
-      //toast notification
+      toast.error("Something went wrong")
     }
-    //this is the actual block to be used after connection with backend
-
-    // try{
-    //   const response = await assetList()
-    //   this.assets = response.data
-    // }
-    // catch(error){
-    //   console.error("error: ", error)
-    // }
   },
   computed: {
     styleCondition() {
       return (condition) => {
-        if (condition.toLowerCase() === "brand new") {
+        const conditionLowerCase = condition.toLowerCase()
+        if (conditionLowerCase === "brand new") {
           return "condition-new";
         }
-        if (condition.toLowerCase() === "refurbished") {
+        if (conditionLowerCase === "refurbished") {
           return "condition-refurbished";
         }
-        if (condition.toLowerCase() === "used") {
+        if (conditionLowerCase === "used") {
           return "condition-used";
         }
       };
     },
     styleStatus() {
       return (status) => {
-        if (status.toLowerCase() === "available") {
+        const statusLowerCase = status.toLowerCase()
+        if (statusLowerCase === "available") {
           return "status-available";
         }
-        if (status.toLowerCase() === "requested") {
+        if (statusLowerCase=== "requested") {
           return "status-requested";
         }
-        if (status.toLowerCase() === "active") {
+        if (statusLowerCase === "active") {
           return "status-active";
         }
       };
     },
     styleDotIcon() {
       return (status) => {
-        if (status.toLowerCase() === "available") {
+        const statusLowerCase = status.toLowerCase()
+        if (statusLowerCase === "available") {
           return "status-available-icon";
         }
-        if (status.toLowerCase() === "requested") {
+        if (statusLowerCase === "requested") {
           return "status-requested-icon";
         }
-        if (status.toLowerCase() === "active") {
+        if (statusLowerCase === "active") {
           return "status-active-icon";
         }
       };
@@ -93,6 +92,10 @@ export default {
           </button>
         </form>
       </div>
+
+      <div class="col-8 d-flex justify-content-end">
+        <AddAsset />
+      </div>
     </div>
     <div class="row mt-4 px-4">
       <table
@@ -117,6 +120,31 @@ export default {
             <th scope="col">Bought Date</th>
           </tr>
         </thead>
+        <!-- <tbody v-for="(invitation, index) in invitations" :key="index"> -->
+          <!-- The rows will be dynamically generated according to invitationslist data -->
+          <!-- <tr class="text-center"> -->
+            <!-- <th scope="row">{{ index + 1 }}</th> -->
+            <!-- <td>{{ invitation.name }}</td> -->
+            <!-- <td>{{ invitation.email }}</td> -->
+            <!-- <td>{{ invitation.contact }}</td> -->
+            <!-- <td :class="`role ${styleRole(invitation.role)}`"> -->
+              <!-- {{ invitation.role }} -->
+            <!-- </td> -->
+            <!-- <td > -->
+              
+              <!-- <div :class="`status ${styleStatus(invitation.status)}`"> -->
+                <!-- <div class=" status-icon me-2" :class="` ${styleDotIcon(invitation.status)}`"></div> {{ invitation.status }} -->
+              <!-- </div> -->
+            <!-- </td> -->
+            <!-- <td > -->
+              <!-- <InvitationActions -->
+                <!-- :name="invitation.name" -->
+                <!-- :email="invitation.email" -->
+                <!-- :contact="invitation.contact" -->
+              <!-- /> -->
+            <!-- </td> -->
+          <!-- </tr> -->
+        <!-- </tbody> -->
         <tbody v-for="(asset, index) in assets" :key="asset.id">
           <!-- The rows will be dynamically generated according to assetslist data -->
           <tr class="text-center">

@@ -17,4 +17,6 @@ const assetsRoutes=[
     }
 ]
 
+
+
 export default assetsRoutes

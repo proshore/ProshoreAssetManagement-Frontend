@@ -2,6 +2,7 @@
 import InviteUser from "../components/InviteUser.vue";
 import InvitationActions from "../components/invitationActions.vue";
 import { invitationList } from "../services";
+import { useToast } from "vue-toastification"
 //used for testing
 import axios from "axios";
 export default {
@@ -31,45 +32,46 @@ export default {
     styleStatus() {
       return (status) => {
         const lowerCaseStatus = status.toLowerCase();
+
         if (lowerCaseStatus === "active") {
           return "status-pending";
         }
         if (lowerCaseStatus === "inactive") {
           return "status-expired";
         }
+        
       };
     },
     styleDotIcon() {
       return (status) => {
-        const lowerCaseStatus = status.toLowerCase();
-        if (lowerCaseStatus === "active") {
+
+        const lowerCaseStatus = status.toLowerCase()
+        if ( lowerCaseStatus === "active") {
           return "status-pending-icon";
         }
         if (lowerCaseStatus === "inactive") {
           return "status-expired-icon";
         }
+        
       };
     },
   },
   methods: {
     async getInvitationList() {
-      //this block is used for testing
+      const toast = useToast();
       try {
+        //spinner implementation
+        window.emitter.emit('changeSpinnerActiveStatus',true)
         const response = await invitationList();
-        console.log("response", response);
         this.invitations = response.data.data.invited_users;
+        window.emitter.emit('changeSpinnerActiveStatus',false)
       } catch (e) {
         // toast message
+        window.emitter.emit('changeSpinnerActiveStatus',false)
+        toast.error("Something went wrong")
+        
       }
-      //this is the actual block to be used after connection with backend
-
-      // try{
-      //   const response = await invitationList()
-      //   this.invitations = response.data
-      // }
-      // catch(error){
-      //   console.error("error: ", error)
-      // }
+ 
       return;
     },
     refreshInvitationList() {

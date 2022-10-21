@@ -1,11 +1,14 @@
 <script>
+
+
 export default {
-  name: "DashBoard",
-  data() {
-    return {
-      notificationCount: 2,
-    };
-  },
+    name: "DashBoard",
+    data() {
+        return {
+            notificationCount: 2,
+        };
+    },
+   
 };
 </script>
 
@@ -52,6 +55,7 @@ export default {
               </RouterLink>
             </div>
           </div>
+          
           <div class="upper-panel">
             <div class="manage-panels">
               <RouterLink
@@ -82,6 +86,7 @@ export default {
                   </div>
                 </div>
               </RouterLink>
+              
             </div>
           </div>
           <footer>
