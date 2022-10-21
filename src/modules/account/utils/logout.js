@@ -13,6 +13,7 @@ export default async function logout(){
     if (response.data.status.toLowerCase() != 'success'){
         toast.error(`Something went wrong`);
     }
+    localStorage.removeItem('data')
     toast.success(`Logged out successfully`);
     return {name:'login'}
 }

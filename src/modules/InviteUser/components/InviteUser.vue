@@ -75,16 +75,10 @@ export default {
       try {
         // making API call
         const response = await inviteUser(this.formData());
-        if ((response.data.success === true)) {
-          this.submission.message = "Sent Successfully";
+        console.log(response);
           this.submission.isVerified = true;
-        if(response.data.message){
-        }
-        if ((response.data.success = true)) {
-          this.submission.isVerified = true;
-          this.submission.message = "Sent Successful";
+          this.submission.message = response.data.message;
           toast.success(`invited ${this.email.value} successfully`);
-          this.submission.isVerified = true;
           // for closing modal
           setTimeout(() => {
             document
@@ -94,10 +88,10 @@ export default {
             this.clearFormData();
             return;
           }, 2000);
-        }
       } 
-      }catch (err) {
-        this.submission.message = err;
+      catch (err) {
+        console.log(err);
+        this.submission.message = err.response.data.message;
         toast.error("Something went wrong");
     }
   },

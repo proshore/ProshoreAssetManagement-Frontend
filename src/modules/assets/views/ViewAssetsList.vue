@@ -1,38 +1,16 @@
 <script>
-
-    //used for testing
-    import axios from 'axios'
-    import AddAsset from "./AddAsset.vue";
-    export default{
-    components: [
-      AddAsset
-    ],
-    data() {
-        return {
-            assets: []
-        };
-    },
-    components: { AddAsset },
-    async created(){
-      //this block is used for testing
-      try{
-        const response = await axios.get(`http://localhost:3000/assets_list`);
-        this.invitations = response.data;
-      }catch(e){
-        console.error(e);
-      }
-      //this is the actual block to be used after connection with backend
-//used for testing
 import axios from "axios";
 import { useToast } from "vue-toastification"
+import AddAsset from "./AddAsset.vue";
 export default {
-  components: [],
+  components: [
+      AddAsset
+    ],
   data() {
     return {
       assets: [],
     };
   },
-  components: {},
   async created() {
     const toast = useToast();
     try {
