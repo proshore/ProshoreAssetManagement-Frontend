@@ -22,7 +22,7 @@ const router = createRouter({
       path: "/dashboard",
       name: "dashboard",
       component: ViewDashBoard,
-      //redirect: "dashboard/team/invitations",
+      redirect: "dashboard/team/invitations",
       children: [
         ...teamRoutes,
       ...assetsRoutes,
