@@ -9,11 +9,7 @@ export default {
         method: null
     }
     }
-   
-      // delete:{
-      //   text:'delete',
-      //   method:deleteMember
-      // }
+  
   },
     props: {
         name: {
@@ -26,10 +22,10 @@ export default {
         },
         contact:{
           type:String,
-          required:true
+          // required:true
         },
         id:{
-          type:String,
+          type:Number,
           required:true
         }
         
@@ -38,11 +34,10 @@ export default {
     methods: {
       bodyData(){
         return   {
-                  token:"1bxXVTgMmdgiClqXZ8Rdmg",
-                  data:{
+                    id:this.id,
                     name: this.name,
                     email: this.email,
-                }}
+                }
               
       },
         async reInviteMember() {
@@ -126,7 +121,7 @@ export default {
         href="#"
         data-cy="revoke-invitation-link"
         data-bs-toggle="modal"
-        :data-bs-target="'#_'+contact"
+        :data-bs-target="'#_'+id.toString()"
         id ='revoke'
         @click="(event)=>setInvoker(event)"
       >
@@ -135,7 +130,7 @@ export default {
     </li>
     <li>
       <a class="dropdown-item text-danger  " href="#" data-cy="delete-invitation-link"  data-bs-toggle="modal"
-        :data-bs-target="'#_'+contact" id="delete" @click="(event)=>setInvoker(event)">
+        :data-bs-target="'#_'+id.toString()" id="delete" @click="(event)=>setInvoker(event)">
         <i class="bi bi-trash3-fill me-4" style="color:#FA6731" ></i>Delete Entry
       </a>
     </li>
@@ -144,7 +139,7 @@ export default {
   
 
   <!-- Conformation box -->
-  <div class="modal fade" :id="'_'+contact" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal fade" :id="'_'+id.toString()" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
