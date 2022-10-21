@@ -24,6 +24,7 @@
       //this is the actual block to be used after connection with backend
 //used for testing
 import axios from "axios";
+import { useToast } from "vue-toastification"
 export default {
   components: [],
   data() {
@@ -33,61 +34,58 @@ export default {
   },
   components: {},
   async created() {
-    //this block is used for testing
+    const toast = useToast();
     try {
+       //spinner implementation
+       window.emitter.emit('changeSpinnerActiveStatus',true)
       const response = await axios.get(
         `https://6319958e8e51a64d2be7568b.mockapi.io/assetslist`
       );
       this.assets = response.data;
+       window.emitter.emit('changeSpinnerActiveStatus',false)
     } catch (e) {
-      //toast notification
+      toast.error("Something went wrong")
     }
-    //this is the actual block to be used after connection with backend
-
-    // try{
-    //   const response = await assetList()
-    //   this.assets = response.data
-    // }
-    // catch(error){
-    //   console.error("error: ", error)
-    // }
   },
   computed: {
     styleCondition() {
       return (condition) => {
-        if (condition.toLowerCase() === "brand new") {
+        const conditionLowerCase = condition.toLowerCase()
+        if (conditionLowerCase === "brand new") {
           return "condition-new";
         }
-        if (condition.toLowerCase() === "refurbished") {
+        if (conditionLowerCase === "refurbished") {
           return "condition-refurbished";
         }
-        if (condition.toLowerCase() === "used") {
+        if (conditionLowerCase === "used") {
           return "condition-used";
         }
       };
     },
     styleStatus() {
       return (status) => {
-        if (status.toLowerCase() === "available") {
+        const statusLowerCase = status.toLowerCase()
+        if (statusLowerCase === "available") {
           return "status-available";
         }
-        if (status.toLowerCase() === "requested") {
+        if (statusLowerCase=== "requested") {
           return "status-requested";
         }
-        if (status.toLowerCase() === "active") {
+        if (statusLowerCase === "active") {
           return "status-active";
         }
       };
     },
     styleDotIcon() {
       return (status) => {
-        if (status.toLowerCase() === "available") {
+        const statusLowerCase = status.toLowerCase()
+        if (statusLowerCase === "available") {
           return "status-available-icon";
         }
-        if (status.toLowerCase() === "requested") {
+        if (statusLowerCase === "requested") {
           return "status-requested-icon";
         }
-        if (status.toLowerCase() === "active") {
+        if (statusLowerCase === "active") {
           return "status-active-icon";
         }
       };
