@@ -4,9 +4,6 @@
     import axios from 'axios'
     import AddAsset from "./AddAsset.vue";
     export default{
-    components: [
-      AddAsset
-    ],
     data() {
         return {
             assets: []
@@ -23,34 +20,6 @@
       }
       //this is the actual block to be used after connection with backend
 //used for testing
-import axios from "axios";
-export default {
-  components: [],
-  data() {
-    return {
-      assets: [],
-    };
-  },
-  components: {},
-  async created() {
-    //this block is used for testing
-    try {
-      const response = await axios.get(
-        `https://6319958e8e51a64d2be7568b.mockapi.io/assetslist`
-      );
-      this.assets = response.data;
-    } catch (e) {
-      //toast notification
-    }
-    //this is the actual block to be used after connection with backend
-
-    // try{
-    //   const response = await assetList()
-    //   this.assets = response.data
-    // }
-    // catch(error){
-    //   console.error("error: ", error)
-    // }
   },
   computed: {
     styleCondition() {
@@ -123,15 +92,7 @@ export default {
     </div>
     <div class="row mt-4 px-4">
       <table
-        class="
-          table
-          w-100
-          bg-white
-          table-borderless
-          border
-          table-hover
-          regular-font
-        "
+        class="table w-100 bg-white table-borderless border table-hover regular-font"
       >
         <thead class="thead-light">
           <tr class="text-center">
@@ -144,31 +105,6 @@ export default {
             <th scope="col">Bought Date</th>
           </tr>
         </thead>
-        <!-- <tbody v-for="(invitation, index) in invitations" :key="index"> -->
-          <!-- The rows will be dynamically generated according to invitationslist data -->
-          <!-- <tr class="text-center"> -->
-            <!-- <th scope="row">{{ index + 1 }}</th> -->
-            <!-- <td>{{ invitation.name }}</td> -->
-            <!-- <td>{{ invitation.email }}</td> -->
-            <!-- <td>{{ invitation.contact }}</td> -->
-            <!-- <td :class="`role ${styleRole(invitation.role)}`"> -->
-              <!-- {{ invitation.role }} -->
-            <!-- </td> -->
-            <!-- <td > -->
-              
-              <!-- <div :class="`status ${styleStatus(invitation.status)}`"> -->
-                <!-- <div class=" status-icon me-2" :class="` ${styleDotIcon(invitation.status)}`"></div> {{ invitation.status }} -->
-              <!-- </div> -->
-            <!-- </td> -->
-            <!-- <td > -->
-              <!-- <InvitationActions -->
-                <!-- :name="invitation.name" -->
-                <!-- :email="invitation.email" -->
-                <!-- :contact="invitation.contact" -->
-              <!-- /> -->
-            <!-- </td> -->
-          <!-- </tr> -->
-        <!-- </tbody> -->
         <tbody v-for="(asset, index) in assets" :key="asset.id">
           <!-- The rows will be dynamically generated according to assetslist data -->
           <tr class="text-center">
@@ -203,7 +139,7 @@ export default {
 }
 
 .thead-light {
-  height: 50px ;
+  height: 50px;
   vertical-align: middle;
   background-color: #e9ecef;
   width: 100%;
