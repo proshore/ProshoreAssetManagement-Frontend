@@ -38,42 +38,25 @@ export default {
           password: this.password.value,
         }
     },
-    validateField(field) {
-      if (field === "email") {
-        let response = validateEmail(this.email.value);
-        this.email.error = response.errorMessage;
-      }
-      if (field === "password") {
-        let response = validatePassword(this.password.value);
-        this.password.error = response.errorMessage;
-      }
-    },
     async handleSubmit() {
-      if (!this.email.value || !this.password.value) {
-        return (this.submission.message = "Fields must not be empty");
-      }
-      if (this.email.error || this.password.error) {
-        return (this.submission.message =
-          "Some fields are not filled properly");
-      }
       const toast = useToast();
       try {
         const response = await loginUser(this.formData());
         if ((response.data.success = true)) {
-          this.submission.message = "Login Successful";
           //toast message
           toast.success("Logged into Proshore Asset Management");
 
           this.submission.isVerified = true;
+        
           localStorage.setItem('data',response.data.data.token);
           setTimeout(() => {
             this.$router.push({ name: "dashboard" });
           }, 1000);
         }
       } catch (error) {
-        this.submission.message = error;
-        toast.error("Something went wrong")
+        toast.error("Email or Password did not match")
       }
+
     },
     toggleSeen() {
       this.password.seen = !this.password.seen;
