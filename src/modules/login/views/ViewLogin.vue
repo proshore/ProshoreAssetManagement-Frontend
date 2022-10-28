@@ -82,7 +82,7 @@ export default {
 
           <div class="container-fluid mt-5">
             <BaseAlert :submission="submission" />
-            <form @submit.prevent="handleSubmit">
+            <form @submit.prevent="handleSubmit" class="form-container">
               <div class="mb-4">
                 <label for="email" class="form-label">Email</label>
                 <input
@@ -146,6 +146,9 @@ export default {
   </div>
 </template>
 <style scoped>
+.form-container{
+  min-width: 300px;
+}
 .forgot-password {
   color: #fdc2ad;
   text-decoration: none;
