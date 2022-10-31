@@ -5,11 +5,13 @@ import validatePassword from "@/utils/validatePassword.js";
 import {registerUser} from '@/modules/register/services'
 import BaseAlert from "@/components/BaseAlert.vue";
 import TogglePassword from "@/components/togglePassword.vue";
+import { useToast } from "vue-toastification"
 export default {
   data() {
     return {
       email: "",
       name:"",
+      token:"",
 
       password: {
         value: "",
@@ -37,6 +39,7 @@ export default {
  mounted(){
       this.email = this.$route.query.email
       this.name = this.$route.query.name
+      this.token = this.$route.params.token
     },
 
   methods: {
@@ -64,6 +67,7 @@ export default {
       console.log(this.password.seen);
     },
     async handleSubmit() {
+      document.getElementById("registerBtn").disabled = 'true'
       this.validateField("cpassword")
       if (!this.password.value && !this.cpassword.value) {
         this.submission.message="Password must be provided";
@@ -74,16 +78,20 @@ export default {
         this.submission.message ="Passwords are not same"
         return;
       }
+      //toast interface
+      const toast = useToast();
       if (!this.password.error && !this.cpassword.error) {
         try {
           const response = await registerUser(
             this.formData()
           );
           this.submission = {message:"Registered Successfully", isVerified:true}
-          console.log("response:",response);
-          setTimeout(()=>this.$router.push({name:'login'}),2000)
+          toast.success("You have been registered in the Proshore Asset Management System")
+          this.$router.push({name:'login'})
         } catch (error) {
-          this.submission.message =error 
+          document.getElementById("registerBtn").disabled = false
+          this.submission.message =error.response.data.message
+          toast.error("Something went wrong")
         }
         return;
       } 
@@ -93,12 +101,11 @@ export default {
     },
     formData(){
       return{
-        data:{
         name:this.name,
         email:this.email,
         password:this.password.value,
-        },
-        token:"1bxXVTgMmdgiClqXZ8Rdmg"
+        password_confirmation:this.cpassword.value,
+        token: this.token
       }
     },
     
@@ -191,7 +198,7 @@ export default {
                 <div v-if="cpassword.error" class="form-text text-danger" v-text="cpassword.error"></div>
               </div>
 
-              <button class="btn w-100 w-md-50 button-color" data-cy="register-btn" type="submit">
+              <button class="btn w-100 w-md-50 button-color" id="registerBtn" data-cy="register-btn" type="submit">
                 Register
               </button>
             </form>

@@ -1,6 +1,16 @@
 <script>
 import { reInviteUser, revokeUser } from "../services";
+import { useToast } from "vue-toastification"
 export default {
+  data(){
+    return {
+      modalInvoker:{
+        text:"",
+        method: null
+    }
+    }
+  
+  },
     props: {
         name: {
             type: String,
@@ -12,42 +22,77 @@ export default {
         },
         contact:{
           type:String,
+          // required:true
+        },
+        id:{
+          type:Number,
           required:true
         }
         
     },
+    emits: ['deleteInvite'],
     methods: {
       bodyData(){
         return   {
-                  token:"1bxXVTgMmdgiClqXZ8Rdmg",
-                  data:{
+                    id:this.id,
                     name: this.name,
                     email: this.email,
-                }}
+                }
               
       },
         async reInviteMember() {
+          const toast = useToast();
             try {
                 const response = await reInviteUser(this.bodyData());
-                //display message coming from response
+                toast.success(`reinvited ${this.name} successfully`);
                 
             }
             catch (error) {
-                //error message in a dialog box
+              toast.error(`Something went wrong`);
             }
         },
         async revokeMember() {
+          const toast = useToast();
             try {
                 const response = await revokeUser(this.bodyData());
-                //display message coming from response
-                
-
+                toast.success(`revoked ${this.name} successfully`);
             }
             catch (error) {
-              //error message in a dialog box
+              toast.error(`Something went wrong`);
             }
         },
-    },
+        async deleteMember(){
+          const toast = useToast();
+          try{
+            // const response = await deleteUser(this.id);
+            // if (response.data.status === true){
+              const response = await axios.delete(
+          `https://6319958e8e51a64d2be7568b.mockapi.io/invitedUsers/${this.id}`   // used only for testing
+        );
+              this.$emit('deleteInvite')
+            // }
+            //show success message in toast
+            toast.success(`deleted ${this.name} successfully`);
+          }
+          catch(error){
+            //toast message
+            toast.error(`Something went wrong`);
+          }
+        },
+        setInvoker(event){
+          if (event.target.id === "revoke")
+          {
+            this.modalInvoker.text = 'revoke'
+            this.modalInvoker.method = this.revokeMember
+          }
+          if (event.target.id === "delete"){
+            this.modalInvoker.text = 'delete'
+            this.modalInvoker.method = this.deleteMember   
+          }
+            
+        }
+        
+        }
 };
 </script>
 
@@ -76,14 +121,17 @@ export default {
         href="#"
         data-cy="revoke-invitation-link"
         data-bs-toggle="modal"
-        :data-bs-target="'#_'+contact"
+        :data-bs-target="'#_'+id.toString()"
+        id ='revoke'
+        @click="(event)=>setInvoker(event)"
       >
-      <i class="bi bi-dash-square-fill me-4" style="color:#FA6731"></i>Revoke Member
+      <i class="bi bi-dash-square-fill me-4" style="color:#FA6731" ></i>Revoke Member
       </a>
     </li>
     <li>
-      <a class="dropdown-item text-danger  " href="#" data-cy="delete-invitation-link">
-        <i class="bi bi-trash3-fill me-4" style="color:#FA6731"></i>Delete Entry
+      <a class="dropdown-item text-danger  " href="#" data-cy="delete-invitation-link"  data-bs-toggle="modal"
+        :data-bs-target="'#_'+id.toString()" id="delete" @click="(event)=>setInvoker(event)">
+        <i class="bi bi-trash3-fill me-4" style="color:#FA6731" ></i>Delete Entry
       </a>
     </li>
   </div>
@@ -91,7 +139,7 @@ export default {
   
 
   <!-- Conformation box -->
-  <div class="modal fade" :id="'_'+contact" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal fade" :id="'_'+id.toString()" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -101,11 +149,11 @@ export default {
         </button>
       </div>
       <div class="modal-body d-flex justify-content-center">
-        <p class="w-75 text-center">Do you want to revoke the invitation of <b>{{name}}</b> ? Once revoked it cannot be undone.</p>
+        <p class="w-75 text-center">Do you want to {{modalInvoker.text}} the invitation of <b>{{name}}</b> ? Once {{`${modalInvoker.text}d`}} it cannot be undone.</p>
       </div>
       <div class="modal-footer d-flex justify-content-center">
         <button type="button" class="btn conformation-box-no-btn second-button-color" data-cy="conformation-box-no-btn" data-bs-dismiss="modal">No</button>
-        <button type="button" class="btn conformation-box-yes-btn text-white button-color" data-cy="conformation-box-yes-btn" @click="revokeMember"  data-bs-dismiss="modal" >Yes</button>
+        <button type="button" class="btn conformation-box-yes-btn text-white button-color" data-cy="conformation-box-yes-btn" @click="modalInvoker.method"  data-bs-dismiss="modal" >Yes</button>
       </div>
     </div>
   </div>

@@ -5,7 +5,7 @@ import BaseInput from "@/components/BaseInput.vue";
 import BaseAlert from "@/components/BaseAlert.vue";
 import { loginUser } from "../services";
 import TogglePassword from "@/components/TogglePassword.vue";
-
+import { useToast } from "vue-toastification"
 export default {
   data() {
     return {
@@ -49,6 +49,7 @@ export default {
       }
     },
     async handleSubmit() {
+      document.getElementById("loginBtn").disabled = 'true';
       if (!this.email.value || !this.password.value) {
         return (this.submission.message = "Fields must not be empty");
       }
@@ -56,19 +57,24 @@ export default {
         return (this.submission.message =
           "Some fields are not filled properly");
       }
-
+      const toast = useToast();
       try {
         const response = await loginUser(this.formData());
         if ((response.data.success = true)) {
           this.submission.message = "Login Successful";
+          //toast message
+          toast.success("Logged into Proshore Asset Management");
+
           this.submission.isVerified = true;
-          localStorage.setItem('data', response.data.data);
-          setTimeout(() => {
-            this.$router.push({ name: "dashboard" });
-          }, 2000);
+          localStorage.setItem('data',response.data.data.token);
+          document.getElementById("loginBtn").disabled = false;
+          this.$router.push({ name: "dashboard" });
         }
       } catch (error) {
-        this.submission.message = error;
+        document.getElementById("loginBtn").disabled = false;
+        this.submission.message = error.response.data.message;
+        toast.error("Something went wrong")
+        
       }
     },
     toggleSeen() {
@@ -148,7 +154,7 @@ export default {
               </div>
               
 
-              <button class="btn w-100 button-color" data-cy="login-btn" href="/dashboard">
+              <button class="btn w-100 button-color" id="loginBtn" data-cy="login-btn" href="/dashboard">
                 Sign In
               </button>
             </form>

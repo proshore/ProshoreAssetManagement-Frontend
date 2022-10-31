@@ -1,69 +1,82 @@
 <script>
-    import InviteUser from '../components/InviteUser.vue'
-    import InvitationActions from '../components/invitationActions.vue';
-    import {invitationList} from '../services'
-    //used for testing
-    import axios from 'axios'
-    export default{
-    components: [
-        InviteUser,
-        InvitationActions
-    ],
-    data() {
-        return {
-            invitations: []
-        };
-    },
-    components: { InvitationActions,InviteUser },
-    async created(){
-      //this block is used for testing
-      try{
-        const response = await axios.get(`https://6319958e8e51a64d2be7568b.mockapi.io/invitedUsers`);
-        this.invitations = response.data;
-      }catch(e){
-        console.error(e);
-      }
-      //this is the actual block to be used after connection with backend
-
-      // try{
-      //   const response = await invitationList()
-      //   this.invitations = response.data
-      // }
-      // catch(error){
-      //   console.error("error: ", error)
-      // }
-    },
-    computed:{
-        styleRole(){
-          return role =>{
-          if (role.toLowerCase() === "employee") {
-            return "role-employee"
-          }
-          if (role.toLowerCase() ==="vendor") {
-            return "role-vendor"
-          }
+import InviteUser from "../components/InviteUser.vue";
+import InvitationActions from "../components/invitationActions.vue";
+import { invitationList } from "../services";
+import { useToast } from "vue-toastification"
+//used for testing
+import axios from "axios";
+export default {
+  components: [InviteUser, InvitationActions],
+  data() {
+    return {
+      invitations: [],
+    };
+  },
+  components: { InvitationActions, InviteUser },
+  mounted() {
+    this.getInvitationList();
+    //hello
+  },
+  computed: {
+    styleRole() {
+      return (role) => {
+        const lowerCaseRole = role.toLowerCase();
+        if (lowerCaseRole === "employee") {
+          return "role-employee";
         }
-        },
-        styleStatus(){
-      return status =>{
-        if (status.toLowerCase() ==="pending"){
-          return "status-pending"
-        }
-        if (status.toLowerCase() === "expired") {
-          return "status-expired";
+        if (lowerCaseRole === "vendor") {
+          return "role-vendor";
         }
       };
     },
-    styleDotIcon(){
-      return status =>{
-        if (status.toLowerCase() ==="pending"){
-          return "status-pending-icon"
+    styleStatus() {
+      return (status) => {
+        const lowerCaseStatus = status.toLowerCase();
+
+        if (lowerCaseStatus === "active") {
+          return "status-pending";
         }
-        if (status.toLowerCase() === "expired") {
+        if (lowerCaseStatus === "inactive") {
+          return "status-expired";
+        }
+        
+      };
+    },
+    styleDotIcon() {
+      return (status) => {
+
+        const lowerCaseStatus = status.toLowerCase()
+        if ( lowerCaseStatus === "active") {
+          return "status-pending-icon";
+        }
+        if (lowerCaseStatus === "inactive") {
           return "status-expired-icon";
         }
+        
+      };
+    },
+  },
+  methods: {
+    async getInvitationList() {
+      const toast = useToast();
+      try {
+        //spinner implementation
+        window.emitter.emit('changeSpinnerActiveStatus',true)
+        const response = await invitationList();
+        this.invitations = response.data.data.invited_users;
+        window.emitter.emit('changeSpinnerActiveStatus',false)
+      } catch (e) {
+        // toast message
+        window.emitter.emit('changeSpinnerActiveStatus',false)
+        toast.error("Something went wrong")
+        
       }
-    }
+ 
+      return;
+    },
+    refreshInvitationList() {
+      this.getInvitationList();
+    },
   },
 };
 </script>
@@ -73,14 +86,18 @@
       <div class="col-4">
         <form class="form-inline d-flex">
           <input
-            class="form-control form-control-lg mr-sm-2 "
+            class="form-control form-control-lg mr-sm-2"
             type="search"
             placeholder="Search"
             aria-label="Search"
-            data-cy ="invitations-search-field" 
+            data-cy="invitations-search-field"
           />
-          <button class="btn my-2 px-3 my-sm-0 mx-2 button-color" type="submit" data-cy="invitation-search-btn">
-            <i class="bi bi-search" ></i>
+          <button
+            class="btn my-2 px-3 my-sm-0 mx-2 button-color"
+            type="submit"
+            data-cy="invitation-search-btn"
+          >
+            <i class="bi bi-search"></i>
           </button>
         </form>
       </div>
@@ -90,9 +107,15 @@
     </div>
     <div class="row mt-4 px-4">
       <table
-        class="table table-borderless border table-hover table-sm bg-white regular-font"
+        class="
+          table table-borderless
+          border
+          table-hover table-sm
+          bg-white
+          regular-font
+        "
       >
-        <thead class="thead-light ">
+        <thead class="thead-light">
           <tr class="text-center">
             <th scope="col">S.N</th>
             <th scope="col">Member Full Name</th>
@@ -109,21 +132,26 @@
             <th scope="row">{{ index + 1 }}</th>
             <td>{{ invitation.name }}</td>
             <td>{{ invitation.email }}</td>
-            <td>{{ invitation.contact }}</td>
-            <td :class="`role ${styleRole(invitation.role)}`">
-              {{ invitation.role }}
+            <td>1234567890</td>
+            <td :class="`role ${styleRole(invitation.role.name)}`">
+              {{ invitation.role.name }}
             </td>
-            <td >
-              
+            <td>
               <div :class="`status ${styleStatus(invitation.status)}`">
-                <div class=" status-icon me-2" :class="` ${styleDotIcon(invitation.status)}`"></div> {{ invitation.status }}
+                <div
+                  class="status-icon me-2"
+                  :class="` ${styleDotIcon(invitation.status)}`"
+                ></div>
+                {{ invitation.status }}
               </div>
             </td>
-            <td >
+            <td>
               <InvitationActions
                 :name="invitation.name"
                 :email="invitation.email"
                 :contact="invitation.contact"
+                :id="invitation.id"
+                @deleteInvite="refreshInvitationList"
               />
             </td>
           </tr>
@@ -161,7 +189,7 @@ tr {
   color: #0b102c;
 }
 .status {
-  margin:auto;
+  margin: auto;
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
@@ -171,24 +199,24 @@ tr {
   font-size: 12px;
   width: fit-content;
 }
-.status-icon{
-  height:8px;
-  width:8px;
-  border-radius:50%;
+.status-icon {
+  height: 8px;
+  width: 8px;
+  border-radius: 50%;
 }
 .status-expired {
   background-color: #ffeded;
   color: black !important;
 }
-.status-expired-icon{
- background-color:#FF4F4F;
+.status-expired-icon {
+  background-color: #ff4f4f;
 }
 .status-pending {
   background-color: #fff4da !important;
   color: black !important;
 }
-.status-pending-icon{
-  background-color:#FFCA48;
+.status-pending-icon {
+  background-color: #ffca48;
 }
 tr {
   vertical-align: middle;
@@ -220,7 +248,6 @@ tr {
 .status-expired {
   background-color: #ffeded;
   color: #ff4f4f;
-  
 }
 .status-pending {
   background-color: #fff4da;
