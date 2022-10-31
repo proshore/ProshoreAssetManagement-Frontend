@@ -142,7 +142,11 @@ export default {
                 ></div>
               </div>
               <div>
-                <div class="row my-3">
+              </div>
+              <button class="btn w-100 button-color" id="loginBtn" data-cy="login-btn" href="/dashboard">
+                Sign In
+              </button>
+              <div class="row my-2">
                   <RouterLink
                 class="forgot-password"
                 :to="{name:'forgotpassword'}"
@@ -150,13 +154,6 @@ export default {
                 >Forgot Password</RouterLink
               >
                 </div>
-               
-              </div>
-              
-
-              <button class="btn w-100 button-color" id="loginBtn" data-cy="login-btn" href="/dashboard">
-                Sign In
-              </button>
             </form>
           </div>
         </div>
@@ -166,8 +163,9 @@ export default {
 </template>
 <style scoped>
 .forgot-password {
-  color: #fdc2ad;
+  color: #FA6731;
   text-decoration: none;
+  font-size: small;
 }
 .forgot-password::after {
   display: block;
@@ -177,7 +175,7 @@ export default {
   transition: transform 250ms ease-in-out;
 }
 .forgot-password:hover::after {
-  transform: scaleX(0.35);
+  transform: scaleX(0.3);
   transition: transform 250ms ease-in;
 }
 .forgot-password::after {
