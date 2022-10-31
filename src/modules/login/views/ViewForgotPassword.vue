@@ -2,6 +2,7 @@
   import BaseAlert from '@/components/BaseAlert.vue';
   import validateEmail from '@/utils/validateEmail';
   import {forgotPassword} from "../services"
+  import { useToast } from "vue-toastification"
     export default{
         data(){
             return{
@@ -31,6 +32,7 @@
         return response.isValid
     },
     async handleSubmit() {
+      const toast = useToast();
       document.getElementById("forgotBtn").disabled = 'true';
       if (!this.validateField()) return
       try {
@@ -38,6 +40,7 @@
         
         const response = await forgotPassword(this.formData());
         document.getElementById("forgotBtn").disabled = false;
+        toast.success("Link Sent Successfully");
         this.$router.push({name:'sentmail'})
         
         
@@ -45,6 +48,7 @@
       } catch (error) {
         console.log(error);
         this.submission.message = error.response.data.message;
+        toast.error("Something Went Wrong");
         this.buttonText = "Send Link"
         document.getElementById("forgotBtn").disabled = false;
       }
