@@ -34,11 +34,9 @@ export default {
       };
     },
     validateField(field) {
-      console.log('entered func');
       if (field === "name") {
         if (this.name.value.length <  3){
           this.name.error = "asset name should be more than three letters long";
-          console.log(this.name.value.length);
         }
         else{
         this.name.error = ""
