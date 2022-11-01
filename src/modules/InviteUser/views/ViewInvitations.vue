@@ -121,7 +121,6 @@ export default {
             <th scope="col">S.N</th>
             <th scope="col">Member Full Name</th>
             <th scope="col">Email Address</th>
-            <th scope="col">Contact Number</th>
             <th scope="col">Role</th>
             <th scope="col">Status</th>
             <th scope="col">Action</th>
@@ -133,7 +132,6 @@ export default {
             <th scope="row">{{ index + 1 }}</th>
             <td>{{ invitation.name }}</td>
             <td>{{ invitation.email }}</td>
-            <td>1234567890</td>
             <td :class="`role ${styleRole(invitation.role.name)}`">
               {{ invitation.role.name }}
             </td>
