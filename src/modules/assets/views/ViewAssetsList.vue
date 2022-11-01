@@ -28,45 +28,39 @@ export default {
     }
   },
   computed: {
-    styleCondition() {
-      return (condition) => {
-        const conditionLowerCase = condition.toLowerCase()
-        if (conditionLowerCase === "brand new") {
-          return "condition-new";
-        }
-        if (conditionLowerCase === "refurbished") {
-          return "condition-refurbished";
-        }
-        if (conditionLowerCase === "used") {
-          return "condition-used";
-        }
-      };
-    },
+    // styleCondition() {
+    //   return (condition) => {
+    //     const conditionLowerCase = condition.toLowerCase()
+    //     if (conditionLowerCase === "brand new") {
+    //       return "condition-new";
+    //     }
+    //     if (conditionLowerCase === "refurbished") {
+    //       return "condition-refurbished";
+    //     }
+    //     if (conditionLowerCase === "used") {
+    //       return "condition-used";
+    //     }
+    //   };
+    // },
     styleStatus() {
       return (status) => {
         const statusLowerCase = status.toLowerCase()
-        if (statusLowerCase === "available") {
-          return "status-available";
-        }
-        if (statusLowerCase=== "requested") {
-          return "status-requested";
-        }
         if (statusLowerCase === "active") {
           return "status-active";
+        }
+        if (statusLowerCase=== "inactive") {
+          return "status-inactive";
         }
       };
     },
     styleDotIcon() {
       return (status) => {
         const statusLowerCase = status.toLowerCase()
-        if (statusLowerCase === "available") {
-          return "status-available-icon";
-        }
-        if (statusLowerCase === "requested") {
-          return "status-requested-icon";
-        }
         if (statusLowerCase === "active") {
           return "status-active-icon";
+        }
+        if (statusLowerCase === "inactive") {
+          return "status-inactive-icon";
         }
       };
     },
@@ -112,10 +106,12 @@ export default {
           border
           table-hover
           regular-font
+
+
         "
       >
         <thead class="thead-light">
-          <tr class="text-center">
+          <tr class="text-center ">
             <th scope="col">S.N</th>
             <th scope="col">Asset</th>
             <th scope="col">Type</th>
@@ -125,42 +121,18 @@ export default {
             <th scope="col">Bought Date</th>
           </tr>
         </thead>
-        <!-- <tbody v-for="(invitation, index) in invitations" :key="index"> -->
-          <!-- The rows will be dynamically generated according to invitationslist data -->
-          <!-- <tr class="text-center"> -->
-            <!-- <th scope="row">{{ index + 1 }}</th> -->
-            <!-- <td>{{ invitation.name }}</td> -->
-            <!-- <td>{{ invitation.email }}</td> -->
-            <!-- <td>{{ invitation.contact }}</td> -->
-            <!-- <td :class="`role ${styleRole(invitation.role)}`"> -->
-              <!-- {{ invitation.role }} -->
-            <!-- </td> -->
-            <!-- <td > -->
-              
-              <!-- <div :class="`status ${styleStatus(invitation.status)}`"> -->
-                <!-- <div class=" status-icon me-2" :class="` ${styleDotIcon(invitation.status)}`"></div> {{ invitation.status }} -->
-              <!-- </div> -->
-            <!-- </td> -->
-            <!-- <td > -->
-              <!-- <InvitationActions -->
-                <!-- :name="invitation.name" -->
-                <!-- :email="invitation.email" -->
-                <!-- :contact="invitation.contact" -->
-              <!-- /> -->
-            <!-- </td> -->
-          <!-- </tr> -->
-        <!-- </tbody> -->
-        <tbody v-for="(asset, index) in assets" :key="asset.id">
+        
+        <tbody v-for="(asset, index) in assets" :key="asset.id" >
           <!-- The rows will be dynamically generated according to assetslist data -->
-          <tr class="text-center">
+          <tr class="text-center ">
             <th scope="row">{{ index + 1 }}</th>
-            <td>{{ asset.name }}</td>
+            <td class="py-4">{{ asset.name }}</td>
             <td>{{ asset.type }}</td>
             <td>{{ asset.stockQuantity }}</td>
-            <td :class="`condition ${styleCondition(asset.condition)}`">
-              {{ asset.condition }}
-            </td>
             <td>
+              <b>{{ asset.condition }}</b>
+            </td>
+            <td class="d-flex justify-content-center align-items-end py-4">
               <div :class="`status ${styleStatus(asset.status)}`">
                 <div
                   class="status-icon me-2"
@@ -199,7 +171,7 @@ tr {
   text-align: center;
   letter-spacing: 0.25px;
 }
-.condition-new {
+/* .condition-new {
   color: #097969;
 }
 .condition-refurbished {
@@ -207,60 +179,7 @@ tr {
 }
 .condition-used {
   color: #e97451;
-}
-.status {
-  margin: auto;
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
-  align-items: center;
-  padding: 4px 8px;
-  border-radius: 12px;
-  font-size: 12px;
-  width: fit-content;
-}
-.status-icon {
-  height: 8px;
-  width: 8px;
-  border-radius: 50%;
-}
-.status-available {
-  background-color: #98fb98;
-  color: #008000;
-}
-.status-available-icon {
-  background-color: #008000;
-}
-.status-active {
-  background-color: #fff4da;
-  color: #ff4f4f;
-}
-.status-active-icon {
-  background-color: #ff4f4f;
-}
-.status-requested {
-  background-color: #ffea00;
-  color: #8b8000;
-}
-.status-requested-icon {
-  background-color: #8b8000;
-}
-tr {
-  vertical-align: middle;
-}
-.condition {
-  font-weight: 600;
-  font-size: 15px;
-  line-height: 18px;
-  text-align: center;
-  letter-spacing: 0.25px;
-}
-.condition-employee {
-  color: #3852da;
-}
-.condition-vendor {
-  color: #0b102c;
-}
+} */
 .status {
   display: flex;
   flex-direction: row;
@@ -271,13 +190,29 @@ tr {
   font-size: 12px;
   width: fit-content;
   font-weight: 700;
+  color: black;
 }
-.status-expired {
+.status-icon {
+  height: 8px;
+  width: 8px;
+  border-radius: 50%;
+}
+.status-active {
+  background-color: #fff4da ;
+}
+.status-active-icon {
+  background-color: #ffca48;
+}
+.status-inactive {
   background-color: #ffeded;
-  color: #ff4f4f;
+  
 }
-.status-pending {
-  background-color: #fff4da;
-  color: #ffca48;
+.status-inactive-icon {
+  background-color: #ff4f4f;
 }
+tr {
+  vertical-align: middle;
+}
+
+
 </style>
