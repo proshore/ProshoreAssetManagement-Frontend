@@ -1,11 +1,13 @@
 <script>
 import axios from "axios";
+import RequestAsset from '../components/RequestAsset.vue';
 import { useToast } from "vue-toastification"
 import AddAsset from "./AddAsset.vue";
 export default {
-  components: [
-      AddAsset
-    ],
+  components: {
+      AddAsset,
+      RequestAsset
+  },
   data() {
     return {
       assets: [],
@@ -92,11 +94,14 @@ export default {
           </button>
         </form>
       </div>
-
-      <div class="col-8 d-flex justify-content-end">
-        <AddAsset />
+      <div class="col-3 offset-2 d-flex justify-content-end">
+      <AddAsset/>
       </div>
-    </div>
+      <div class="col-3 d-flex justify-content-center">
+        <RequestAsset/>
+      </div>
+      
+      </div>
     <div class="row mt-4 px-4">
       <table
         class="
@@ -166,7 +171,7 @@ export default {
             </td>
             <td>{{ asset.boughtDate }}</td>
           </tr>
-        </tbody>
+        </tbody> -->
       </table>
     </div>
   </div>
