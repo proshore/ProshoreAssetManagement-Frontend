@@ -349,6 +349,8 @@ export default {
     box-shadow: 0px 6px 20px #fa673180;
     display: flex;
     justify-content: center;
+    font-size:large;
+    letter-spacing: 1px;
   }
   .button-1 {
     align-items: center;

@@ -58,13 +58,14 @@ export default {
         return (this.submission.message =
           "Please select a category");
       }
-      try {
-        const response = await requestAsset(this.formData());
-        this.submission.isVerified = true;
-        return (this.submission.message = "Requested Successfully");
-      } catch (err) {
-        this.submission.message = err;
-      }
+      this.submission.message = "Sorry, you cannot request an asset right now"
+      // try {
+      //   const response = await requestAsset(this.formData());
+      //   this.submission.isVerified = true;
+      //   return (this.submission.message = "Requested Successfully");
+      // } catch (err) {
+      //   this.submission.message = err;
+      // }
     },
   },
 };
@@ -77,16 +78,16 @@ export default {
     class="btn request-asset-button button-color px-4 py-2"
     data-cy="request-asset-btn"
     data-bs-toggle="modal"
-    data-bs-target="#exampleModal"
+    data-bs-target="#requestModal"
     style="font-size: 1.2rem"
   >
-    <i class="bi bi-plus-lg me-2" style="font-size: 1.5rem"></i>
+  <i class="bi bi-plus-lg me-2" style="font-size: 1.5rem"></i>
     Request Asset
   </button>
   <!-- Modal -->
   <div
     class="modal fade"
-    id="exampleModal"
+    id="requestModal"
     tabindex="-1"
     aria-labelledby="exampleModalLabel"
     aria-hidden="true"
