@@ -260,6 +260,7 @@ body.sb-sidenav-toggled #wrapper #sidebar-wrapper {
   display: flex;
   flex-direction: column;
   width:240px;
+  margin-bottom: 10px;
 }
 
 .manage-panels {
