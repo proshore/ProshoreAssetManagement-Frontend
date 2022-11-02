@@ -33,10 +33,10 @@ export default {
       return (status) => {
         const lowerCaseStatus = status.toLowerCase();
 
-        if (lowerCaseStatus === "active") {
+        if (lowerCaseStatus === "pending") {
           return "status-pending";
         }
-        if (lowerCaseStatus === "inactive") {
+        if (lowerCaseStatus === "expired") {
           return "status-expired";
         }
         
@@ -46,10 +46,10 @@ export default {
       return (status) => {
 
         const lowerCaseStatus = status.toLowerCase()
-        if ( lowerCaseStatus === "active") {
+        if ( lowerCaseStatus === "pending") {
           return "status-pending-icon";
         }
-        if (lowerCaseStatus === "inactive") {
+        if (lowerCaseStatus === "expired") {
           return "status-expired-icon";
         }
         

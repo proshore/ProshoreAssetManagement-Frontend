@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
-
+import getToken from "../utils/getToken";
 import registerRoutes from "@/modules/register/router";
 import loginRoutes from "@/modules/login/router";
 import inviteRoutes from "@/modules/InviteUser/router";
@@ -22,6 +22,9 @@ const router = createRouter({
       path: "/dashboard",
       name: "dashboard",
       component: ViewDashBoard,
+      meta: {
+        requiresAuth: true,
+      },
       redirect: "dashboard/team/invitations",
       children: [
         ...teamRoutes,
@@ -38,6 +41,23 @@ const router = createRouter({
   //     component: ErrorPage
   //  }
   ],
+  
 });
-
+router.beforeEach((to, from) => {
+  const isLoggedIn = getToken()
+  
+  // instead of having to check every route record with
+  // to.matched.some(record => record.meta.requiresAuth)
+ 
+    
+    if (to.meta.requiresAuth && isLoggedIn === undefined ) {
+      // this route requires auth, check if logged in
+    // if not, redirect to login page.
+      return { name: "login", 
+       // save the location we were at to come back later
+      query: { next: to.fullPath } };
+    } else if (isLoggedIn && !to.meta.requiresAuth) {
+      return { name: "dashboard" };
+    }
+})
 export default router;
