@@ -48,7 +48,7 @@ export default {
       if (field === "cpassword") {
         this.cpassword.seen = !this.cpassword.seen;
       }
-      if (field == "password") {
+      if (field === "password") {
         this.password.seen = !this.password.seen;
       }
       console.log(this.password.seen);
