@@ -2,7 +2,7 @@
 import BaseInput from "@/components/BaseInput.vue";
 import validatePassword from "@/utils/validatePassword.js";
 import { resetPassword } from "@/modules/register/services/reset_index.js";
-import BaseAlert from "../../../components/BaseAlert.vue";
+import BaseAlert from "@/components/BaseAlert.vue";
 import TogglePassword from "@/components/togglePassword.vue";
 export default {
   data() {
@@ -45,7 +45,7 @@ export default {
       }
     },
     toggleSeen(field) {
-      if (field == "cpassword") {
+      if (field === "cpassword") {
         this.cpassword.seen = !this.cpassword.seen;
       }
       if (field == "password") {
@@ -71,7 +71,6 @@ export default {
             message: "Password Changed Successfully",
             isVerified: true,
           };
-          console.log("response:", response);
           setTimeout(() => this.$router.push({ name: "login" }), 2000);
         } catch (error) {
           this.submission.message = error;
