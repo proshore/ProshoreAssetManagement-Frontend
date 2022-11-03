@@ -141,22 +141,17 @@ export default {
                   v-text="password.error"
                 ></div>
               </div>
-              <div>
-                <div class="row my-3">
+              <button class="btn w-100 button-color" id="loginBtn" data-cy="login-btn" href="/dashboard">
+                Sign In
+              </button>
+              <div class="row my-3">
                   <RouterLink
-                class="forgot-password"
+                class="forgot-password "
                 :to="{name:'forgotpassword'}"
                 data-cy="login-forgot-password"
                 >Forgot Password</RouterLink
               >
                 </div>
-               
-              </div>
-              
-
-              <button class="btn w-100 button-color" id="loginBtn" data-cy="login-btn" href="/dashboard">
-                Sign In
-              </button>
             </form>
           </div>
         </div>
@@ -166,8 +161,10 @@ export default {
 </template>
 <style scoped>
 .forgot-password {
-  color: #fdc2ad;
+  color: #FA6731 ;
   text-decoration: none;
+  font-size: small;
+
 }
 .forgot-password::after {
   display: block;
@@ -177,7 +174,7 @@ export default {
   transition: transform 250ms ease-in-out;
 }
 .forgot-password:hover::after {
-  transform: scaleX(0.35);
+  transform: scaleX(0.32);
   transition: transform 250ms ease-in;
 }
 .forgot-password::after {
