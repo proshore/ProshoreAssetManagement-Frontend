@@ -13,16 +13,11 @@ const ViewDashBoard = () => import("@/components/DashBoard.vue");
 const router = createRouter({
   history: createWebHistory(),
   routes: [
-    //     {
-    //         path:"/",
-    //         name:"home",
-    //         component: ViewHome
-    // },
     {
       path: "/dashboard",
       name: "dashboard",
       component: ViewDashBoard,
-      //redirect: "dashboard/team/invitations",
+      redirect: {name:"invitations"},
       children: [
         ...teamRoutes,
       ...assetsRoutes,

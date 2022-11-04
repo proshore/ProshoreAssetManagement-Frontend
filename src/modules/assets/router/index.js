@@ -5,7 +5,7 @@ const assetsRoutes=[
         path:'assets',
         name:'assets',
         component:ViewAssets,
-        // redirect:'assets/assetslist',
+        redirect:{name:"assetslist"},
         children:[
             {
             path:'assetslist',
