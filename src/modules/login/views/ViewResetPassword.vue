@@ -22,7 +22,8 @@ export default {
         message: "",
         isVerified: false,
       },
-      token:""
+      token:"",
+      email:""
     };
   },
   components: {
@@ -32,6 +33,7 @@ export default {
   },
   mounted(){
       this.token = this.$route.query.token
+      this.email= this.$route.query.email
     },
 
   methods: {
@@ -87,6 +89,7 @@ export default {
     formData() {
       return {
           token:this.token,
+          email:this.email,
           password: this.password.value,
           cpassword: this.cpassword.value,
       };
