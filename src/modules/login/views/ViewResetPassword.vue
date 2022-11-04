@@ -91,7 +91,7 @@ export default {
           token:this.token,
           email:this.email,
           password: this.password.value,
-          cpassword: this.cpassword.value,
+          password_confirmation: this.cpassword.value,
       };
     },
   },
