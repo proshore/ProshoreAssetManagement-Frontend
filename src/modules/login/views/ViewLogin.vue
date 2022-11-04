@@ -174,7 +174,7 @@ export default {
   transition: transform 250ms ease-in-out;
 }
 .forgot-password:hover::after {
-  transform: scaleX(0.32);
+  transform: scaleX(0.3);
   transition: transform 250ms ease-in;
 }
 .forgot-password::after {
