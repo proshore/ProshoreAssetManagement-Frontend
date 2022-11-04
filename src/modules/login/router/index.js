@@ -19,7 +19,7 @@ const loginRoutes = [
         component:SentMail
     },
     {
-        path:"/resetpassword",
+        path:"/reset-password",
         name:"resetpassword",
         component:ViewResetPassword,
         meta: {
