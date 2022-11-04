@@ -21,7 +21,10 @@ const loginRoutes = [
     {
         path:"/resetpassword",
         name:"resetpassword",
-        component:ViewResetPassword
+        component:ViewResetPassword,
+        meta: {
+            mailForm: true,
+          }
     }
    
 

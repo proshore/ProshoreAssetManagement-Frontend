@@ -54,7 +54,7 @@ router.beforeEach((to, from) => {
       return { name: "login", 
        // save the location we were at to come back later
       query: { next: to.fullPath } };
-    } else if (isLoggedIn && !to.meta.requiresAuth) {
+    } else if (isLoggedIn && !to.meta.requiresAuth && !to.meta.mailForm) {
       return { name: "dashboard" };
     }
 })
