@@ -197,10 +197,10 @@ export default {
               >
                 <!-- role list is provided from backend for proper implementation -->
                 <option selected value="0">Select a Role</option>
-                <option data-cy="invite-select-employee" value="1">
+                <option data-cy="invite-select-employee" value="2">
                   Employee
                 </option>
-                <option data-cy="invite-select-vendor" value="2">Vendor</option>
+                <option data-cy="invite-select-vendor" value="3">Vendor</option>
               </select>
             </div>
           </div>

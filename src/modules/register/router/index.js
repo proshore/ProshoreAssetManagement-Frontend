@@ -5,6 +5,9 @@ const registerRoutes =[
     path:"/register/:token",
     name:"register",
     component: ViewRegister,
+    meta: {
+      mailForm: true,
+    }
     //check if the token is valid
     // beforeEnter: () => {
     //     const isInvited = true;
