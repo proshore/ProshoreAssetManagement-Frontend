@@ -22,6 +22,7 @@ export default {
         message: "",
         isVerified: false,
       },
+      token:""
     };
   },
   components: {
@@ -29,6 +30,9 @@ export default {
     BaseAlert,
     TogglePassword,
   },
+  mounted(){
+      this.token = this.$route.query.token
+    },
 
   methods: {
     validateField(field) {
@@ -82,11 +86,9 @@ export default {
     },
     formData() {
       return {
-        data: {
+          token:this.token,
           password: this.password.value,
           cpassword: this.cpassword.value,
-        },
-        token: "1bxXVTgMmdgiClqXZ8Rdmg",
       };
     },
   },
