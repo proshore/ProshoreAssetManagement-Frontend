@@ -38,44 +38,27 @@ export default {
           password: this.password.value,
         }
     },
-    validateField(field) {
-      if (field === "email") {
-        let response = validateEmail(this.email.value);
-        this.email.error = response.errorMessage;
-      }
-      if (field === "password") {
-        let response = validatePassword(this.password.value);
-        this.password.error = response.errorMessage;
-      }
-    },
     async handleSubmit() {
-      document.getElementById("loginBtn").disabled = 'true';
-      if (!this.email.value || !this.password.value) {
-        return (this.submission.message = "Fields must not be empty");
-      }
-      if (this.email.error || this.password.error) {
-        return (this.submission.message =
-          "Some fields are not filled properly");
-      }
+      document.getElementById("loginBtn").disabled = 'true'
       const toast = useToast();
       try {
         const response = await loginUser(this.formData());
-        if ((response.data.success = true)) {
-          this.submission.message = "Login Successful";
+        if ((response.data.success === true)) {
           //toast message
           toast.success("Logged into Proshore Asset Management");
 
           this.submission.isVerified = true;
+        
           localStorage.setItem('data',response.data.data.token);
           document.getElementById("loginBtn").disabled = false;
           this.$router.push({ name: "dashboard" });
         }
       } catch (error) {
-        document.getElementById("loginBtn").disabled = false;
-        this.submission.message = error.response.data.message;
-        toast.error("Something went wrong")
-        
+
+        toast.error("Email or Password did not match")
+
       }
+
     },
     toggleSeen() {
       this.password.seen = !this.password.seen;
@@ -101,7 +84,7 @@ export default {
 
           <div class="container-fluid mt-5">
             <BaseAlert :submission="submission" />
-            <form @submit.prevent="handleSubmit">
+            <form @submit.prevent="handleSubmit" class="form-container">
               <div class="mb-4">
                 <label for="email" class="form-label">Email</label>
                 <input
@@ -160,6 +143,9 @@ export default {
   </div>
 </template>
 <style scoped>
+.form-container{
+  min-width: 300px;
+}
 .forgot-password {
   color: #FA6731 ;
   text-decoration: none;

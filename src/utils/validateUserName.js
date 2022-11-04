@@ -1,6 +1,6 @@
 const validateUserName = (username)=>{
     const response = {isValid: false,errorMessage:''}
-    const regex = /^[a-zA-Z0-9_.-]*$/i;
+    const regex = /^[a-zA-Z0-9_ ]*$/i;
     if (username.length < 3 ){
         response.errorMessage = "Name should be at least 3 letters long"
         response.isValid = false

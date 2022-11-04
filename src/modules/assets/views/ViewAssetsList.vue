@@ -98,18 +98,7 @@ export default {
       </div>
     <div class="row mt-4 px-4">
       <table
-        class="
-          table
-          w-100
-          bg-white
-          table-borderless
-          border
-          table-hover
-          regular-font
-
-
-        "
-      >
+        class="table w-100 bg-white table-borderless border table-hover regular-font"
         <thead class="thead-light">
           <tr class="text-center ">
             <th scope="col">S.N</th>
@@ -121,8 +110,9 @@ export default {
             <th scope="col">Bought Date</th>
           </tr>
         </thead>
+        <tbody v-for="(asset, index) in assets" :key="asset.id">
         
-        <tbody v-for="(asset, index) in assets" :key="asset.id" >
+
           <!-- The rows will be dynamically generated according to assetslist data -->
           <tr class="text-center ">
             <th scope="row">{{ index + 1 }}</th>
@@ -156,7 +146,7 @@ export default {
 }
 
 .thead-light {
-  height: 50px ;
+  height: 50px;
   vertical-align: middle;
   background-color: #e9ecef;
   width: 100%;
@@ -213,6 +203,38 @@ tr {
 tr {
   vertical-align: middle;
 }
-
-
+.condition {
+  font-weight: 600;
+  font-size: 15px;
+  line-height: 18px;
+  text-align: center;
+  letter-spacing: 0.25px;
+}
+.condition-employee {
+  color: #3852da;
+}
+.condition-vendor {
+  color: #0b102c;
+}
+.status {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  width: fit-content;
+  font-weight: 700;
+}
+.status-expired {
+  background-color: #ffeded;
+  color: #ff4f4f;
+}
+.status-pending {
+  background-color: #fff4da;
+  color: #ffca48;
+}
 </style>
+
+
