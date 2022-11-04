@@ -2,6 +2,7 @@
     import BaseAlert from '@/components/BaseAlert.vue';
     import validateEmail from '@/utils/validateEmail';
     import {forgotPassword} from "../services"
+    import { useToast } from "vue-toastification"
       export default{
           data(){
               return{
@@ -31,18 +32,19 @@
           return response.isValid
       },
       handleSubmit() {
-        
+        const toast = useToast();
         if (!this.validateField()) return
         try {
           this.buttonText = "Sending ..."
           setTimeout(async ()=>{
           const response = await forgotPassword(this.formData());
-          console.log("response",response);
+          toast.success("Mail Sent Successfully");
           this.$router.push({name:'sentmail'})
           },2000)
           
           
         } catch (error) {
+          toast.error("Could not send mail")
           this.submission.message = error;
         }
       },
@@ -60,7 +62,7 @@
         <section
           class="col-6 mx-3 d-flex justify-content-center align-items-center form-container"
         >
-        <button class="back-btn" @click="backPage" data-cy="back-btn-forgot-done"> <i class=" bi bi-arrow-left-short" style="font-size:2rem;"></i></button>
+        <button class="back-btn" @click="backPage" data-cy="back-btn-forgot-done"> <i class=" bi bi-arrow-left-short arrow-icon" style="font-size:2rem;"></i></button>
           <div class="w-50">
             <div class="login-head">
               <h3 class="login-head-title">Check Your Email</h3>
@@ -87,12 +89,18 @@
       position:relative;
     }
     .back-btn{
-      position:absolute;
-      top:0;
-      left:0;
-      border:none;
-      border-radius:50%;
-      background-color: #F8F8F8 !important;
-      padding:0 8px;
-    }
+  position:absolute;
+  top:0;
+  left:0;
+  border-radius:50%;
+  background-color: #C8C8C8;
+  justify-content: center;
+  align-items: center;
+  padding:0 8px;
+  border:none;
+}
+.arrow-icon{
+  position:relative;
+  top:2px;
+}
     </style>

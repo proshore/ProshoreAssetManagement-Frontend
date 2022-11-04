@@ -7,6 +7,12 @@ const teamRoutes = [
         component: ViewTeam,
         redirect:{name:"invitations"},
 
+        meta: {
+          requiresAuth: true,
+        },
+        //redirect:'invitations',
+
+
         children: [
           {
             path: "invitations",

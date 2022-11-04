@@ -39,6 +39,7 @@ export default {
         }
     },
     async handleSubmit() {
+      document.getElementById("loginBtn").disabled = 'true'
       const toast = useToast();
       try {
         const response = await loginUser(this.formData());
@@ -49,12 +50,13 @@ export default {
           this.submission.isVerified = true;
         
           localStorage.setItem('data',response.data.data.token);
-          setTimeout(() => {
-            this.$router.push({ name: "dashboard" });
-          }, 1000);
+          document.getElementById("loginBtn").disabled = false;
+          this.$router.push({ name: "dashboard" });
         }
       } catch (error) {
+
         toast.error("Email or Password did not match")
+
       }
 
     },
@@ -122,22 +124,17 @@ export default {
                   v-text="password.error"
                 ></div>
               </div>
-              <div>
-                <div class="row my-3">
+              <button class="btn w-100 button-color" id="loginBtn" data-cy="login-btn" href="/dashboard">
+                Sign In
+              </button>
+              <div class="row my-3">
                   <RouterLink
-                class="forgot-password"
+                class="forgot-password "
                 :to="{name:'forgotpassword'}"
                 data-cy="login-forgot-password"
                 >Forgot Password</RouterLink
               >
                 </div>
-               
-              </div>
-              
-
-              <button class="btn w-100 button-color" data-cy="login-btn" href="/dashboard">
-                Sign In
-              </button>
             </form>
           </div>
         </div>
@@ -150,8 +147,10 @@ export default {
   min-width: 300px;
 }
 .forgot-password {
-  color: #fdc2ad;
+  color: #FA6731 ;
   text-decoration: none;
+  font-size: small;
+
 }
 .forgot-password::after {
   display: block;
@@ -161,7 +160,7 @@ export default {
   transition: transform 250ms ease-in-out;
 }
 .forgot-password:hover::after {
-  transform: scaleX(0.35);
+  transform: scaleX(0.3);
   transition: transform 250ms ease-in;
 }
 .forgot-password::after {

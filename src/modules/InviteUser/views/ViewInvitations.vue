@@ -2,6 +2,7 @@
 import InviteUser from "../components/InviteUser.vue";
 import InvitationActions from "../components/invitationActions.vue";
 import { invitationList } from "../services";
+import { useToast } from "vue-toastification"
 //used for testing
 import axios from "axios";
 export default {
@@ -32,10 +33,10 @@ export default {
       return (status) => {
         const lowerCaseStatus = status.toLowerCase();
 
-        if (lowerCaseStatus === "active") {
+        if (lowerCaseStatus === "pending") {
           return "status-pending";
         }
-        if (lowerCaseStatus === "inactive") {
+        if (lowerCaseStatus === "expired") {
           return "status-expired";
         }
         
@@ -45,10 +46,10 @@ export default {
       return (status) => {
 
         const lowerCaseStatus = status.toLowerCase()
-        if ( lowerCaseStatus === "active") {
+        if ( lowerCaseStatus === "pending") {
           return "status-pending-icon";
         }
-        if (lowerCaseStatus === "inactive") {
+        if (lowerCaseStatus === "expired") {
           return "status-expired-icon";
         }
         
@@ -57,24 +58,20 @@ export default {
   },
   methods: {
     async getInvitationList() {
-      //this block is used for testing
+      const toast = useToast();
       try {
-
+        //spinner implementation
+        window.emitter.emit('changeSpinnerActiveStatus',true)
         const response = await invitationList();
         this.invitations = response.data.data.invited_users;
-        
+        window.emitter.emit('changeSpinnerActiveStatus',false)
       } catch (e) {
         // toast message
+        window.emitter.emit('changeSpinnerActiveStatus',false)
+        toast.error("Something went wrong")
+        
       }
-      //this is the actual block to be used after connection with backend
-
-      // try{
-      //   const response = await invitationList()
-      //   this.invitations = response.data
-      // }
-      // catch(error){
-      //   console.error("error: ", error)
-      // }
+ 
       return;
     },
     refreshInvitationList() {
@@ -111,9 +108,10 @@ export default {
     <div class="row mt-4 px-4">
       <table
         class="
-          table table-borderless
+          table 
+          table-borderless
           border
-          table-hover table-sm
+          table-hover
           bg-white
           regular-font
         "
@@ -123,7 +121,6 @@ export default {
             <th scope="col">S.N</th>
             <th scope="col">Member Full Name</th>
             <th scope="col">Email Address</th>
-            <th scope="col">Contact Number</th>
             <th scope="col">Role</th>
             <th scope="col">Status</th>
             <th scope="col">Action</th>
@@ -135,11 +132,10 @@ export default {
             <th scope="row">{{ index + 1 }}</th>
             <td>{{ invitation.name }}</td>
             <td>{{ invitation.email }}</td>
-            <td>1234567890</td>
             <td :class="`role ${styleRole(invitation.role.name)}`">
               {{ invitation.role.name }}
             </td>
-            <td>
+            <td class="d-flex justify-content-center align-items-end py-4">
               <div :class="`status ${styleStatus(invitation.status)}`">
                 <div
                   class="status-icon me-2"
@@ -191,8 +187,7 @@ tr {
 .role-vendor {
   color: #0b102c;
 }
-.status {
-  margin: auto;
+.status { 
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
@@ -201,6 +196,8 @@ tr {
   border-radius: 12px;
   font-size: 12px;
   width: fit-content;
+  font-weight: 700;
+  
 }
 .status-icon {
   height: 8px;
@@ -209,14 +206,14 @@ tr {
 }
 .status-expired {
   background-color: #ffeded;
-  color: black !important;
+  color: black ;
 }
 .status-expired-icon {
   background-color: #ff4f4f;
 }
 .status-pending {
-  background-color: #fff4da !important;
-  color: black !important;
+  background-color: #fff4da ;
+  color: black ;
 }
 .status-pending-icon {
   background-color: #ffca48;
@@ -237,23 +234,5 @@ tr {
 .role-vendor {
   color: #0b102c;
 }
-.status {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
-  align-items: center;
-  padding: 4px 8px;
-  border-radius: 12px;
-  font-size: 12px;
-  width: fit-content;
-  font-weight: 700;
-}
-.status-expired {
-  background-color: #ffeded;
-  color: #ff4f4f;
-}
-.status-pending {
-  background-color: #fff4da;
-  color: #ffca48;
-}
+
 </style>

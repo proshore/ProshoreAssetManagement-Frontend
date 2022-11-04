@@ -1,26 +1,20 @@
 <script>
-import validateEmail from "@/utils/validateEmail";
-import validateUserName from "@/utils/validateUserName";
-import BaseInput from "@/components/BaseInput.vue";
 import BaseAlert from "@/components/BaseAlert.vue";
-import { inviteUser } from "../services";
-import { useToast } from "vue-toastification"
-import axios from "axios";
+import { requestAsset } from "../services";
 
 export default {
-  name: "InviteUser",
+  name: "RequestAsset",
   data() {
     return {
       name: {
         value: "",
         error: "",
       },
-      email: {
-        value: "",
-        error: "",
+      category: {
+        value: "select a category",
       },
-      role_id: {
-        value: 0,
+      isNewProduct: {
+        value:false,
       },
       submission: {
         message: "",
@@ -28,99 +22,73 @@ export default {
       },
     };
   },
-
   components: {
     BaseAlert,
   },
   methods: {
     formData() {
       return {
-        email: this.email.value,
         name: this.name.value,
-        role_id: parseInt(this.role_id.value),
+        category: this.category.value,
+        isNewProduct: this.isNewProduct.value,
       };
     },
-    clearFormData() {
-      this.email.value = "";
-      this.email.error = "";
-      this.name.value = "";
-      this.name.error = "";
-      this.role_id.value = 0;
-      this.submission.message = "";
-      this.submission.isVerified = false;
-    },
-
     validateField(field) {
       if (field === "name") {
-        let response = validateUserName(this.name.value);
-        this.name.error = response.errorMessage;
+        if (this.name.value.length <  3){
+          this.name.error = "asset name should be more than three letters long";
+        }
+        else{
+        this.name.error = ""
       }
-      if (field === "email") {
-        let response = validateEmail(this.email.value);
-        this.email.error = response.errorMessage;
       }
+      
     },
     async handleSubmit() {
-      if (this.submission.isVerified){
-        return
-      }
-      if (!this.name.value || !this.email.value || !this.role_id.value) {
+      if (!this.name.value ) {
         return (this.submission.message = "Field must not be empty");
       }
-      if (this.name.error || this.email.error) {
+      if (this.name.error ) {
         return (this.submission.message =
           "Some fields are not filled properly");
       }
-      const toast = useToast();
-      try {
-        // making API call
-        const response = await inviteUser(this.formData());
-        console.log(response);
-          this.submission.isVerified = true;
-          this.submission.message = response.data.message;
-          toast.success(`invited ${this.email.value} successfully`);
-          // for closing modal
-          setTimeout(() => {
-            document
-              .getElementById("inviteBtn")
-              .setAttribute("data-bs-dismiss", "modal");
-            document.getElementById("inviteBtn").click();
-            this.clearFormData();
-            return;
-          }, 2000);
-      } 
-      catch (err) {
-        console.log(err);
-        this.submission.message = err.response.data.message;
-        toast.error("Something went wrong");
-    }
+      if(this.category.value === "select a category"){
+        return (this.submission.message =
+          "Please select a category");
+      }
+      this.submission.message = "Sorry, you cannot request an asset right now"
+      // try {
+      //   const response = await requestAsset(this.formData());
+      //   this.submission.isVerified = true;
+      //   return (this.submission.message = "Requested Successfully");
+      // } catch (err) {
+      //   this.submission.message = err;
+      // }
+    },
   },
-},
-}
+};
 </script>
 
 <template>
   <!-- Button trigger modal -->
   <button
     type="button"
-    class="btn invite-button button-color px-4 py-2"
-    data-cy="invite-btn"
+    class="btn request-asset-button button-color px-4 py-2"
+    data-cy="request-asset-btn"
     data-bs-toggle="modal"
-    data-bs-target="#exampleModal"
+    data-bs-target="#requestModal"
+    style="font-size: 1.2rem"
   >
-    <i class="bi bi-plus-lg me-2" style="font-size: 1.5rem"></i>
-
-    Invite member
+  <i class="bi bi-plus-lg me-2" style="font-size: 1.5rem"></i>
+    Request Asset
   </button>
   <!-- Modal -->
   <div
     class="modal fade"
-    id="exampleModal"
+    id="requestModal"
     tabindex="-1"
     aria-labelledby="exampleModalLabel"
     aria-hidden="true"
-    data-bs-backdrop="static"
-    data-bs-keyboard="false"
   >
     <div class="modal-dialog">
       <div class="modal-content">
@@ -133,17 +101,17 @@ export default {
                   alt=""
                   class="plus-stroke"
                 />
-                <div class="invite-new-member">Invite new member</div>
+                <div class="request-asset">Request Asset</div>
               </div>
-              <p class="add-a-new-member-to-proshore">
-                Add a new member to proshore
+              <p class="request-an-asset">
+                Fill the form to request an asset
               </p>
             </div>
             <div class="close-button">
               <button
-                class="close-rectangle"
+                class="close-rectangle second-button-color"
                 type="button"
-                data-cy="close-invite-btn"
+                data-cy="close-request-asset-btn"
                 data-bs-dismiss="modal"
               >
                 <img src="@/assets/images/x-lg.png" alt="" class="x-lg" />
@@ -154,17 +122,16 @@ export default {
             <BaseAlert :submission="submission" />
           </div>
           <!-- <form @submit.prevent="handleSubmit"> -->
-
           <div class="input-frame">
             <div class="input-with-label">
-              <div class="label">Full Name</div>
+              <div class="label">Asset Name</div>
               <input
                 type="text"
-                placeholder="Username"
+                placeholder="Asset Name"
                 class="input-text"
                 v-model="name.value"
                 @keyup="validateField('name')"
-                data-cy="invite-name"
+                data-cy="request-asset-name"
               />
               <div
                 v-if="name.error"
@@ -172,57 +139,64 @@ export default {
                 v-text="name.error"
               ></div>
             </div>
+            
             <div class="input-with-label">
-              <div class="label">Email</div>
-              <input
-                type="email"
-                placeholder="ex: myworkmail@gmail.com"
-                class="input-text"
-                v-model="email.value"
-                @keyup="validateField('email')"
-                data-cy="invite-email"
-              />
-              <div
-                v-if="email.error"
-                class="form-text text-danger"
-                v-text="email.error"
-              ></div>
-            </div>
-            <div class="input-with-label">
-              <div class="label">Role</div>
+              <div class="label">Category</div>
               <select
                 class="input-text"
                 aria-label="Default select example"
-                v-model="role_id.value"
+                v-model="category.value"
+                data-cy="request-asset-select-box"
               >
                 <!-- role list is provided from backend for proper implementation -->
-                <option selected value="0">Select a Role</option>
-                <option data-cy="invite-select-employee" value="1">
-                  Employee
+                <option value="select a category" selected>Select a Category</option>
+                <option data-cy="request-asset-category-electronics" value="electronics">
+                  Electronics
                 </option>
-                <option data-cy="invite-select-vendor" value="2">Vendor</option>
+                <option data-cy="request-asset-category-axxessories" value="accessories">
+                  Accessories
+                </option>
+                <option data-cy="request-asset-category-parts-and-individual-components" value="Parts & individual components">
+                  Parts & individual components
+                </option>
+                <option data-cy="request-asset-category-daily-necessities" value="daily necessities">
+                  Daily Necessities
+                </option>
               </select>
+            </div>
+            <div class="input-with-label">
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  id="gridCheck1"
+                  data-cy="request-asset-checkbox"
+                  @change="isNewProduct.value = !isNewProduct.value"
+                />
+                <label class="form-check-label ckeck-box" for="gridCheck1">
+                  <small>Brand New</small>
+                </label>
+              </div>
             </div>
           </div>
           <div class="button-frame">
-            <div class="outline-button">
+            <div class="">
               <button
-                class="primary button"
+                class="btn second-button-color"
                 type="button"
-                data-cy="invite-cancel-btn"
+                data-cy="request-asset-cancel-btn"
                 data-bs-dismiss="modal"
               >
                 Cancel
               </button>
             </div>
-            <div class="invite-button">
+            <div class="">
               <button
-                class="primary-1 button-1 button-color"
-                id="inviteBtn"
-                data-cy="invite-send-btn"
+                class="btn button-color"
+                data-cy="request-asset-send-btn"
                 @click="handleSubmit"
               >
-                Send Invitation
+                Request
               </button>
             </div>
           </div>
@@ -234,24 +208,19 @@ export default {
 </template>
 
 <style>
-@import url("https://fonts.googleapis.com/css2?family=Cedarville+Cursive&family=Poppins:wght@200;300&family=Roboto+Slab:wght@300&display=swap");
-
 /* font-family: 'Poppins', sans-serif; */
 .add-a-dialog-box {
-  align-items: center;
+  align-items: flex-start;
   background-color: white;
   border: 1px none;
   display: flex;
   flex-direction: column;
   gap: 16px;
-  max-height: 700px;
-  min-height: 550px;
-  max-width: 600px;
-  min-width: 300px;
+  height: fit-content;
+  min-height: 500px;
+  min-width: 564px;
   padding: 0px 16px;
   width: 100%;
-
-
 }
 .input-frame {
   align-items: flex-start;
@@ -311,20 +280,18 @@ export default {
   height: 24px;
   min-width: 24px;
 }
-.invite-new-member {
+.request-asset {
   color: #c852da;
-  font-size: 24px;
-  font-weight: 600;
+  font-size: 16px;
   letter-spacing: 0.15px;
   line-height: 24px;
   margin-top: -1px;
   white-space: nowrap;
 }
-.add-a-new-member-to-proshore {
+.request-an-asset {
   color: gray;
   letter-spacing: 0.15px;
   line-height: 21px;
-  font-size: 14px;
   white-space: nowrap;
 }
 .close-button {
@@ -389,7 +356,7 @@ export default {
   text-align: center;
   white-space: nowrap;
 }
-.invite-button {
+.request-asset-button {
   align-items: center;
   border: 1px none;
   box-shadow: 0px 6px 20px #fa673180;
@@ -418,19 +385,9 @@ export default {
   text-align: center;
   white-space: nowrap;
 }
-.invite-button {
+.request-asset-button {
   border: 1px none;
   background-color: red;
   color: white;
 }
-
-.modal{
-    pointer-events: none;
-}
-
-.modal-dialog{
-    pointer-events: all;
- }
-
 </style>
-

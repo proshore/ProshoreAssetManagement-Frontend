@@ -6,6 +6,9 @@ const assetsRoutes=[
         name:'assets',
         component:ViewAssets,
         redirect:{name:"assetslist"},
+        meta: {
+            requiresAuth: true,
+          },
         children:[
             {
             path:'assetslist',
