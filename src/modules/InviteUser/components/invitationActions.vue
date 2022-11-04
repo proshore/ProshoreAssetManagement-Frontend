@@ -56,9 +56,10 @@ export default {
             try {
                 const response = await revokeUser(this.bodyData());
                 toast.success(`revoked ${this.name} successfully`);
+                this.$emit('updateInvite')
             }
             catch (error) {
-              toast.error(`Something went wrong`);
+              toast.error(`User Cannot Be Revoked`);
             }
         },
         async deleteMember(){
@@ -69,7 +70,7 @@ export default {
               const response = await axios.delete(
           `https://6319958e8e51a64d2be7568b.mockapi.io/invitedUsers/${this.id}`   // used only for testing
         );
-              this.$emit('deleteInvite')
+              this.$emit('updateInvite')
             // }
             //show success message in toast
             toast.success(`deleted ${this.name} successfully`);

@@ -79,6 +79,7 @@ export default {
           this.submission.isVerified = true;
           this.submission.message = response.data.message;
           toast.success(`invited ${this.email.value} successfully`);
+          this.$emit('inviteMember')
           // for closing modal
           setTimeout(() => {
             document
@@ -87,7 +88,7 @@ export default {
             document.getElementById("inviteBtn").click();
             this.clearFormData();
             return;
-          }, 2000);
+          }, 1000);
       } 
       catch (err) {
         console.log(err);

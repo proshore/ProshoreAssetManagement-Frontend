@@ -4,6 +4,7 @@ import validatePassword from "@/utils/validatePassword.js";
 import { resetPassword } from "@/modules/register/services/reset_index.js";
 import BaseAlert from "@/components/BaseAlert.vue";
 import TogglePassword from "@/components/togglePassword.vue";
+import { useToast } from "vue-toastification"
 export default {
   data() {
     return {
@@ -60,6 +61,7 @@ export default {
       console.log(this.password.seen);
     },
     async handleSubmit() {
+      const toast = useToast();
       this.validateField("cpassword");
       if (!this.password.value && !this.cpassword.value) {
         this.submission.message = "Password must be provided";
@@ -77,9 +79,11 @@ export default {
             message: "Password Changed Successfully",
             isVerified: true,
           };
+          toast.success("Pasword Changed Successfully")
           setTimeout(() => this.$router.push({ name: "login" }), 2000);
         } catch (error) {
-          this.submission.message = error;
+          this.submission.message = error.response.data.message;
+          toast.error(`${error.response.data.message}`)
         }
         return;
       } else {

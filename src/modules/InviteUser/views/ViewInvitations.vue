@@ -102,7 +102,7 @@ export default {
         </form>
       </div>
       <div class="col-8 d-flex justify-content-end">
-        <InviteUser />
+        <InviteUser @inviteMember="refreshInvitationList"/>
       </div>
     </div>
     <div class="row mt-4 px-4">
@@ -150,7 +150,7 @@ export default {
                 :email="invitation.email"
                 :contact="invitation.contact"
                 :id="invitation.id"
-                @deleteInvite="refreshInvitationList"
+                @updateInvite="refreshInvitationList"
               />
             </td>
           </tr>
