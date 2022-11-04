@@ -57,9 +57,8 @@ export default {
           this.$router.push({ name: "dashboard" });
         }
       } catch (error) {
-
         toast.error("Email or Password did not match")
-
+        document.getElementById("loginBtn").disabled = false;
       }
 
     },
