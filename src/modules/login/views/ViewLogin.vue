@@ -43,14 +43,17 @@ export default {
       const toast = useToast();
       try {
         const response = await loginUser(this.formData());
-        if ((response.data.success === true)) {
+        console.log("working");
+        console.log(response.data);
+        if ((response.data.status == "Success")) {
           //toast message
           toast.success("Logged into Proshore Asset Management");
 
           this.submission.isVerified = true;
-        
+          
           localStorage.setItem('data',response.data.data.token);
           document.getElementById("loginBtn").disabled = false;
+          console.log("working");
           this.$router.push({ name: "dashboard" });
         }
       } catch (error) {
@@ -93,7 +96,7 @@ export default {
                   id="email"
                   placeholder="Example input placeholder"
                   v-model="email.value"
-                  @keyup="validateField('email')"
+                  
                   data-cy="login-email"
                 />
                 <div
@@ -113,7 +116,6 @@ export default {
                     label="Password"
                     placeholder="Enter Your Password"
                     v-model="password.value"
-                    @keyup="validateField('password')"
                     data-cy="login-password"
                   />
                   <TogglePassword :seen="password.seen" @clicked="toggleSeen('password')" />
