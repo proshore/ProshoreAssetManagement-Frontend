@@ -97,8 +97,7 @@ export default {
       
       </div>
     <div class="row mt-4 px-4">
-      <table
-        class="table w-100 bg-white table-borderless border table-hover regular-font"
+      <table class="table w-100 bg-white table-borderless border table-hover regular-font">
         <thead class="thead-light">
           <tr class="text-center ">
             <th scope="col">S.N</th>
