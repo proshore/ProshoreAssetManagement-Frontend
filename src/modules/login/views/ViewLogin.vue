@@ -42,7 +42,7 @@ export default {
       const toast = useToast();
       try {
         const response = await loginUser(this.formData());
-        if ((response.data.success = true)) {
+        if ((response.data.success === true)) {
           //toast message
           toast.success("Logged into Proshore Asset Management");
 
