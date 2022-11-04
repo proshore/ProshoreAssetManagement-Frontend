@@ -24,13 +24,14 @@ export default {
         />
         <div class="panel position-fixed mt-5">
           <div class="upper-panel">
-            <div class="manage-panels">
+            <div class="manage-panels " >
               <RouterLink
-                class="text-decoration-none"
+                class="text-decoration-none panel-link "
+                tabindex= "1"
                 data-cy="team-section-link"
                 :to="{ name: 'team' }"
               >
-                <div class="panels mb-2">
+                <div class="panels mb-2 ">
                   <div
                     class="
                       dashboard
@@ -59,7 +60,8 @@ export default {
           <div class="upper-panel">
             <div class="manage-panels">
               <RouterLink
-                class="text-decoration-none"
+                class="text-decoration-none panel-link"
+                tabindex="1"
                 data-cy="assets-section-link"
                 :to="{ name: 'assets' }"
               >
@@ -260,6 +262,7 @@ body.sb-sidenav-toggled #wrapper #sidebar-wrapper {
   display: flex;
   flex-direction: column;
   width:240px;
+  margin-bottom: 10px;
 }
 
 .manage-panels {
@@ -281,6 +284,10 @@ body.sb-sidenav-toggled #wrapper #sidebar-wrapper {
 }
 .panels:hover .dashboard {
   color: white;
+}
+
+.panels[tabindex]:focus {
+    background-color: #862112 ;
 }
 
 .dashboard {
@@ -306,6 +313,7 @@ body.sb-sidenav-toggled #wrapper #sidebar-wrapper {
   color: white;
   background-color: #fa6731;
 }
+
 .router-link-exact-active:hover {
   color: white;
 }

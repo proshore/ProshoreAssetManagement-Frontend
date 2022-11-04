@@ -141,14 +141,12 @@ export default {
                   v-text="password.error"
                 ></div>
               </div>
-              <div>
-              </div>
               <button class="btn w-100 button-color" id="loginBtn" data-cy="login-btn" href="/dashboard">
                 Sign In
               </button>
-              <div class="row my-2">
+              <div class="row my-3">
                   <RouterLink
-                class="forgot-password"
+                class="forgot-password "
                 :to="{name:'forgotpassword'}"
                 data-cy="login-forgot-password"
                 >Forgot Password</RouterLink
@@ -163,9 +161,10 @@ export default {
 </template>
 <style scoped>
 .forgot-password {
-  color: #FA6731;
+  color: #FA6731 ;
   text-decoration: none;
   font-size: small;
+
 }
 .forgot-password::after {
   display: block;
