@@ -39,7 +39,7 @@
           setTimeout(async ()=>{
           const response = await forgotPassword(this.formData());
           toast.success("Mail Sent Successfully");
-          this.$router.push({name:'sentmail'})
+          this.$router.push({name:'resetpassword'})
           },2000)
           
           
