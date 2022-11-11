@@ -93,7 +93,7 @@ export default {
                   type="email"
                   class="form-control"
                   id="email"
-                  placeholder="Example input placeholder"
+                  placeholder="Enter your email"
                   v-model="email.value"
                   
                   data-cy="login-email"

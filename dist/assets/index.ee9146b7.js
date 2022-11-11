@@ -1,0 +1,1 @@
+import{A as o}from"./index.bcf9263b.js";const t="api/users/login",a="api/users/forgot-password",r={LOGIN_URL:t,FORGOT_URL:a},i=async s=>await o.post(r.LOGIN_URL,s),p=async s=>await o.post(r.FORGOT_URL,s);export{p as f,i as l};
